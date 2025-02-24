@@ -1,0 +1,380 @@
+{% extends 'layout2.html' %}
+{% load poll_extras %}
+
+{% block title %}
+    {{ blog.title }}
+{% endblock %}
+
+{% block content %}
+    <main class="main-wrapper">
+        <!-- Start Blog Area  -->
+        <div class="axil-blog-area axil-section-gap">
+            <div class="axil-single-post post-formate post-standard">
+                <div class="container">
+                    <div class="content-block">
+                        <div class="inner">
+                            <div class="post-thumbnail">
+                                <img src="{{ blog.image.url }}" alt="blog Images">
+                            </div>
+                            <!-- End .thumbnail -->
+                        </div>
+                    </div>
+                    <!-- End .content-blog -->
+                </div>
+            </div>
+            <!-- End .single-post -->
+            <div class="post-single-wrapper position-relative">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <div class="d-flex flex-wrap align-content-start h-100">
+                                <div class="position-sticky sticky-top">
+                                    <div class="post-details__social-share">
+                                        <span class="share-on-text">اشتراک در:</span>
+                                        <div class="social-share">
+                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="#"><i class="fab fa-instagram"></i></a>
+                                            <a href="#"><i class="fab fa-twitter"></i></a>
+                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            <a href="#"><i class="fab fa-discord"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 axil-post-wrapper">
+                            <div class="post-heading">
+                                <h2 class="title">{{ blog.title }}</h2>
+                                <div class="axil-post-meta">
+                                    <div class="post-author-avatar">
+                                        <img src="/static/images/blog/author-image-1.png" alt="Author Images">
+                                    </div>
+                                    <div class="post-meta-content">
+                                        <h6 class="author-title">
+                                            <a href="#">{{ blog.user.username }}</a>
+                                        </h6>
+                                        <ul class="post-meta-list">
+                                            <li>{{ blog.date|j_date }}</li>
+                                            <li>300 هزار بازدید</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>{{ blog.text }}</p>
+                            <div class="axil-comment-area" id="res">
+                                {% include "comment-box.html" %}
+                            </div>
+                            <!-- End .axil-commnet-area -->
+
+                            {% if request.user.is_authenticated %}
+                                <!-- Start Comment Respond  -->
+                                <div class="comment-respond" id="scroll-target">
+                                    <h4 class="title">لطفا در این قسمت نظر خود را به اشتراک بگذارید</h4>
+                                    {#                                    <form method="post">#}
+                                    {#                                    {% csrf_token %}#}
+                                    <div class="row" style="display: flex;justify-content: center">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <input name="hidden-input" id="hidden-inp" type="hidden" value="">
+                                                <label>نظر شما</label>
+                                                <textarea id="text" name="message" placeholder="بنویسید ..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-submit">
+                                                <button onclick="send_comment({{ blog.id }})" name="submit"
+                                                        type="submit"
+                                                        class="axil-btn btn-bg-primary w-auto">ارسال نظر
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#                                    </form>#}
+                                </div>
+                                <!-- End Comment Respond  -->
+                            {% else %}
+                                <p>
+
+
+                                </p>
+                                <div class="col-12 alert alert-danger text-center fs-2">
+                                    برای ثبت نظر ابتدا بایستی وارد <a href="{% url 'login' %}">حساب کاربری</a> خود شوید
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-lg-4">
+                            <!-- Start Sidebar Area  -->
+                            <aside class="axil-sidebar-area">
+
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40">
+                                    <h6 class="widget-title">آخرین پست ها</h6>
+
+                                    <!-- Start Single Post List  -->
+                                    <div class="content-blog post-list-view mb--20">
+                                        <div class="thumbnail">
+                                            <a href="blog-details.html">
+                                                <img src="/static/images/blog/blog-04.png" alt="Blog Images">
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با
+                                                تولید </a></h6>
+                                            <div class="axil-post-meta">
+                                                <div class="post-meta-content">
+                                                    <ul class="post-meta-list">
+                                                        <li>بهمن 27, 1401</li>
+                                                        <li>300 هزار بازدید</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Post List  -->
+
+                                    <!-- Start Single Post List  -->
+                                    <div class="content-blog post-list-view mb--20">
+                                        <div class="thumbnail">
+                                            <a href="blog-details.html">
+                                                <img src="/static/images/blog/blog-05.png" alt="Blog Images">
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با
+                                                تولید </a></h6>
+                                            <div class="axil-post-meta">
+                                                <div class="post-meta-content">
+                                                    <ul class="post-meta-list">
+                                                        <li>اسفند 20, 1401</li>
+                                                        <li>300 هزار بازدید</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Post List  -->
+
+                                    <!-- Start Single Post List  -->
+                                    <div class="content-blog post-list-view">
+                                        <div class="thumbnail">
+                                            <a href="blog-details.html">
+                                                <img src="/static/images/blog/blog-06.png" alt="Blog Images">
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با
+                                                تولید </a></h6>
+                                            <div class="axil-post-meta">
+                                                <div class="post-meta-content">
+                                                    <ul class="post-meta-list">
+                                                        <li>آبان 15, 1401</li>
+                                                        <li>300 هزار بازدید</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Post List  -->
+
+                                </div>
+                                <!-- End Single Widget  -->
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40">
+                                    <h6 class="widget-title">محصولات پر بازدید</h6>
+                                    <ul class="product_list_widget recent-viewed-product">
+                                        <!-- Start Single product_list  -->
+                                        <li>
+                                            <div class="thumbnail">
+                                                <a href="blog-details.html">
+                                                    <img src="/static/images/product/product-12.jpg" alt="Blog Images">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h6 class="title"><a href="blog-details.html">تیشرت مردانه</a></h6>
+                                                <div class="product-meta-content">
+                                                    <span class="woocommerce-Price-amount amount">
+                                                        <del>30.000</del>
+                                                        20.000
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- End Single product_list  -->
+                                        <!-- Start Single product_list  -->
+                                        <li>
+                                            <div class="thumbnail">
+                                                <a href="blog-details.html">
+                                                    <img src="/static/images/product/product-10.jpg" alt="Blog Images">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h6 class="title"><a href="blog-details.html">کفش نایک</a></h6>
+                                                <div class="product-meta-content">
+                                                    <span class="woocommerce-Price-amount amount">
+                                                        <del>200.000</del>
+                                                        150.000
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- End Single product_list  -->
+                                        <!-- Start Single product_list  -->
+                                        <li>
+                                            <div class="thumbnail">
+                                                <a href="blog-details.html">
+                                                    <img src="/static/images/product/product-11.jpg" alt="Blog Images">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h6 class="title"><a href="blog-details.html">کفش آدیداس</a></h6>
+                                                <div class="product-meta-content">
+                                                    <span class="woocommerce-Price-amount amount">
+                                                        <del>300.000</del>
+                                                        200.000
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- End Single product_list  -->
+                                    </ul>
+
+                                </div>
+                                <!-- End Single Widget  -->
+
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40 widget_search">
+                                    <h6 class="widget-title">جستوجو</h6>
+                                    <form class="blog-search" action="#">
+                                        <button class="search-button"><i class="fal fa-search"></i></button>
+                                        <input type="text" placeholder="جستوجو ...">
+                                    </form>
+                                </div>
+                                <!-- End Single Widget  -->
+
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40 widget_archive">
+                                    <h6 class="widget-title">آرشیو</h6>
+                                    <ul>
+                                        <li><a href="#">تیر 1401</a></li>
+                                        <li><a href="#">مرداد 1401</a></li>
+                                        <li><a href="#">شهریور 1401</a></li>
+                                        <li><a href="#">مهر 1401</a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Single Widget  -->
+
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40 widget_archive_dropdown">
+                                    <h6 class="widget-title">آرشیو دراپ داون</h6>
+                                    <select>
+                                        <option>انتخاب ماه</option>
+                                        <option>مهر 1401 (4)</option>
+                                        <option>آبان 1401 (4)</option>
+                                        <option>آذر 1401 (4)</option>
+                                        <option>دی 1401 (4)</option>
+                                    </select>
+                                </div>
+                                <!-- End Single Widget  -->
+
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40 widget_tag_cloud">
+                                    <h6 class="widget-title">تگ ها</h6>
+                                    <div class="tagcloud">
+                                        <a href="#">طراحی</a>
+                                        <a href="#">HTML</a>
+                                        <a href="#">گرافیک</a>
+                                        <a href="#">توسعه</a>
+                                        <a href="#">UI/UX طراحی</a>
+                                        <a href="#">فروشگاه</a>
+                                        <a href="#">CSS</a>
+                                        <a href="#">جاوا اسکریپت</a>
+                                    </div>
+                                </div>
+                                <!-- End Single Widget  -->
+
+                            </aside>
+                            <!-- End Sidebar Area -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Blog Area  -->
+
+        <!-- Start Axil Newsletter Area  -->
+        <div class="axil-newsletter-area axil-section-gap pt--0">
+            <div class="container">
+                <div class="etrade-newsletter-wrapper bg_image bg_image--5">
+                    <div class="newsletter-content">
+                        <span class="title-highlighter highlighter-primary2"><i class="fas fa-envelope-open"></i>خبرنامه</span>
+                        <h2 class="title mb--40 mb_sm--30">دریافت آپدیت هفتگی</h2>
+                        <div class="input-group newsletter-form">
+                            <div class="position-relative newsletter-inner mb--15">
+                                <input placeholder="example@gmail.com" type="text">
+                            </div>
+                            <button type="submit" class="axil-btn mb--15">اشتراک</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .container -->
+        </div>
+        <!-- End Axil Newsletter Area  -->
+
+    </main>
+    <div class="service-area">
+        <div class="container">
+            <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service1.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">ارسال سریع و ایمن</h6>
+                            <p>برای تمامی سفارشات.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service2.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">گارانتی بازگشت وجه</h6>
+                            <p>حتی بیشتر از 7 روز.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service3.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">مرجوعی طی 24 ساعت</h6>
+                            <p>بدون سوال.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service4.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">پشتیبانی کامل</h6>
+                            <p>24/7 پشتیبان آنلاین است.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/vendor/commentsjs.js"></script>
+{% endblock %}

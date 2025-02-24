@@ -1,0 +1,137 @@
+<footer class="axil-footer-area footer-style-2">
+    <!-- Start Footer Top Area  -->
+    <div class="footer-top separator-top">
+        <div class="container">
+            <div class="row">
+                <!-- Start Single Widget  -->
+                <div class="col-lg-3 col-sm-6">
+                    <div class="axil-footer-widget">
+                        <h5 class="widget-title">پشتیبانی</h5>
+                        <!-- <div class="logo mb--30">
+                        <a href="index.html">
+                            <img class="light-logo" src="/static/images/logo/logo.png" alt="Logo Images">
+                        </a>
+                    </div> -->
+                        <div class="inner">
+                            {% if settings.address %}
+                                <p>{{ settings.address }}</p>
+                            {% endif %}
+                            <ul class="support-list-item">
+                                {% if settings.email %}
+                                    <li><a href="mailto:{{ settings.email }}"><i class="fal fa-envelope-open"></i>
+                                        {{ settings.email }}</a></li>
+                                {% endif %}
+                                {% if settings.phone %}
+                                    <li><a><i class="fal fa-phone-alt"></i>
+                                        {{ settings.phone }}</a></li>
+                                {% endif %}
+                                <!-- <li><i class="fal fa-map-marker-alt"></i> 685 Market Street,  <br> Las Vegas, LA 95820, <br> United States.</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Widget  -->
+                <!-- Start Single Widget  -->
+                <div class="col-lg-3 col-sm-6">
+                    <div class="axil-footer-widget">
+                        <h5 class="widget-title">پروفایل</h5>
+                        <div class="inner">
+                            <ul>
+                                <li><a href="my-account.html">پروفایل من</a></li>
+                                <li><a href="sign-up.html">ورود / ثبت نام</a></li>
+                                <li><a href="cart.html">سبد خرید</a></li>
+                                <li><a href="wishlist.html">علاقه مندی ها</a></li>
+                                <li><a href="shop.html">فروشگاه</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Widget  -->
+                <!-- Start Single Widget  -->
+                <div class="col-lg-3 col-sm-6">
+                    <div class="axil-footer-widget">
+                        <h5 class="widget-title">لینک های مفید</h5>
+                        <div class="inner">
+                            <ul>
+                                <li><a href="privacy-policy.html">حریم خصوصی</a></li>
+                                <li><a href="terms-of-service.html">شرایط</a></li>
+                                <li><a href="#">سوالات متداول</a></li>
+                                <li><a href="contact.html">ارتباط با پشتیبانی</a></li>
+                                <li><a href="contact.html">ارتباط با ما</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Widget  -->
+                <!-- Start Single Widget  -->
+                <div class="col-lg-3 col-sm-6">
+                    <div class="axil-footer-widget">
+                        <h5 class="widget-title">دانلود اپلیکیشن</h5>
+                        <div class="inner">
+                            <span>تخفیف 5% برای سفارش از اپلیکیشن</span>
+                            <div class="download-btn-group">
+                                <div class="qr-code">
+                                    <img src="/static/images/others/qr.png" alt="Axilthemes">
+                                </div>
+                                <div class="app-link">
+                                    <a href="#">
+                                        <img src="/static/images/others/app-store.png" alt="App Store">
+                                    </a>
+                                    <a href="#">
+                                        <img src="/static/images/others/play-store.png" alt="Play Store">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Widget  -->
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Top Area  -->
+    <!-- Start Copyright Area  -->
+    <div class="copyright-area copyright-default separator-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-4">
+                    <div class="social-share">
+                        {% if settings.social_telegram %}
+                            <a href="{{ settings.social_telegram }}"><i class="fab fa-telegram"></i></a>
+                        {% endif %}
+                        {% if settings.social_instagram %}
+                            <a href="{{ settings.social_instagram }}"><i class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if settings.social_twitter %}
+                            <a href="{{ settings.social_twitter }}"><i class="fab fa-twitter"></i></a>
+                        {% endif %}
+                        {% if settings.social_youtube %}
+                            <a href="{{ settings.social_youtube }}"><i class="fab fa-youtube"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                    <div class="copyright-left d-flex flex-wrap justify-content-center">
+                        <ul class="quick-link">
+                            <li>تمامی حقوق محفوظ است. Back-End: <a target="_blank"
+                                                                   href="https://www.linkedin.com/in/mohammad-saleh-2a1717272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">محمد
+                                صالح</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+{#                <div class="col-xl-4 col-lg-12">#}
+{#                    <div class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">#}
+{#                        <span class="card-text">پرداخت با</span>#}
+{#                        <ul class="payment-icons-bottom quick-link">#}
+{#                            <li><img src="/static/images/icons/cart/cart-1.png" alt="paypal cart"></li>#}
+{#                            <li><img src="/static/images/icons/cart/cart-2.png" alt="paypal cart"></li>#}
+{#                            <li><img src="/static/images/icons/cart/cart-5.png" alt="paypal cart"></li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+        </div>
+    </div>
+    <!-- End Copyright Area  -->
+</footer>

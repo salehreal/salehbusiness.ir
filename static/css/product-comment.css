@@ -1,0 +1,9 @@
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commenter-rating {
+    margin-left: auto;
+}

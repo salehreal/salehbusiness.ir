@@ -1,0 +1,79 @@
+<!-- بخش نمایش کامنت‌ها -->
+<div class="comments-section">
+    <h5 class="title mb--30">نظرات کاربران</h5>
+    <ul>
+        {% for comment in comments %}
+            <!-- Start Single Comment  -->
+            <li class="comment {% if forloop.counter > 3 %}hidden{% endif %}">
+                <div class="comment-body">
+                    <div class="single-comment">
+                        <div class="comment-inner">
+                            <h6 class="commenter">
+                                <a class="hover-flip-item-wrapper" href="#">
+                                    <span class="hover-flip-item">
+                                        <span data-text="{{ comment.user.username }}">{{ comment.user.username }}</span>
+                                    </span>
+                                </a>
+                                <span class="commenter-rating rating-four-star">
+                                    {% if comment.rating == 0 %}
+                                        <div class="product-rating">
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                        </div>
+                                    {% elif comment.rating == 1 %}
+                                        <div class="product-rating">
+                                        <a><i class="fas fa-star"></i></a>
+                                        <a><i class="fas fa-star empty-rating"></i></a>
+                                        <a><i class="fas fa-star empty-rating"></i></a>
+                                        <a><i class="fas fa-star empty-rating"></i></a>
+                                        <a><i class="fas fa-star empty-rating"></i></a>
+                                        </div>
+                                    {% elif comment.rating == 2 %}
+                                        <div class="product-rating">
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                        </div>
+                                    {% elif comment.rating == 3 %}
+                                        <div class="product-rating">
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                        </div>
+                                    {% elif comment.rating == 4 %}
+                                        <div class="product-rating">
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star empty-rating"></i></a>
+                                        </div>
+                                    {% elif comment.rating == 5 %}
+                                        <div class="product-rating">
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                            <a><i class="fas fa-star"></i></a>
+                                        </div>
+                                    {% endif %}
+                                </span>
+                            </h6>
+                            <div class="comment-text">
+                                <p>{{ comment.text }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- End Single Comment  -->
+        {% endfor %}
+    </ul>
+</div>

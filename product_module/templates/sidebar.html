@@ -1,0 +1,83 @@
+<div class="axil-shop-sidebar">
+    <div class="d-lg-none">
+        <button class="sidebar-close filter-close-btn"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="toggle-list product-categories active">
+        <h6 class="title">دسته بندی ها</h6>
+        <div class="shop-submenu">
+            <ul>
+                {% for brand in brands %}
+                    <li class="current-cat"><a href="{% url 'product-category' brand.slug %}">{{ brand.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="toggle-list product-categories product-gender active">
+        <h6 class="title">جنسیت</h6>
+        <div class="shop-submenu">
+            <ul>
+                <li class="chosen"><a href="#">مردانه (40)</a></li>
+                <li><a href="#">زنانه (56)</a></li>
+                <li><a href="#">اسپرت (18)</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="toggle-list product-color active">
+        <h6 class="title">رنگ</h6>
+        <div class="shop-submenu">
+            <ul>
+                <li class="chosen"><a href="#" class="color-extra-01"></a></li>
+                <li><a href="#" class="color-extra-02"></a></li>
+                <li><a href="#" class="color-extra-03"></a></li>
+                <li><a href="#" class="color-extra-04"></a></li>
+                <li><a href="#" class="color-extra-05"></a></li>
+                <li><a href="#" class="color-extra-06"></a></li>
+                <li><a href="#" class="color-extra-07"></a></li>
+                <li><a href="#" class="color-extra-08"></a></li>
+                <li><a href="#" class="color-extra-09"></a></li>
+                <li><a href="#" class="color-extra-10"></a></li>
+                <li><a href="#" class="color-extra-11"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="toggle-list product-size active">
+        <h6 class="title">سایز</h6>
+        <div class="shop-submenu">
+            <ul>
+                <li class="chosen"><a href="#">XS</a></li>
+                <li><a href="#">S</a></li>
+                <li><a href="#">M</a></li>
+                <li><a href="#">L</a></li>
+                <li><a href="#">XL</a></li>
+                <li><a href="#">XXL</a></li>
+                <li><a href="#">3XL</a></li>
+                <li><a href="#">4XL</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="toggle-list product-price-range active">
+        <h6 class="title">قیمت</h6>
+        <div class="shop-submenu">
+            <ul>
+                <li class="chosen"><a href="#">30</a></li>
+                <li><a href="#">5000</a></li>
+            </ul>
+            <form action="#" class="mt--25">
+                <div id="slider-range"
+                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                    <div class="ui-slider-range ui-corner-all ui-widget-header"
+                         style="left: 0%; width: 60%;"></div>
+                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                          style="left: 0%;"></span><span tabindex="0"
+                                                         class="ui-slider-handle ui-corner-all ui-state-default"
+                                                         style="left: 60%;"></span></div>
+                <div class="flex-center mt--20">
+                    <span class="input-range">قیمت: </span>
+                    <input type="text" id="amount" class="amount-range" readonly="">
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="axil-btn btn-bg-primary">ریست</button>
+</div>

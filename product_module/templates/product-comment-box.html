@@ -1,0 +1,49 @@
+<div class="col-lg-6 mb--40">
+    <!-- Start Comment Respond  -->
+    <div class="comment-respond pro-des-commend-respond mt--0">
+        <h5 class="title mb--30">نظر شما</h5>
+        {% if request.user.is_authenticated %}
+            <p>آدرس ایمیل شما منتشر نخواهد شد. زمینه‌های مورد نیاز مشخص شده‌اند *</p>
+            <div class="rating-wrapper d-flex-center mb--40">
+                امتیاز شما <span class="require">*</span>
+                <div>
+                    <select class="star-rating" id="rating">
+                        <option value="">رای دهید</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+            </div>
+
+            <form id="comment-form" method="POST">
+                {% csrf_token %}
+                <div class="row" style="display: flex; justify-content: center;">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>نظر شما</label>
+                            <textarea id="text" placeholder="نظر خود را بنویسید ..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-submit">
+                            <button type="button"
+                                    onclick="submitCommentAndRating({{ product.id }}, '{{ product.slug }}')"
+                                    class="axil-btn btn-bg-primary w-auto">ثبت نظر
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="res"></div>
+        {% else %}
+            <p></p>
+            <div class="col-12 alert alert-danger text-center fs-2">
+                برای ثبت نظر ابتدا بایستی وارد <a href="{% url 'login' %}">حساب کاربری</a> خود شوید
+            </div>
+        {% endif %}
+    </div>
+    <!-- End Comment Respond  -->
+</div>

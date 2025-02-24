@@ -1,0 +1,146 @@
+.axil-mainmenu {
+    background-color: #f5f5dc !important;
+}
+
+.axil-header-top {
+    background-color: #044a61 !important;
+}
+
+.my-account-dropdown.open {
+    background-color: #f5f5dc !important;
+}
+
+.axil-breadcrumb-item.active {
+    color: #044a61 !important;
+}
+
+.product-badget {
+    background-color: #044a61 !important;
+}
+
+.axil-shop-sidebar .title::after {
+    background-color: #044a61 !important;
+}
+
+.axil-shop-sidebar .product-categories ul li.current-cat a::before, .axil-shop-sidebar .product-categories ul li.chosen a::before {
+    background-color: #044a61 !important;
+}
+
+.axil-shop-sidebar .product-categories ul li.current-cat a::before, .axil-shop-sidebar .product-categories ul li.chosen a::before {
+    background: #044a61 !important;
+    border-color: #044a61 !important;
+}
+
+.axil-shop-sidebar .product-size li.chosen a {
+    background-color: #044a61 !important;
+    border-color: #044a61 !important;
+}
+
+.ui-slider-handle.ui-state-default.ui-corner-all {
+    background: #044a61 !important;
+}
+
+button.axil-btn.btn-bg-primary:before {
+    background-color: #044a61 !important;
+}
+
+.title-highlighter.highlighter-primary2 i {
+    background-color: #044a61 !important;
+}
+
+.title-highlighter.highlighter-primary2 {
+    color: #044a61 !important;
+}
+
+.back-to-top {
+    background: #044a61 !important;
+}
+
+a.axil-btn.btn-bg-primary:before, button.axil-btn.btn-bg-primary:before {
+    background-color: #044a61 !important;
+}
+
+.post-pagination nav.pagination ul li span.current {
+    background-color: #044a61 !important;
+    border-color: #044a61 !important;
+}
+
+.page-link {
+    color: #044a61 !important;
+}
+
+.comment-list .comment .reply-edit a.comment-reply-link {
+    color: #044a61 !important;
+}
+
+.header-top-link .quick-link li a {
+    color: white !important;
+}
+
+.copyright-default .quick-link li {
+    color: white !important;
+}
+
+.copyright-default .quick-link li a {
+    color: white !important;
+}
+
+.footer-style-2 .copyright-default .social-share a {
+    color: white !important;
+}
+
+.shopping-cart a:hover, .shopping-cart a:hover:before, .shopping-cart a:hover:after {
+    background-color: #610404 !important;
+    box-shadow: none !important;
+}
+
+.main-slider-content .subtitle {
+    color: #610404 !important;
+}
+
+.main-slider-content .subtitle i {
+    background-color: #610404 !important;
+}
+
+.main-slider-large-thumb .axil-slick-dots .slick-dots li.slick-active button {
+    background-color: #610404 !important;
+}
+
+.title-highlighter.highlighter-secondary i {
+    background-color: #610404 !important;
+}
+
+.title-highlighter.highlighter-secondary {
+    color: #610404 !important;
+}
+
+.axil-product .cart-action li.select-option a:before {
+    background-color: #610404 !important;
+}
+
+.wishlist a:hover, .wishlist a:hover::after, .wishlist a:hover::before {
+    background-color: #610404 !important;
+    box-shadow: none !important;
+}
+
+.header-action > ul > li > a::after {
+    background-color: #610404 !important;
+    box-shadow: none !important;
+}
+
+.header-main-nav .mainmenu-nav {
+    background-color: #f5f5dc !important;
+}
+
+.main-slider-large-thumb .single-slide .product-price span.price-amount {
+    color: #044a61 !important;
+}
+.footer-style-2 .copyright-default .social-share a:hover {
+    background-color: #610404 !important;
+    box-shadow: none !important;
+}
+
+.offer-badge {
+    background-color: #044a61 !important;
+}
+

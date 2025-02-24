@@ -1,0 +1,317 @@
+{% extends 'layout2.html' %}
+{% load poll_extras %}
+
+{% block title %}
+    پروفایل
+{% endblock %}
+
+{% block content %}
+    <main class="main-wrapper">
+        <!-- Start Breadcrumb Area  -->
+        <div class="axil-breadcrumb-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="inner">
+                            <ul class="axil-breadcrumb">
+                                <li class="axil-breadcrumb-item"><a href="index-2.html">خانه</a></li>
+                                <li class="separator"></li>
+                                <li class="axil-breadcrumb-item active" aria-current="page">پروفایل من</li>
+                            </ul>
+                            <h1 class="title">همه محصولات را کاوش کنید</h1>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-4">
+                        <div class="inner">
+                            <div class="bradcrumb-thumb">
+                                <img src="/static/images/product/product-45.png" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb Area  -->
+
+        <!-- Start My Account Area  -->
+        <div class="axil-dashboard-area axil-section-gap">
+            <div class="container">
+                <div class="axil-dashboard-warp">
+                    <div class="axil-dashboard-author">
+                        <div class="media">
+                            <div class="thumbnail">
+                                <img src="/static/images/product/author1.png" alt="Hello Annie">
+                            </div>
+                            <div class="media-body">
+                                <h5 class="title mb-0">سلام، احمد احمدی</h5>
+                                <span class="joining-date">عضو Etrade از آبان 1401</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-4">
+                            <aside class="axil-dashboard-aside">
+                                <nav class="axil-dashboard-nav">
+                                    <div class="nav nav-tabs" role="tablist">
+                                        <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-dashboard"
+                                           role="tab" aria-selected="true"><i class="fas fa-th-large"></i>داشبورد</a>
+                                        <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-orders" role="tab"
+                                           aria-selected="false"><i class="fas fa-shopping-basket"></i>سفارشات</a>
+                                        <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-downloads"
+                                           role="tab"
+                                           aria-selected="false"><i class="fas fa-file-download"></i>دانلود
+                                            ها</a>
+                                        <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-address" role="tab"
+                                           aria-selected="false"><i class="fas fa-home"></i>آدرس ها</a>
+                                        <a class="nav-item nav-link" data-bs-toggle="tab" href="#nav-account" role="tab"
+                                           aria-selected="false"><i class="fas fa-user"></i>جزئیات پروفایل</a>
+                                        <a class="nav-item nav-link" href="sign-in.html"><i class="fal fa-sign-out"></i>خروج</a>
+                                    </div>
+                                </nav>
+                            </aside>
+                        </div>
+                        <div class="col-xl-9 col-md-8">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel">
+                                    <div class="axil-dashboard-overview">
+                                        <div class="welcome-text">سلام {{ user.username }} ({{ user.username }} <span>نیستید؟</span> <a
+                                                href="{% url 'logout' %}">خروج</a>)
+                                        </div>
+                                        <p>از داشبورد حساب خود می توانید سفارشات اخیر خود را مشاهده کنید ، آدرس های حمل
+                                            و نقل و صورتحساب خود را مدیریت کرده و رمز عبور و جزئیات حساب خود را ویرایش
+                                            کنید.</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-orders" role="tabpanel">
+                                    <div class="axil-dashboard-order">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">سفارش</th>
+                                                    <th scope="col">تاریخ</th>
+                                                    <th scope="col">وضعیت</th>
+                                                    <th scope="col">جمع کل</th>
+                                                    <th scope="col">عملیات</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">#6523</th>
+                                                    <td>10 مهر 1401</td>
+                                                    <td>درحال پردازش</td>
+                                                    <td>326.630 تومان برای 3 محصول</td>
+                                                    <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">#6523</th>
+                                                    <td>18 مهر 1401</td>
+                                                    <td>کنسل شده</td>
+                                                    <td>326.630 تومان برای 3 محصول</td>
+                                                    <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">#6523</th>
+                                                    <td>20 مهر 1401</td>
+                                                    <td>درحال پردازش</td>
+                                                    <td>326.630 تومان برای 3 محصول</td>
+                                                    <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">#6523</th>
+                                                    <td>28 مهر 1401</td>
+                                                    <td>درحال پردازش</td>
+                                                    <td>326.630 تومان برای 3 محصول</td>
+                                                    <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">#6523</th>
+                                                    <td>5 آبان 1401</td>
+                                                    <td>درحال پردازش</td>
+                                                    <td>326.630 تومان برای 3 محصول</td>
+                                                    <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-downloads" role="tabpanel">
+                                    <div class="axil-dashboard-order">
+                                        <p>شما هیچ دانلودی ندارید</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-address" role="tabpanel">
+                                    <div class="axil-dashboard-address">
+                                        <p class="notice-text">آدرس های زیر به طور پیش فرض در صفحه پرداخت استفاده می
+                                            شود.</p>
+                                        <div class="row row--30">
+                                            <div class="col-lg-6">
+                                                <div class="address-info mb--40">
+                                                    <div class="addrss-header d-flex align-items-center justify-content-between">
+                                                        <h4 class="title mb-0">آدرس حمل و نقل</h4>
+                                                        <a href="#" class="address-edit"><i class="far fa-edit"></i></a>
+                                                    </div>
+                                                    <ul class="address-details">
+                                                        <li>نام: احمد احمدی</li>
+                                                        <li>ایمیل: annie@example.com</li>
+                                                        <li>شماره تماس: 1234 567890</li>
+                                                        <li class="mt--30">تهران، خیابان شریعتی، <br>
+                                                            کوچه 28، پلاک 14
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="address-info">
+                                                    <div class="addrss-header d-flex align-items-center justify-content-between">
+                                                        <h4 class="title mb-0">آدرس پرداخت</h4>
+                                                        <a href="#" class="address-edit"><i class="far fa-edit"></i></a>
+                                                    </div>
+                                                    <ul class="address-details">
+                                                        <li>نام: احمد احمدی</li>
+                                                        <li>ایمیل: annie@example.com</li>
+                                                        <li>شماره تماس: 1234 567890</li>
+                                                        <li class="mt--30">تهران، خیابان شریعتی، <br>
+                                                            کوچه 28، پلاک 14
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-account" role="tabpanel">
+                                    <div class="col-lg-9">
+                                        <div class="axil-dashboard-account">
+                                            <form class="account-details-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>نام</label>
+                                                            <input type="text" class="form-control" value="احمد">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>نام خانوادگی</label>
+                                                            <input type="text" class="form-control" value="احمدی">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group mb--40">
+                                                            <label>کشور/ منطقه</label>
+                                                            <select class="select2">
+                                                                <option value="1">انگلستان (UK)</option>
+                                                                <option value="1">ایالات متحده (USA)</option>
+                                                                <option value="1">امارات متحده عربی (UAE)</option>
+                                                                <option value="1">استرالیا</option>
+                                                            </select>
+                                                            <p class="b3 mt--10">این نحوه نمایش نام شما در بخش حساب و در
+                                                                بررسی ها خواهد بود</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <h5 class="title">تغییر رمز عبور</h5>
+                                                        <div class="form-group">
+                                                            <label>رمز عبور فعلی</label>
+                                                            <input type="password" class="form-control"
+                                                                   value="123456789101112131415">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>رمز عبور جدید</label>
+                                                            <input type="password" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>تکرار رمز عبور جدید</label>
+                                                            <input type="password" class="form-control">
+                                                        </div>
+                                                        <div class="form-group mb--0">
+                                                            <input type="submit" class="axil-btn" value="ذخیره">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End My Account Area  -->
+
+        <!-- Start Axil Newsletter Area  -->
+        <div class="axil-newsletter-area axil-section-gap pt--0">
+            <div class="container">
+                <div class="etrade-newsletter-wrapper bg_image bg_image--5">
+                    <div class="newsletter-content">
+                    <span class="title-highlighter highlighter-primary2"><i
+                            class="fas fa-envelope-open"></i>خبرنامه</span>
+                        <h2 class="title mb--40 mb_sm--30">دریافت آپدیت هفتگی</h2>
+                        <div class="input-group newsletter-form">
+                            <div class="position-relative newsletter-inner mb--15">
+                                <input placeholder="example@gmail.com" type="text">
+                            </div>
+                            <button type="submit" class="axil-btn mb--15">اشتراک</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .container -->
+        </div>
+        <!-- End Axil Newsletter Area  -->
+    </main>
+    <div class="service-area">
+        <div class="container">
+            <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service1.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">ارسال سریع و ایمن</h6>
+                            <p>برای تمامی سفارشات.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service2.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">گارانتی بازگشت وجه</h6>
+                            <p>حتی بیشتر از 7 روز.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service3.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">مرجوعی طی 24 ساعت</h6>
+                            <p>بدون سوال.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service4.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">پشتیبانی کامل</h6>
+                            <p>24/7 پشتیبان آنلاین است.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

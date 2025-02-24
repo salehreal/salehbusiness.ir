@@ -1,0 +1,41 @@
+{% load render_partial %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="description" content="Free Web tutorials for HTML and CSS">
+    <meta name="author" content="John Doe">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+    {% block links %}
+
+    {% endblock %}
+    {% include 'header_links2.html' %}
+</head>
+<body>
+{% render_partial 'product_module.views.header_component' %}
+{% block content %}
+
+{% endblock %}
+
+
+{% include 'footer_scripts.html' %}
+{% block scripts %}
+
+{% endblock %}
+
+{% render_partial 'home_module.views.footer_component' %}
+{% include 'add_content.html' %}
+{% block add_contect %}
+	
+{% endblock %}
+</body>
+</html>

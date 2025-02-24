@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" lang="fa">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ثبت نام</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png">
+
+    <!-- CSS
+    ============================================ -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/vendor/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="/static/css/vendor/font-awesome.css">
+    <link rel="stylesheet" href="/static/css/vendor/flaticon/flaticon.css">
+    <link rel="stylesheet" href="/static/css/vendor/slick.css">
+    <link rel="stylesheet" href="/static/css/vendor/slick-theme.css">
+    <link rel="stylesheet" href="/static/css/vendor/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/css/vendor/sal.css">
+    <link rel="stylesheet" href="/static/css/vendor/magnific-popup.css">
+    <link rel="stylesheet" href="/static/css/vendor/base.css">
+    <link rel="stylesheet" href="/static/css/style.min.css">
+
+</head>
+
+
+<body>
+    <div class="axil-signin-area">
+
+        <!-- Start Header -->
+        <div class="signin-header">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <a href="{% url 'home' %}" class="site-logo"><img src="/static/images/logo/logo.png" alt="logo"></a>
+                </div>
+                <div class="col-md-6">
+                    <div class="singin-header-btn">
+                        <p>قبلا عضو شده اید؟</p>
+                        <a href="{% url 'login' %}" class="axil-btn btn-bg-secondary sign-up-btn">ورود</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header -->
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-6">
+                <div class="axil-signin-banner bg_image bg_image--10">
+                    <h3 class="title">ما بهترین محصولات را ارائه می دهیم</h3>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-xl-2">
+                <div class="axil-signin-form-wrap">
+                    <div class="axil-signin-form">
+                        {% if error %}
+                            <div style="padding: 5px;border-radius: 7px; align-items: center!important; width: 74%; margin: 0 auto; margin-bottom: 10px; background-color:darkred; color: white">
+                            لطفا همه مقادیر را به صورت کامل وارد کنید
+                            </div>
+                        {% endif %}
+                        <h3 class="title">من اینجا جدید هستم</h3>
+                        <p class="b2 mb--55">جزئیات خود را در زیر وارد کنید</p>
+                        <form class="singin-form" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>نام کاربری</label>
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label>ایمیل</label>
+                                <input type="email" class="form-control" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label>شماره موبایل</label>
+                                <input type="text" class="form-control" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>رمز عبور</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="sign" class="axil-btn btn-bg-primary submit-btn" value="Register">ساخت پروفایل</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS
+============================================ -->
+    <!-- Modernizer JS -->
+    <script src="/static/js/vendor/modernizr.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="/static/js/vendor/jquery.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="/static/js/vendor/popper.min.js"></script>
+    <script src="/static/js/vendor/bootstrap.min.js"></script>
+    <script src="/static/js/vendor/slick.min.js"></script>
+    <script src="/static/js/vendor/js.cookie.js"></script>
+    <!-- <script src="/static/js/vendor/jquery.style.switcher.js"></script> -->
+    <script src="/static/js/vendor/jquery-ui.min.js"></script>
+    <script src="/static/js/vendor/jquery.countdown.min.js"></script>
+    <script src="/static/js/vendor/sal.js"></script>
+    <script src="/static/js/vendor/jquery.magnific-popup.min.js"></script>
+    <script src="/static/js/vendor/imagesloaded.pkgd.min.js"></script>
+    <script src="/static/js/vendor/isotope.pkgd.min.js"></script>
+    <script src="/static/js/vendor/counterup.js"></script>
+    <script src="/static/js/vendor/waypoints.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="/static/js/rtl-main.js"></script>
+
+</body>
+
+
+</html>

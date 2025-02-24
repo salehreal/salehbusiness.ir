@@ -1,0 +1,53 @@
+from django.db import models
+
+# Create your models here.
+
+class SiteSettingModel(models.Model):
+    logo = models.ImageField(upload_to="logo", verbose_name="لوگو")
+    email = models.EmailField(max_length=100, verbose_name="ایمیل")
+    phone = models.CharField(max_length=20, verbose_name="تلفن")
+    fax = models.CharField(max_length=50, null=True, blank=True, verbose_name="فکس (اختیاری)")
+    address = models.TextField(null=True, blank=True, verbose_name="آدرس (اختیاری)")
+    working_start_day = models.CharField(max_length=50, null=True, blank=True, verbose_name="اولین روز کاری (اختیاری)")
+    working_end_day = models.CharField(max_length=50, null=True, blank=True, verbose_name="آخرین روز کاری (اختیاری)")
+    working_start_hour = models.CharField(max_length=50, null=True, blank=True, verbose_name="ساعت شروع کار (اختیاری)")
+    working_end_hour = models.CharField(max_length=50, null=True, blank=True, verbose_name="ساعت پایان کار (اختیاری)")
+    social_instagram = models.CharField(max_length=150, null=True, blank=True, verbose_name="اینستاگرام (اختیاری)")
+    social_twitter = models.CharField(max_length=150, null=True, blank=True, verbose_name="توئیتر (اختیاری)")
+    social_telegram = models.CharField(max_length=150, null=True, blank=True, verbose_name="تلگرام (اختیاری)")
+    social_youtube = models.CharField(max_length=150, null=True, blank=True, verbose_name="یوتیوب (اختیاری)")
+    is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+    def __str__(self):
+        return self.email
+    class Meta:
+        verbose_name = "تنظیم"
+        verbose_name_plural = "تنظیمات"
+
+class SliderModel(models.Model):
+    image = models.ImageField(upload_to="sliders", verbose_name="تصویر")
+    title = models.CharField(max_length=100, verbose_name="عنوان")
+    link = models.URLField(max_length=200, verbose_name="لینک")
+    price = models.CharField(max_length=20, verbose_name="قیمت")
+    is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+    def __str__(self):
+        return self.title
+    class Meta:
+        verbose_name = 'اسلایدر'
+        verbose_name_plural = 'اسلایدر ها'
+
+class AboutUsModel(models.Model):
+    image1 = models.ImageField(upload_to="aboutus", verbose_name="تصویر1")
+    title1 = models.CharField(max_length=100, verbose_name="عنوان1")
+    text1 = models.TextField(verbose_name="متن1")
+    image2 = models.ImageField(upload_to="aboutus", null=True, blank=True, verbose_name="تصویر2 (اختیاری)")
+    title2 = models.CharField(max_length=100, null=True, blank=True, verbose_name="عنوان2 (اختیاری)")
+    text2 = models.TextField(null=True, blank=True, verbose_name="متن2 (اختیاری)")
+    image3 = models.ImageField(upload_to="aboutus", null=True, blank=True, verbose_name="تصویر3 (اختیاری)")
+    title3 = models.CharField(max_length=100, null=True, blank=True, verbose_name="عنوان3 (اختیاری)")
+    text3 = models.TextField(null=True, blank=True, verbose_name="متن3 (اختیاری)")
+    is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+    def __str__(self):
+        return self.title1
+    class Meta:
+        verbose_name = 'درباره ما'
+        verbose_name_plural = 'درباره ما'

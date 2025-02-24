@@ -1,0 +1,153 @@
+{% load poll_extras %}
+
+{% if cart.cartdetailmodel_set.all %}
+    <main class="main-wrapper">
+
+        <!-- Start Cart Area  -->
+        <div class="axil-product-cart-area axil-section-gap">
+            <div class="container">
+                <div class="axil-product-cart-wrap">
+                    <div class="product-table-heading">
+                        <h4 class="title">سبد خرید شما</h4>
+                        <a class="cart-clear" onclick="delete_cart({{ cart.id }})" style="cursor: pointer">پاک کردن سبد
+                            خرید</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table axil-product-table axil-cart-table mb--40">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="product-remove"></th>
+                                <th scope="col" class="product-thumbnail">محصول</th>
+                                <th scope="col" class="product-title"></th>
+                                <th scope="col" class="product-price">قیمت</th>
+                                <th scope="col" class="product-quantity">تعداد</th>
+                                <th scope="col" class="product-subtotal">قیمت نهایی</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for detail in cart.cartdetailmodel_set.all %}
+                                <tr>
+                                    <td class="product-remove"><a class="remove-wishlist"
+                                                                  onclick="delete_detail({{ detail.id }})"><i
+                                            class="fal fa-times"></i></a></td>
+                                    <td class="product-thumbnail"><a href="single-product.html"><img
+                                            src="{{ detail.product.mainimage.url }}" alt="Digital Product"
+                                            style="width: 250px!important;height: 50px!important;"></a>
+                                    </td>
+                                    <td class="product-title"><a
+                                            href="single-product.html">{{ detail.product.title }}</a></td>
+                                    <td class="product-price" data-title="قیمت">{{ detail.product.price|digits }}<span
+                                            class="currency-symbol"> تومان</span></td>
+                                    <td class="product-quantity" data-title="تعداد">
+                                        <div class="pro-qty"><a
+                                                onclick="change_count({{ detail.id }}, 'neg')"
+                                                class="dec qtybtn">-</a>
+                                            <input type="number" class="quantity-input" value="{{ detail.count }}">
+                                            <a onclick="change_count({{ detail.id }}, 'pos')"
+                                               class="inc qtybtn">+</a></div>
+                                    </td>
+                                    <td class="product-subtotal"
+                                        data-title="قیمت نهایی">{{ detail.final_price|digits }}<span
+                                            class="currency-symbol"> تومان</span></td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-update-btn-area">
+                        <div class="input-group product-cupon">
+                            <input placeholder="کد تخفیف" type="text">
+                            <div class="product-cupon-btn">
+                                <button type="submit" class="axil-btn btn-outline">اعمال</button>
+                            </div>
+                        </div>
+                        <div class="update-btn">
+                            <a href="#" class="axil-btn btn-outline">بروزرسانی</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
+                            <div class="axil-order-summery mt--80">
+                                <h5 class="title mb--20">اطلاعات سفارش</h5>
+                                <div class="summery-table-wrap">
+                                    <table class="table summery-table mb--30">
+                                        <tbody>
+                                        <tr class="order-subtotal">
+                                            <td>مبلغ</td>
+                                            <td>{{ cart.sum_basket|digits }} تومان</td>
+                                        </tr>
+                                        <tr class="order-tax">
+                                            <td>مالیات</td>
+                                            <td>{{ cart.tax|digits }} تومان</td>
+                                        </tr>
+                                        <tr class="order-total">
+                                            <td>مبلغ پرداخت</td>
+                                            <td class="order-total-amount">{{ cart.total_price|digits }} تومان</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">تایید و ادامه</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Cart Area  -->
+
+    </main>
+    <div class="service-area">
+        <div class="container">
+            <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service1.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">ارسال سریع و ایمن</h6>
+                            <p>برای تمامی سفارشات.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service2.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">گارانتی بازگشت وجه</h6>
+                            <p>حتی بیشتر از 7 روز.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service3.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">مرجوعی طی 24 ساعت</h6>
+                            <p>بدون سوال.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service4.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">پشتیبانی کامل</h6>
+                            <p>24/7 پشتیبان آنلاین است.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-danger text-center" style="width: 50%;margin: 70px auto">سبد خرید خالی است</div>
+{% endif %}
