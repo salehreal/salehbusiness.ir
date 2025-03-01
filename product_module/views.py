@@ -54,6 +54,8 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         product = self.object
         context['tags'] = ProductBrand.objects.filter(productmodel=product)
+        product.visited += 1
+        product.save()
         user = self.request.user
         if user.is_authenticated:
             cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()

@@ -190,7 +190,8 @@
     <button class="card-close sidebar-close"><i class="fas fa-times"></i></button>
     <div class="header-search-wrap">
         <div class="card-header">
-            <form action="#">
+            <form method="post" action="{% url 'home' %}">
+                {% csrf_token %}
                 <div class="input-group">
                     <input type="search" class="form-control" name="prod-search" id="prod-search"
                            placeholder="بنویسید ...">

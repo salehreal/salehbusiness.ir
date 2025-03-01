@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from sitesetting_module.models import *
 from django.views import View
 from django.views.generic import TemplateView
@@ -14,6 +14,8 @@ from cart_module.models import CartModel
 class HomeView(View):
     def get(self, request):
         sliders = SliderModel.objects.filter(is_active=True)
+        new_products = ProductModel.objects.filter(is_active=True).order_by("-created_at")[:8]
+        visited_product = ProductModel.objects.filter(is_active=True).order_by("-visited")[:8]
         category = ProductCategory.objects.filter(is_active=True)
         user = request.user
         cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
@@ -23,6 +25,12 @@ class HomeView(View):
             'category': category,
             'cart': cart,
             'product': product,
+        })
+    def post(self, request):
+        search = request.POST['prod-search']
+        products = ProductModel.objects.filter(title__icontains=search)
+        return render(request, 'product_list.html', {
+            'products': products
         })
     # def get(self, request):
     #     return render(request, 'home.html', {
