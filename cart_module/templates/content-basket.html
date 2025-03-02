@@ -36,8 +36,14 @@
                                     </td>
                                     <td class="product-title"><a
                                             href="single-product.html">{{ detail.product.title }}</a></td>
-                                    <td class="product-price" data-title="قیمت">{{ detail.product.price|digits }}<span
-                                            class="currency-symbol"> تومان</span></td>
+                                    {% if detail.product.price %}
+                                        <td class="product-price"
+                                            data-title="قیمت">{{ detail.product.final_price|digits }}<span
+                                                class="currency-symbol"> تومان</span></td>
+                                    {% else %}
+                                        <td class="product-price" data-title="قیمت"><span
+                                                class="currency-symbol">رایگان</span></td>
+                                    {% endif %}
                                     <td class="product-quantity" data-title="تعداد">
                                         <div class="pro-qty"><a
                                                 onclick="change_count({{ detail.id }}, 'neg')"
@@ -46,9 +52,15 @@
                                             <a onclick="change_count({{ detail.id }}, 'pos')"
                                                class="inc qtybtn">+</a></div>
                                     </td>
-                                    <td class="product-subtotal"
-                                        data-title="قیمت نهایی">{{ detail.final_price|digits }}<span
-                                            class="currency-symbol"> تومان</span></td>
+                                    {% if detail.product.price %}
+                                        <td class="product-subtotal"
+                                            data-title="قیمت نهایی">{{ detail.final_price|digits }}<span
+                                                class="currency-symbol"> تومان</span></td>
+                                    {% else %}
+                                        <td class="product-subtotal"
+                                            data-title="قیمت نهایی"><span
+                                                class="currency-symbol">رایگان</span></td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
 

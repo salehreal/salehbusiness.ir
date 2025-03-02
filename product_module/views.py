@@ -31,7 +31,6 @@ class ProductList(ListView):
         context['settings'] = settings
         return context
 
-
 # class ProductList(View):
 #     def get(self, request):
 #         products = ProductModel.objects.all()
@@ -64,6 +63,7 @@ class ProductDetailView(DetailView):
         context['cart'] = cart
         context['comments'] = ProductCommentModel.objects.filter(product=product, is_publish=True)
         return context
+
 
 
 # class ProductDetailView(View):

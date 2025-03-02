@@ -202,7 +202,7 @@
         <div class="card-body">
             <div class="search-result-header">
                 <h6 class="title">24 نتیجه پیدا شد</h6>
-                <a href="shop.html" class="view-all">نمایش همه</a>
+                <a href="{% url 'product-list' %}" class="view-all">نمایش همه</a>
             </div>
             <div class="psearch-results">
                 <div class="axil-product-list">
@@ -294,8 +294,13 @@
                                 </div>
                                 <h3 class="item-title"><a href="single-product-3.html">{{ detail.product.title }}</a>
                                 </h3>
-                                <div class="item-price">{{ detail.final_price|digits }}<span
-                                        class="currency-symbol"> تومان</span></div>
+                                {% if detail.product.price %}
+                                    <div class="item-price">{{ detail.final_price|digits }}<span
+                                            class="currency-symbol"> تومان</span></div>
+                                {% else %}
+                                    <div class="item-price"><span
+                                            class="currency-symbol">رایگان</span></div>
+                                {% endif %}
                                 <div class="pro-qty item-quantity"><span class="dec qtybtn">-</span>
                                     <input type="number" class="quantity-input" value="{{ detail.count }}">
                                     <span class="inc qtybtn">+</span></div>

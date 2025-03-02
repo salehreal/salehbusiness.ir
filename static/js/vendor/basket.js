@@ -43,3 +43,21 @@ function delete_cart(cart_id) {
         }
     )
 }
+
+function delete_wish_detail(detail_id) {
+    let bas = $('#bas')
+    $.get("/wish-list/delete-wish-detail/", {
+        'detail_id': detail_id
+    }).then(
+        res => {
+            if (res.status === 'error') {
+                alert('Error')
+            } else {
+                bas.html(res)
+            }
+        }
+    )
+}
+
+
+

@@ -19,7 +19,7 @@
                         <ul class="quick-link">
                             {% if request.user.is_authenticated %}
                                 <li><a href="#">پشتیبانی</a></li>
-                                <li><a href="#">خروج</a></li>
+                                <li><a href="{% url 'logout' %}">خروج</a></li>
                             {% else %}
                                 <li><a href="#">پشتیبانی</a></li>
                                 <li><a href="{% url 'register' %}">ثبت نام</a></li>
@@ -122,7 +122,7 @@
                             </a>
                         </li>
                         <li class="wishlist">
-                            <a href="wishlist.html">
+                            <a href="{% url 'wish' %}">
                                 <i class="flaticon-heart"></i>
                             </a>
                         </li>

@@ -91,8 +91,15 @@
                                             {% endif %}
                                             <div class="product-hover-action">
                                                 <ul class="cart-action">
-                                                    <li class="wishlist"><a href="wishlist.html"><i
-                                                            class="far fa-heart"></i></a></li>
+                                                    {% if request.user.is_authenticated %}
+                                                        <li class="wishlist"><a onclick="add_to_wish({{ product.id }})"
+                                                                                href="#"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {% else %}
+                                                        <li class="wishlist"><a onclick="add_to_wish({{ product.id }})"
+                                                                                href="{% url 'login' %}"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {% endif %}
                                                     <li class="select-option"><a
                                                             href="{% url 'product_detail' product.slug %}">جزئیات</a>
                                                     </li>
@@ -107,12 +114,22 @@
                                                 <h5 class="title"><a
                                                         href="single-product.html">{{ product.title }}</a>
                                                 </h5>
-                                                <div class="product-price-variant">
-                                                    <span class="price current-price">{{ product.final_price|digits }} تومان</span>
-                                                    {% if product.discount %}
-                                                        <span class="price old-price">{{ product.price|digits }}</span>
-                                                    {% endif %}
-                                                </div>
+                                                {% if product.count and product.price %}
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">{{ product.final_price|digits }} تومان</span>
+                                                        {% if product.discount %}
+                                                            <span class="price old-price">{{ product.price|digits }}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                {% elif product.count and product.price is None %}
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">رایگان</span>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">ناموجود</span>
+                                                    </div>
+                                                {% endif %}
                                                 <div class="color-variant-wrapper">
                                                     <ul class="color-variant">
                                                         <li class="color-extra-01 active"><span><span
@@ -146,7 +163,7 @@
                                     {% endif %}
                                     {% for page in paginator.page_range %}
                                         <li>{% if page_obj.number == page %}
-                                        	<span aria-current="page" class="page-numbers current">{{ page }}</span>
+                                            <span aria-current="page" class="page-numbers current">{{ page }}</span>
                                         {% else %}
                                             <li><a class="page-numbers" href="?page={{ page }}">{{ page }}</a></li>
                                         {% endif %}
@@ -255,6 +272,7 @@
         setInterval(updateClock, 1000);
         updateClock();
     </script>
+    <script src="/static/js/vendor/product_detail.js"></script>
 {% endblock %}
 
 

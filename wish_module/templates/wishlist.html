@@ -1,0 +1,18 @@
+{% extends 'layout2.html' %}
+{% load poll_extras %}
+{% block title %}
+    علاقه مندی ها
+{% endblock %}
+
+{% block content %}
+    {% if wish.wishdetailmodel_set.all %}
+        <div id="bas">
+            {% include 'content-wishlist.html' %}
+        </div>
+    {% else %}
+        <div class="alert alert-danger text-center" style="width: 50%;margin: 70px auto">لیست علاقه مندی ها خالی است</div>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/vendor/basket.js"></script>
+{% endblock %}

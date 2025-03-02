@@ -1,0 +1,117 @@
+{% load poll_extras %}
+
+{% if wish.wishdetailmodel_set.all %}
+    <main class="main-wrapper">
+
+        <!-- Start Wishlist Area  -->
+        <div class="axil-wishlist-area axil-section-gap">
+            <div class="container">
+                <div class="product-table-heading">
+                    <h4 class="title">لیست علاقه مندی ها</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table axil-product-table axil-wishlist-table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="product-remove"></th>
+                            <th scope="col" class="product-thumbnail">محصول</th>
+                            <th scope="col" class="product-title"></th>
+                            <th scope="col" class="product-price"> قیمت</th>
+                            <th scope="col" class="product-stock-status">موجود</th>
+                            <th scope="col" class="product-add-cart"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for detail in wish.wishdetailmodel_set.all %}
+                            <tr>
+                                <td class="product-remove"><a onclick="delete_wish_detail({{ detail.product.id }})"
+                                                              class="remove-wishlist"><i
+                                        class="fal fa-times"></i></a>
+                                </td>
+                                <td class="product-thumbnail"><a href="single-product.html"><img
+                                        src="{{ detail.product.mainimage.url }}" alt="Digital Product"></a></td>
+                                <td class="product-title"><a href="single-product.html">{{ detail.product.title }}</a>
+                                </td>
+                                {% if detail.product.price and detail.product.count %}
+                                    <td class="product-price" data-title="Price">{{ detail.product.final_price|digits }}<span
+                                            class="currency-symbol">تومان</span>
+                                    </td>
+                                {% elif detail.product.count and detail.product.price is None %}
+                                    <td class="product-price" data-title="Price"><span
+                                            class="currency-symbol">رایگان</span>
+                                    </td>
+                                {% else %}
+                                    <td class="product-price" data-title="Price"><span
+                                            class="currency-symbol">ناموجود</span>
+                                    </td>
+                                {% endif %}
+                                {% if detail.product.count %}
+                                    <td class="product-stock-status" data-title="Status">موجود در انبار</td>
+                                    <td class="product-add-cart"><a href="cart.html" class="axil-btn btn-outline">اضافه
+                                        به
+                                        سبد خرید</a></td>
+                                {% else %}
+                                    <td class="product-stock-status" data-title="Status">عدم موجودی</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Wishlist Area  -->
+    </main>
+    <div class="service-area">
+        <div class="container">
+            <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service1.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">ارسال سریع و ایمن</h6>
+                            <p>برای تمامی سفارشات.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service2.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">گارانتی بازگشت وجه</h6>
+                            <p>حتی بیشتر از 7 روز.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service3.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">مرجوعی طی 24 ساعت</h6>
+                            <p>بدون سوال.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="service-box service-style-2">
+                        <div class="icon">
+                            <img src="/static/images/icons/service4.png" alt="Service">
+                        </div>
+                        <div class="content">
+                            <h6 class="title">پشتیبانی کامل</h6>
+                            <p>24/7 پشتیبان آنلاین است.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-danger text-center" style="width: 50%;margin: 70px auto">لیست علاقه مندی ها خالی است</div>
+{% endif %}

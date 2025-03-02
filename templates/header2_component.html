@@ -11,7 +11,7 @@
                         <ul class="quick-link">
                             {% if request.user.is_authenticated %}
                                 <li><a href="#">پشتیبانی</a></li>
-                                <li><a href="#">خروج</a></li>
+                                <li><a href="{% url 'logout' %}">خروج</a></li>
                             {% else %}
                                 <li><a href="#">پشتیبانی</a></li>
                                 <li><a href="{% url 'register' %}">ثبت نام</a></li>
@@ -29,7 +29,8 @@
         <div class="container">
             <div class="header-navbar">
                 <div class="header-brand">
-                    <a href="{% url 'home' %}" class="logo logo-dark" style="text-align: center;width: 80px;height: 80px">
+                    <a href="{% url 'home' %}" class="logo logo-dark"
+                       style="text-align: center;width: 80px;height: 80px">
                         <img src="{{ settings.logo.url }}" alt="Site Logo">
                     </a>
                     <a href="" class="logo logo-light">
@@ -108,21 +109,24 @@
                 </div>
                 <div class="header-action">
                     <ul class="action-list">
-                        <li class="axil-search d-xl-block d-none">
-                            <input type="search" class="placeholder product-search-input" name="search2"
-                                   id="search2" value="" maxlength="128" placeholder="دنبال چه هستید؟؟"
-                                   autocomplete="off">
-                            <button type="submit" class="icon wooc-btn-search">
-                                <i class="flaticon-magnifying-glass"></i>
-                            </button>
-                        </li>
+                        <form method="post" action="{% url 'home' %}">
+                            {% csrf_token %}
+                            <li class="axil-search d-xl-block d-none">
+                                <input type="search" class="placeholder product-search-input" name="search2"
+                                       id="search2" value="" maxlength="128" placeholder="دنبال چه هستید؟؟"
+                                       autocomplete="off">
+                                <button type="submit" class="icon wooc-btn-search">
+                                    <i class="flaticon-magnifying-glass"></i>
+                                </button>
+                            </li>
+                        </form>
                         <li class="axil-search d-xl-none d-block">
                             <a href="javascript:void(0)" class="header-search-icon" title="Search">
                                 <i class="flaticon-magnifying-glass"></i>
                             </a>
                         </li>
                         <li class="wishlist">
-                            <a href="wishlist.html">
+                            <a href="{% url 'wish' %}">
                                 <i class="flaticon-heart"></i>
                             </a>
                         </li>

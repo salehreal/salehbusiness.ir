@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "cart_module",
     "aboutus_module",
     "user_dashboard_module",
+    "wish_module",
 ]
 
 MIDDLEWARE = [
