@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class SiteSettingModel(models.Model):
+    name = models.CharField(max_length=100, verbose_name="نام فروشگاه")
     logo = models.ImageField(upload_to="logo", verbose_name="لوگو")
     email = models.EmailField(max_length=100, verbose_name="ایمیل")
     phone = models.CharField(max_length=20, verbose_name="تلفن")
@@ -18,7 +19,7 @@ class SiteSettingModel(models.Model):
     social_youtube = models.CharField(max_length=150, null=True, blank=True, verbose_name="یوتیوب (اختیاری)")
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
     def __str__(self):
-        return self.email
+        return self.name
     class Meta:
         verbose_name = "تنظیم"
         verbose_name_plural = "تنظیمات"

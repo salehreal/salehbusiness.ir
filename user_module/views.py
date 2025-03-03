@@ -1,3 +1,4 @@
+import random
 from django.contrib.auth import login, logout
 from django.http import HttpRequest, Http404
 from django.shortcuts import render, redirect
@@ -6,46 +7,80 @@ from django.views import View
 from .models import User
 from utils.utils import create_random_code
 from .forms import ActiveForm
+import re
 
 # Create your views here.
 
 class Register(View):
     def get(self, request):
-        return render(request, 'register-page.html', {
+        return render(request, 'register-page.html')
 
-        })
+    def generate_unique_username(self):
+        while True:
+            username = ''.join(random.choices('0123456789', k=8))
+            if not User.objects.filter(username=username).exists():
+                return username
+
+    def is_valid_phone_number(self, phone):
+        phone = phone.translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
+        iranian_phone_pattern = re.compile(r"^(?:\+98|0)?9[0-9]{9}$")
+        return iranian_phone_pattern.match(phone) is not None
+
+    def is_valid_email(self, email):
+        email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+        return email_pattern.match(email) is not None
+
     def post(self, request: HttpRequest):
-        username = request.POST['username']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        password = request.POST['password']
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
+        password = request.POST.get('password', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
+
+        error = False
+
+        if not self.is_valid_phone_number(phone):
+            return render(request, 'register-page.html', {
+                'invalid_phone': True
+            })
+
+        if not self.is_valid_email(email):
+            return render(request, 'register-page.html', {
+                'invalid_email': True
+            })
+
         user = User.objects.filter(phone=phone).first()
         if user is not None:
             return render(request, 'register-page.html', {
                 'exist': True
             })
         else:
-            if len(str(username.strip())) > 2 and len(str(email.strip())) > 6 and len(str(phone.strip())) > 10 and len(str(password.strip())) > 5:
-                new_user = User(username=username, email=email, phone=phone, active_code=create_random_code(6), token=get_random_string(100), is_active=False)
+            username = self.generate_unique_username()
+            if len(email.strip()) > 6 and len(phone.strip()) > 10 and len(password.strip()) > 5:
+                new_user = User(first_name=first_name, last_name=last_name, username=username, email=email, phone=phone,
+                                active_code=create_random_code(6),
+                                token=get_random_string(100), is_active=False)
                 new_user.set_password(raw_password=password)
                 new_user.save()
                 request.session['user_token'] = new_user.token
                 request.session.set_expiry(190)
-                # send_sms(new_user.phone, new_user.active_code)
                 return redirect('active-user')
             else:
-                return render(request, 'register-page.html', {
-                    'error' : True
-                })
+                error = True
+
+        return render(request, 'register-page.html', {
+            'error': error
+        })
+
 
 class Login(View):
     def get(self, request):
-        return render(request, 'login-page.html', {
+        return render(request, 'login-page.html')
 
-        })
-    def post(self, request):
-        phone = request.POST['phone']
-        password = request.POST['password']
+    def post(self, request: HttpRequest):
+        phone = request.POST.get('phone', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
+        password = request.POST.get('password', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
+
         user = User.objects.filter(phone=phone).first()
         if user is not None:
             if user.check_password(password):
@@ -59,6 +94,7 @@ class Login(View):
             return render(request, 'login-page.html', {
                 'error': True
             })
+
 
 class ActiveUserView(View):
     def get(self, request: HttpRequest):
@@ -76,6 +112,7 @@ class ActiveUserView(View):
             return render(request, '404.html', {
 
             })
+
     def post(self, request):
         token = request.session.get('user_token')
         user = User.objects.filter(token=token).first()
@@ -110,11 +147,13 @@ class ActiveUserView(View):
 
             })
 
+
 class ForgetPassword(View):
     def get(self, request):
         return render(request, 'forget-password.html', {
 
         })
+
     def post(self, request: HttpRequest):
         phone = request.POST['phone']
         user = User.objects.filter(phone=phone).first()
@@ -127,8 +166,9 @@ class ForgetPassword(View):
             return redirect('confirm-password')
         else:
             return render(request, 'forget-password.html', {
-                'existError' : True
+                'existError': True
             })
+
 
 class ConfirmPasswordView(View):
     def get(self, request):
@@ -139,12 +179,13 @@ class ConfirmPasswordView(View):
         if cookie:
             form = ActiveForm()
             return render(request, 'active_user.html', {
-                'form_active' : form
+                'form_active': form
             })
         else:
             return render(request, '404.html', {
 
             })
+
     def post(self, request):
         try:
             cookie = request.session['forget-confirm']
@@ -183,6 +224,7 @@ class ConfirmPasswordView(View):
 
             })
 
+
 class ChangePasswordView(View):
     def get(self, request):
         try:
@@ -197,6 +239,7 @@ class ChangePasswordView(View):
             return render(request, '404.html', {
 
             })
+
     def post(self, request):
         try:
             cookie = request.session['change-password']
@@ -209,7 +252,7 @@ class ChangePasswordView(View):
             if password == re_password:
                 if user.check_password(password):
                     return render(request, 'change-password.html', {
-                        'oldpassword' : True
+                        'oldpassword': True
                     })
                 else:
                     user.set_password(password)
@@ -223,6 +266,7 @@ class ChangePasswordView(View):
                 return render(request, 'change-password.html', {
                     'notmatch': True
                 })
+
 
 def log_out(request):
     user = request.user

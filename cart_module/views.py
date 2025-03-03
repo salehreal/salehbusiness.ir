@@ -4,8 +4,6 @@ from django.shortcuts import render
 from django.views import View
 from product_module.models import ProductModel
 from .models import CartModel, CartDetailModel
-import logging
-
 
 # Create your views here.
 
@@ -24,7 +22,6 @@ import logging
 
 
 def add_to_cart(request):
-    logging.debug(f"Request: {request}")
     if request.user.is_authenticated:
         user = request.user
     else:
@@ -36,38 +33,27 @@ def add_to_cart(request):
             raise ValueError("Missing product_id or count")
         product_id = int(product_id)
         count = int(count)
-        logging.debug(f"Product ID: {product_id}, Count: {count}")
     except Exception as e:
-        logging.error(f"Error: {e}")
         return JsonResponse({'status': "error"})
     if count < 1:
-        logging.error("Count is less than 1")
         return JsonResponse({'status': "error"})
     product = ProductModel.objects.filter(id=product_id).first()
     if product is None:
-        logging.error(f"Product with id {product_id} not found.")
         return JsonResponse({'status': "error"})
-    logging.debug(f"Product: {product}")
 
     cart, created = CartModel.objects.get_or_create(user_id=user.id, is_paid=False)
-    logging.debug(f"Cart: {cart}, Created: {created}")
 
     detail = CartDetailModel.objects.filter(cart_id=cart.id, product_id=product_id).first()
-    logging.debug(f"Detail before: {detail}")
     if detail is not None:
         detail.count += count
         if detail.count > product.count:
-            logging.error("Detail count exceeds product count")
             return JsonResponse({'status': "error"})
         detail.save()
-        logging.debug(f"Detail updated: {detail}")
     else:
         if count > product.count:
-            logging.error("Count exceeds product count")
             return JsonResponse({'status': "error"})
         detail = CartDetailModel(cart_id=cart.id, product_id=product_id, count=count)
         detail.save()
-        logging.debug(f"Detail created: {detail}")
     return JsonResponse({'status': "ok"})
 
 

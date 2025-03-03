@@ -1,0 +1,25 @@
+.messages {
+    width: 50%;
+    margin: 70px auto;
+    list-style-type: none;  /* حذف علامت‌های لیست */
+    padding: 0;  /* حذف پدینگ پیش‌فرض */
+}
+
+.messages li {
+    padding: 10px;  /* فاصله داخلی */
+    margin-bottom: 10px;  /* فاصله بین پیام‌ها */
+    border-radius: 5px;  /* گوشه‌های کادر کمی گرد شوند */
+}
+
+.messages .success {
+    color: green;  /* رنگ متن سبز */
+    border: 1px solid green;  /* کادر سبز */
+    background-color: #e6ffe6;  /* پس زمینه کمی روشن تر برای دید بهتر */
+}
+
+.messages .error {
+    color: red;  /* رنگ متن قرمز */
+    border: 1px solid red;  /* کادر قرمز */
+    background-color: #ffe6e6;  /* پس زمینه کمی روشن تر برای دید بهتر */
+}
+

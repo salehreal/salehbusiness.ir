@@ -7,6 +7,7 @@ class User(AbstractUser):
     active_code = models.CharField(max_length=10)
     token = models.CharField(max_length=100)
     province = models.CharField(max_length=100, verbose_name="کشور", null=True, blank=True)
+    address = models.CharField(max_length=500, verbose_name="آدرس", null=True, blank=True)
     def __str__(self):
         return self.username
     class Meta:

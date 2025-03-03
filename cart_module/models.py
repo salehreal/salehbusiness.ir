@@ -49,9 +49,13 @@ class CartDetailModel(models.Model):
     count = models.IntegerField()
 
     def final_price(self):
-        product_price = self.product.price if self.product.price is not None else 0
+        if self.product.discount is not None:
+            discount = float(self.product.discount)
+        else:
+            discount = 0
+        product_price = self.product.price  * (1 - discount) if self.product.price is not None else 0
         count = self.count if self.count is not None else 0
-        return product_price * count
+        return int(product_price * count)
 
     def __str__(self):
         return f'{self.product.title} - {self.cart.user.username}'
