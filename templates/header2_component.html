@@ -133,7 +133,7 @@
                         <li class="shopping-cart">
                             <a href="{% url 'basket' %}" class="cart-dropdown-btn">
                                 {% for detail in cart.cartdetailmodel_set.all %}
-                                    <span class="cart-count">{{ detail.count }}</span>
+                                    <span class="cart-count">{{ cart.detail_count }}</span>
                                 {% endfor %}
                                 <i class="flaticon-shopping-cart"></i>
                             </a>

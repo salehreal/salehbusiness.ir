@@ -140,5 +140,11 @@ a.axil-btn.btn-bg-primary:before, button.axil-btn.btn-bg-primary:before {
     background-color: #044a61 !important;
 }
 
+.title-highlighter.highlighter-primary i {
+    background-color: #610404 !important;
+}
 
+.title-highlighter.highlighter-primary {
+    color: #610404 !important;
+}
 

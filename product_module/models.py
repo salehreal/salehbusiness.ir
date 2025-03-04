@@ -2,7 +2,7 @@ from tkinter.constants import CASCADE
 from django.db import models
 import jdatetime
 from user_module.models import User
-
+from django.db.models import Count
 
 # Create your models here.
 
@@ -128,6 +128,10 @@ class ProductModel(models.Model):
 
     def comment_count(self):
         return self.productcommentmodel_set.count()
+
+    @classmethod
+    def total_products(cls):
+        return cls.objects.count()
 
     def __str__(self):
         return f'{self.title}'

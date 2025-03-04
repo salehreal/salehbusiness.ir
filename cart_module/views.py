@@ -36,7 +36,7 @@ def add_to_cart(request):
     except Exception as e:
         return JsonResponse({'status': "error"})
     if count < 1:
-        return JsonResponse({'status': "error"})
+        return JsonResponse({'status': "amount"})
     product = ProductModel.objects.filter(id=product_id).first()
     if product is None:
         return JsonResponse({'status': "error"})
@@ -47,7 +47,7 @@ def add_to_cart(request):
     if detail is not None:
         detail.count += count
         if detail.count > product.count:
-            return JsonResponse({'status': "error"})
+            return JsonResponse({'status': "amount"})
         detail.save()
     else:
         if count > product.count:
@@ -70,7 +70,7 @@ def change_count(request):
         if state == 'pos':
             detail.count += 1
             if detail.count > product.count:
-                return JsonResponse({'status': "error"})
+                return JsonResponse({'status': "amount"})
             else:
                 detail.save()
         elif state == 'neg':

@@ -9,6 +9,7 @@ from utils.utils import create_random_code
 from .forms import ActiveForm
 import re
 
+
 # Create your views here.
 
 class Register(View):
@@ -21,33 +22,42 @@ class Register(View):
             if not User.objects.filter(username=username).exists():
                 return username
 
+    def is_valid_persian_name(self, name):
+        persian_name_pattern = re.compile(r'^[\u0600-\u06FF\s]+$')
+        return persian_name_pattern.match(name) is not None
+
     def is_valid_phone_number(self, phone):
         phone = phone.translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
         iranian_phone_pattern = re.compile(r"^(?:\+98|0)?9[0-9]{9}$")
         return iranian_phone_pattern.match(phone) is not None
 
-    def is_valid_email(self, email):
-        email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-        return email_pattern.match(email) is not None
+    # def is_valid_email(self, email):
+    #     email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+    #     return email_pattern.match(email) is not None
 
     def post(self, request: HttpRequest):
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
-        email = request.POST.get('email', '')
+        # email = request.POST.get('email', '')
         phone = request.POST.get('phone', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
         password = request.POST.get('password', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
 
         error = False
+        if not self.is_valid_persian_name(first_name):
+            return render(request, 'register-page.html', {'invalid_first_name': True})
+
+        if not self.is_valid_persian_name(last_name):
+            return render(request, 'register-page.html', {'invalid_last_name': True})
 
         if not self.is_valid_phone_number(phone):
             return render(request, 'register-page.html', {
                 'invalid_phone': True
             })
 
-        if not self.is_valid_email(email):
-            return render(request, 'register-page.html', {
-                'invalid_email': True
-            })
+        # if not self.is_valid_email(email):
+        #     return render(request, 'register-page.html', {
+        #         'invalid_email': True
+        #     })
 
         user = User.objects.filter(phone=phone).first()
         if user is not None:
@@ -56,8 +66,8 @@ class Register(View):
             })
         else:
             username = self.generate_unique_username()
-            if len(email.strip()) > 6 and len(phone.strip()) > 10 and len(password.strip()) > 5:
-                new_user = User(first_name=first_name, last_name=last_name, username=username, email=email, phone=phone,
+            if len(phone.strip()) > 10 and len(password.strip()) > 5:
+                new_user = User(first_name=first_name, last_name=last_name, username=username, phone=phone,
                                 active_code=create_random_code(6),
                                 token=get_random_string(100), is_active=False)
                 new_user.set_password(raw_password=password)

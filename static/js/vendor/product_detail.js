@@ -1,6 +1,5 @@
 function add_to_cart(product_id) {
     let inp = $("#in-count").val();
-    console.log(`Product ID: ${product_id}, Count: ${inp}`); // لاگ کردن مقدار ورودی
     $.get("/cart/add-to-cart/", {
         "product_id": product_id,
         "count": inp
@@ -10,6 +9,8 @@ function add_to_cart(product_id) {
                 alert("ابتدا باید وارد حساب کاربری خود شوید");
             } else if (res.status === "error") {
                 alert("عملیات با خطا مواجه شد");
+            } else if (res.status === "amount") {
+                alert("تعداد محصول کافی نمی باشد");
             } else if (res.status === "ok") {
                 Swal.fire({
                     title: "Success",

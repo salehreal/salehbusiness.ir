@@ -58,16 +58,26 @@
         <div class="col-lg-6 offset-xl-2">
             <div class="axil-signin-form-wrap">
                 <div class="axil-signin-form">
+                    {% if invalid_first_name %}
+                        <div class="error alert-danger text-center" style="color: red; width: 80%; margin: 30px auto">
+                            نام فقط باید شامل حروف فارسی باشد.
+                        </div>
+                    {% endif %}
+                    {% if invalid_last_name %}
+                        <div class="error alert-danger text-center" style="color: red; width: 80%; margin: 30px auto">
+                            نام خانوادگی فقط باید شامل حروف فارسی باشد.
+                        </div>
+                    {% endif %}
                     {% if invalid_phone %}
                         <div class="error alert-danger text-center" style="color: red; width: 80%; margin: 30px auto">
                             شماره موبایل وارد شده نامعتبر است.
                         </div>
                     {% endif %}
-                    {% if invalid_email %}
-                        <div class="error alert-danger text-center" style="color: red; width: 80%; margin: 30px auto">
-                            ایمیل وارد شده نامعتبر است.
-                        </div>
-                    {% endif %}
+{#                    {% if invalid_email %}#}
+{#                        <div class="error alert-danger text-center" style="color: red; width: 80%; margin: 30px auto">#}
+{#                            ایمیل وارد شده نامعتبر است.#}
+{#                        </div>#}
+{#                    {% endif %}#}
                     {% if exist %}
                         <div class="error alert-danger text-center" style="color: red; width: 80%; margin: 30px auto">
                             شماره موبایل وارد شده از قبل موجود است.
@@ -91,10 +101,10 @@
                             <label>نام خانوادگی</label>
                             <input type="text" class="form-control" name="last_name" required>
                         </div>
-                        <div class="form-group">
-                            <label>ایمیل</label>
-                            <input type="email" class="form-control" name="email">
-                        </div>
+{#                        <div class="form-group">#}
+{#                            <label>ایمیل</label>#}
+{#                            <input type="email" class="form-control" name="email">#}
+{#                        </div>#}
                         <div class="form-group">
                             <label>شماره موبایل</label>
                             <input type="text" class="form-control" name="phone">

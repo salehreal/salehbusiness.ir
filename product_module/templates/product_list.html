@@ -5,7 +5,9 @@
 {% block title %}
     لیست محصولات
 {% endblock %}
-
+{% block links %}
+    <link rel="stylesheet" href="/static/lib/sweetalert/sweetalert2.min.css">
+{% endblock %}
 {% block content %}
     <body class="sticky-header">
     <!--[if lte IE 9]>
@@ -55,7 +57,7 @@
                                 <div class="axil-shop-top mb--40">
                                     <div class="category-select align-items-center justify-content-lg-end justify-content-between">
                                         <!-- Start Single Select  -->
-                                        <span class="filter-results">نمایش 1-12 از 84 محصول</span>
+                                        <span class="filter-results">نمایش 1-12 از {{ total_products }} محصول</span>
                                         <select class="single-select">
                                             <option>آخرین</option>
                                             <option>جدیدترین</option>
@@ -112,7 +114,7 @@
                                         <div class="product-content">
                                             <div class="inner">
                                                 <h5 class="title"><a
-                                                        href="single-product.html">{{ product.title }}</a>
+                                                        href="{% url 'product_detail' product.slug %}">{{ product.title }}</a>
                                                 </h5>
                                                 {% if product.count and product.price %}
                                                     <div class="product-price-variant">
@@ -273,6 +275,7 @@
         updateClock();
     </script>
     <script src="/static/js/vendor/product_detail.js"></script>
+    <script src="/static/lib/sweetalert/sweetalert2.all.js"></script>
 {% endblock %}
 
 

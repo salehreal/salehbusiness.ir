@@ -40,9 +40,6 @@
                 <div class="axil-dashboard-warp">
                     <div class="axil-dashboard-author">
                         <div class="media">
-                            <div class="thumbnail">
-                                <img src="/static/images/product/author1.png" alt="Hello Annie">
-                            </div>
                             <div class="media-body">
                                 <h5 class="title mb-0">سلام، {{ user.first_name }} {{ user.last_name }}</h5>
                                 <span class="joining-date">عضو {{ settings.name }} از {{ user.date_joined|j_date }}</span>
@@ -109,32 +106,40 @@
                                     <div class="axil-dashboard-order">
                                         <div class="table-responsive">
                                             <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">سفارش</th>
-                                                    <th scope="col">تاریخ</th>
-                                                    <th scope="col">وضعیت</th>
-                                                    <th scope="col">جمع کل</th>
-                                                    <th scope="col">عملیات</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {% for cart in carts %}
+                                                {% if carts %}
+                                                    <thead>
                                                     <tr>
-                                                        <th scope="row">#{{ cart.id }}</th>
-                                                        <td>{{ cart.payment_date|j_date }}</td>
-                                                        <td>{% if cart.delivery %}
-                                                            تحویل شده
-                                                        {% elif cart.process %}
-                                                            درحال پردازش
-                                                        {% endif %} </td>
-                                                        <td>{{ cart.total_price|digits }} تومان
-                                                            برای {{ cart.detail_count }} محصول
-                                                        </td>
-                                                        <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                        <th scope="col">سفارش</th>
+                                                        <th scope="col">تاریخ</th>
+                                                        <th scope="col">وضعیت</th>
+                                                        <th scope="col">جمع کل</th>
+                                                        <th scope="col">عملیات</th>
                                                     </tr>
-                                                {% endfor %}
-                                                </tbody>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for cart in carts %}
+                                                        <tr>
+                                                            <th scope="row">#{{ cart.id }}</th>
+                                                            <td>{{ cart.payment_date|j_date }}</td>
+                                                            <td>{% if cart.delivery %}
+                                                                تحویل شده
+                                                            {% elif cart.process %}
+                                                                درحال پردازش
+                                                            {% else %}
+                                                                منتظر تایید توسط ادمین
+                                                            {% endif %} </td>
+                                                            <td>{{ cart.total_price|digits }} تومان
+                                                                برای {{ cart.detail_count }} محصول
+                                                            </td>
+                                                            <td><a href="#" class="axil-btn view-btn">نمایش</a></td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                {% else %}
+                                                    <div class="alert alert-danger text-center"
+                                                         style="width: 50%;margin: 70px auto">هنوز هیچ خریدی نداشته اید. <a href="{% url 'product-list' %}">خرید کنید.</a>
+                                                    </div>
+                                                {% endif %}
                                             </table>
                                         </div>
                                     </div>
@@ -179,8 +184,14 @@
                                                         <li>نام: {{ user.first_name }} {{ user.last_name }}</li>
                                                         <li>ایمیل: {{ user.email }}</li>
                                                         <li>شماره موبایل: {{ user.phone }}</li>
-                                                        <li class="mt--30">{{ user.province }}، {{ user.address }}
-                                                        </li>
+                                                        {% if user.address %}
+                                                            <li class="mt--30">{{ user.province }}، {{ user.address }}</li>
+                                                        {% else %}
+                                                            <li style="color: red" class="mt--30">لطفا استان و جزئیات
+                                                                آدرس خود را در بخش
+                                                                جزئیات پروفایل تکمیل نمایید.
+                                                            </li>
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -216,9 +227,15 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label>ایمیل</label>
-                                                            <input name="email" type="email" class="form-control"
-                                                                   value="{{ user.email }}">
+                                                            {% if user.email %}
+                                                                <label>ایمیل</label>
+                                                                <input name="email" type="email" class="form-control"
+                                                                       value="{{ user.email }}">
+                                                            {% else %}
+                                                                <label>ایمیل</label>
+                                                                <input name="email" type="email" class="form-control"
+                                                                       value="">
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                     <div class="col-12">

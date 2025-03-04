@@ -27,6 +27,8 @@ class ProductList(ListView):
         user = self.request.user
         cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
         settings = SiteSettingModel.objects.filter(is_active=True).first()
+        total_products = ProductModel.total_products()
+        context['total_products'] = total_products
         context['cart'] = cart
         context['settings'] = settings
         return context

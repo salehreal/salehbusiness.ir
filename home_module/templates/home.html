@@ -1,10 +1,15 @@
 {% extends 'layout.html' %}
+{% load poll_extras %}
 
 
 {% block title %}
     خانه
 {% endblock %}
-
+{% block links %}
+    <link rel="stylesheet" href="/static/lib/sweetalert/sweetalert2.min.css">
+    <link rel="stylesheet" href="/static/lib/ratingJs/star-rating.min.css">
+    <link rel="stylesheet" href="/static/css/product-comment.css">
+{% endblock %}
 {% block content %}
     <body class="sticky-header newsletter-popup-modal">
 
@@ -94,7 +99,7 @@
                 <div class="section-title-wrapper">
                     <span class="title-highlighter highlighter-secondary"> <i class="far fa-tags"></i> دسته بندی
                         ها</span>
-                    <h2 class="title">محصولات بر اساس دسته بندی</h2>
+                    <h2 class="title">دسته بندی ها</h2>
                 </div>
                 <div class="categrie-product-activation slick-layout-wrapper--15 axil-slick-arrow  arrow-top-slide">
                     {% for item in category %}
@@ -115,766 +120,87 @@
         </div>
         <!-- End Categorie Area  -->
 
-        <!-- Poster Countdown Area  -->
-        <div class="axil-poster-countdown">
-            <div class="container">
-                <div class="poster-countdown-wrap bg-lighter">
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-6">
-                            <div class="poster-countdown-content">
-                                <div class="section-title-wrapper">
-                                    <span class="title-highlighter highlighter-secondary"> <i
-                                            class="fal fa-headphones-alt"></i> از دست ندهید !!</span>
-                                    <h2 class="title">تجربه شنیدن موزیک را بهبود دهید</h2>
-                                </div>
-                                <div class="poster-countdown countdown mb--40"></div>
-                                <a href="#" class="axil-btn btn-bg-primary">ادامه و خرید</a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-6">
-                            <div class="poster-countdown-thumbnail">
-                                <img src="/static/images/product/poster/poster-03.png" alt="Poster Product">
-                                <div class="music-singnal">
-                                    <div class="item-circle circle-1"></div>
-                                    <div class="item-circle circle-2"></div>
-                                    <div class="item-circle circle-3"></div>
-                                    <div class="item-circle circle-4"></div>
-                                    <div class="item-circle circle-5"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Poster Countdown Area  -->
-
         <!-- Start Expolre Product Area  -->
         <div class="axil-product-area bg-color-white axil-section-gap">
             <div class="container">
                 <div class="section-title-wrapper">
-                    <span class="title-highlighter highlighter-primary"> <i class="far fa-shopping-basket"></i>
-                        محصولات</span>
-                    <h2 class="title">محصولات ما را کاوش کنید</h2>
+                    <span class="title-highlighter highlighter-primary"> <i class="far fa-shopping-basket"></i>محصولات پربازدید</span>
+                    <h2 class="title">محصولات براساس بیشترین بازدید</h2>
                 </div>
                 <div
                         class="explore-product-activation slick-layout-wrapper slick-layout-wrapper--15 axil-slick-arrow arrow-top-slide">
                     <div class="slick-single-layout">
                         <div class="row row--15">
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
-                                                 loading="lazy" class="main-img"
-                                                 src="/static/images/product/electric/product-01.png"
-                                                 alt="Product Images">
-                                            <img class="hover-img" src="/static/images/product/electric/product-08.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option">
-                                                    <a href="single-product.html">
-                                                        اطلاعات بیشتر
-                                                    </a>
-                                                </li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <div class="product-rating">
-                                                <span class="icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </span>
-                                                <span class="rating-number">(64)</span>
-                                            </div>
-                                            <h5 class="title"><a href="single-product.html">کنترلر پلی استیشن</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-02.png"
-                                                 alt="Product Images">
-                                            <img class="hover-img" src="/static/images/product/electric/product-06.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">کیبورد RGB لول 2</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">100.000</span>
-                                                <span class="price old-price">500.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
+                            {% for item in visited_product %}
+                                <!-- End Single Product  -->
+                                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
+                                    <div class="axil-product product-style-one">
+                                        <div class="thumbnail">
+                                            <a href="{% url 'product_detail' item.slug %}"
+                                               style="text-align: center;width: 300px;height: 300px">
+                                                <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="800"
+                                                     loading="lazy" src="{{ item.mainimage.url }}"
+                                                     alt="Product Images">
+                                                <img class="hover-img"
+                                                     src="{{ item.mainimage.url }}"
+                                                     alt="Product Images">
+                                            </a>
+                                            {% if item.discount %}
+                                                <div class="label-block label-right">
+                                                    <div class="product-badget">{{ product.get_discount_display }}
+                                                        تخفیف
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            <div class="product-hover-action">
+                                                <ul class="cart-action">
+                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                                             data-bs-target="#quick-view-modal"><i
+                                                            class="far fa-eye"></i></a></li>
+                                                    <li class="select-option"><a
+                                                            href="{% url 'product_detail' item.slug %}">اطلاعات
+                                                        بیشتر</a></li>
+                                                    {% if request.user.is_authenticated %}
+                                                        <li class="wishlist"><a onclick="add_to_wish({{ item.id }})"
+                                                                                href="#"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {% else %}
+                                                        <li class="wishlist"><a onclick="add_to_wish({{ item.id }})"
+                                                                                href="{% url 'login' %}"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="400" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-03.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">وبکم لاجیتک</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
+                                        <div class="product-content">
+                                            <div class="inner">
+                                                <h5 class="title"><a href="{% url 'product_detail' item.slug %}">{{ item.title }}</a>
+                                                </h5>
+                                                {% if item.count and item.price %}
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">{{ item.final_price|digits }} تومان</span>
+                                                        {% if item.discount %}
+                                                            <span class="price old-price">{{ item.price|digits }}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                {% elif item.count and item.price is None %}
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">رایگان</span>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="product-price-variant">
+                                                        <span class="price current-price">ناموجود</span>
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="500" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-04.png"
-                                                 alt="Product Images">
-                                            <img class="hover-img" src="/static/images/product/electric/product-05.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <div class="product-rating">
-                                                <span class="icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </span>
-                                                <span class="rating-number">(44)</span>
-                                            </div>
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-05.png"
-                                                 alt="Product Images">
-                                            <img class="hover-img" src="/static/images/product/electric/product-04.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">دستیار صوتی آمازون</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-06.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">ماوس لاجیتک</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="400" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-07.png"
-                                                 alt="Product Images">
-                                            <img class="hover-img" src="/static/images/product/electric/product-08.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <div class="product-rating">
-                                                <span class="icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </span>
-                                                <span class="rating-number">(64)</span>
-                                            </div>
-                                            <h5 class="title"><a href="single-product.html">هدفون zone</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img data-sal="zoom-out" data-sal-delay="500" data-sal-duration="800"
-                                                 loading="lazy" src="/static/images/product/electric/product-08.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                        </div>
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout">
-                        <div class="row row--15">
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-01.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">کنترلر پلی استیشن 4</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-02.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">170.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-03.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-04.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-05.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-06.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-07.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb--30">
-                                <div class="axil-product product-style-one">
-                                    <div class="thumbnail">
-                                        <a href="single-product.html">
-                                            <img src="/static/images/product/electric/product-08.png"
-                                                 alt="Product Images">
-                                        </a>
-                                        <div class="label-block label-right">
-                                            <div class="product-badget">20% تخفیف</div>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a></li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="inner">
-                                            <h5 class="title"><a href="single-product.html">هدفون بی سیم</a></h5>
-                                            <div class="product-price-variant">
-                                                <span class="price current-price">150.000</span>
-                                                <span class="price old-price">200.000</span>
-                                            </div>
-                                            <div class="color-variant-wrapper">
-                                                <ul class="color-variant">
-                                                    <li class="color-extra-01 active"><span><span
-                                                            class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-02"><span><span class="color"></span></span>
-                                                    </li>
-                                                    <li class="color-extra-03"><span><span class="color"></span></span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Product  -->
+                                <!-- End Single Product  -->
+                            {% endfor %}
 
                         </div>
                     </div>
-                    <!-- End .slick-single-layout -->
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center mt--20 mt_sm--0">
@@ -896,74 +222,20 @@
                 <!-- End .section-title -->
                 <div
                         class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
-                    <div class="slick-single-layout testimonial-style-one">
+                    {% for comment in comments %}
+                    	<div class="slick-single-layout testimonial-style-one">
                         <div class="review-speech">
-                            <p>“ لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان
-                                گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که “</p>
+                            <p>{{ comment.text }}</p>
                         </div>
                         <div class="media">
-                            <div class="thumbnail">
-                                <img src="/static/images/testimonial/image-1.png" alt="testimonial image">
-                            </div>
                             <div class="media-body">
-                                <span class="designation">مدیر ایدیا</span>
-                                <h6 class="title">احمد احمدی</h6>
+                                <span class="designation">کاربر</span>
+                                <h6 class="title">{{ comment.user.first_name }} {{ comment.user.last_name }}</h6>
                             </div>
                         </div>
                         <!-- End .thumbnail -->
                     </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان
-                                گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="/static/images/testimonial/image-2.png" alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">مدیر ایدیا</span>
-                                <h6 class="title">احمد احمدی</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان
-                                گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="/static/images/testimonial/image-3.png" alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">مدیر ایدیا</span>
-                                <h6 class="title">احمد احمدی</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
-                    <div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>“ لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان
-                                گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که “</p>
-                        </div>
-                        <div class="media">
-                            <div class="thumbnail">
-                                <img src="/static/images/testimonial/image-2.png" alt="testimonial image">
-                            </div>
-                            <div class="media-body">
-                                <span class="designation">مدیر ایدیا</span>
-                                <h6 class="title">احمد احمدی</h6>
-                            </div>
-                        </div>
-                        <!-- End .thumbnail -->
-                    </div>
-                    <!-- End .slick-single-layout -->
+                    {% endfor %}
 
                 </div>
             </div>
@@ -1657,7 +929,10 @@
     </div>
     </body>
 {% endblock %}
-
+{% block scripts %}
+    <script src="/static/js/vendor/product_detail.js"></script>
+    <script src="/static/lib/sweetalert/sweetalert2.all.js"></script>
+{% endblock %}
 
 
 
