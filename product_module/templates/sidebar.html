@@ -7,7 +7,9 @@
         <div class="shop-submenu">
             <ul>
                 {% for brand in brands %}
-                    <li class="current-cat"><a href="{% url 'product-category' brand.slug %}">{{ brand.title }}</a></li>
+                    <li class="{% if brand.slug == selected_brand_slug %}current-cat{% endif %}">
+                        <a href="{% url 'product-category' brand.slug %}">{{ brand.title }}</a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
