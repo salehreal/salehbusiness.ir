@@ -16,11 +16,6 @@ class Basket(View):
         })
 
 
-import logging
-
-import logging
-
-
 def add_to_cart(request):
     if request.user.is_authenticated:
         user = request.user
@@ -54,6 +49,10 @@ def add_to_cart(request):
             return JsonResponse({'status': "error"})
         detail = CartDetailModel(cart_id=cart.id, product_id=product_id, count=count)
         detail.save()
+
+    product.added_to_cart_count += count
+    product.save()
+
     return JsonResponse({'status': "ok"})
 
 

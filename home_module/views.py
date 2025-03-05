@@ -17,11 +17,14 @@ class HomeView(View):
         sliders = SliderModel.objects.filter(is_active=True)
         new_products = ProductModel.objects.filter(is_active=True).order_by("-created_at")[:8]
         visited_product = ProductModel.objects.filter(is_active=True).order_by("-visited")[:8]
+        discount_product = ProductModel.objects.filter(is_active=True).order_by("-discount")[:8]
+        added_to_cart_product = ProductModel.objects.filter(is_active=True).order_by("-added_to_cart_count")[:8]
         category = ProductCategory.objects.filter(is_active=True)
         user = request.user
         cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
         product = ProductModel.objects.filter(is_active=True).first()
         comments = ProductCommentModel.objects.filter(product=product, is_publish=True).order_by("-rating")[:4]
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
         return render(request, 'home.html', {
             'sliders': sliders,
             'category': category,
@@ -30,6 +33,9 @@ class HomeView(View):
             'new_products': new_products,
             'visited_product': visited_product,
             'comments': comments,
+            'discount_product': discount_product,
+            'settings': settings,
+            'added_to_cart_product': added_to_cart_product,
         })
 
     def post(self, request):

@@ -81,6 +81,7 @@ class ProductModel(models.Model):
     inform = models.OneToOneField(Inform, on_delete=models.CASCADE, verbose_name='اطلاعات محصول', null=True)
     brand = models.ManyToManyField(ProductBrand, verbose_name='تگ')
     visited = models.IntegerField(default=0, verbose_name='بازدید')
+    added_to_cart_count = models.IntegerField(default=0, verbose_name='تعداد افزودن به سبد خرید')
     is_active = models.BooleanField(default=True, verbose_name='فعال/غیرفعال')
     cylinder_count = models.CharField(max_length=20, null=True, verbose_name='تعداد سیلندر',
                                       choices=ChoiceCylinder.STATUS_CHOICES)

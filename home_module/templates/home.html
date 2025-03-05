@@ -21,25 +21,28 @@
     <a href="#top" class="back-to-top" id="backto-top"><i class="fal fa-arrow-up"></i></a>
 
     <main class="main-wrapper">
-        <div class="axil-main-slider-area main-slider-style-1">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-5 col-sm-6">
-                        <div class="main-slider-content">
-                            <div class="slider-content-activation-one">
-                                {% for slider in sliders %}
-                                    {% for product in slider.products.all %}
-                                        <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="400"
-                                             data-sal-duration="800" {% if forloop.first %}active{% endif %}>
-                                            <span class="subtitle"><i class="fas fa-fire"></i> محبوب ترین ها</span>
-                                            <h1 class="title">{{ product.title }}</h1>
-                                            <div class="slide-action">
-                                                <div class="shop-btn">
-                                                    <a href="{% url 'product_detail' product.slug %}" class="axil-btn btn-bg-white"><i
-                                                            class="fal fa-shopping-cart"></i>خرید کردن</a>
-                                                </div>
-                                                <div class="item-rating">
-                                                    <div class="content">
+        {% if sliders %}
+            <div class="axil-main-slider-area main-slider-style-1">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 col-sm-6">
+                            <div class="main-slider-content">
+                                <div class="slider-content-activation-one">
+                                    {% for slider in sliders %}
+                                        {% for product in slider.products.all %}
+                                            <div class="single-slide slick-slide" data-sal="slide-up"
+                                                 data-sal-delay="400"
+                                                 data-sal-duration="800" {% if forloop.first %}active{% endif %}>
+                                                <span class="subtitle"><i class="fas fa-fire"></i> برگزیده ها</span>
+                                                <h1 class="title">{{ product.title }}</h1>
+                                                <div class="slide-action">
+                                                    <div class="shop-btn">
+                                                        <a href="{% url 'product_detail' product.slug %}"
+                                                           class="axil-btn btn-bg-white"><i
+                                                                class="fal fa-shopping-cart"></i>خرید کردن</a>
+                                                    </div>
+                                                    <div class="item-rating">
+                                                        <div class="content">
                                                         <span class="rating-icon">
                                                             <div class="star-rating">
                                                                 {% if product.rating_avg == 0 %}
@@ -81,43 +84,45 @@
                                                                 {% endif %}
                                                             </div>
                                                         </span>
-                                                        <span class="review-text">
+                                                            <span class="review-text">
                                                             <span>{{ product.productcommentmodel_set.count }}</span> نظر
                                                         </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-7 col-sm-6">
-                        <div class="main-slider-large-thumb">
-                            <div class="slider-thumb-activation-one axil-slick-dots">
-                                {% for slider in sliders %}
-                                    {% for product in slider.products.all %}
-                                        <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
-                                             data-sal-duration="1500">
-                                            <img src="{{ product.mainimage.url }}">
-                                            <div class="product-price">
-                                                <span class="text">قیمت</span>
-                                                <span class="price-amount">{{ product.price|digits }}</span>
+                        <div class="col-lg-7 col-sm-6">
+                            <div class="main-slider-large-thumb">
+                                <div class="slider-thumb-activation-one axil-slick-dots">
+                                    {% for slider in sliders %}
+                                        {% for product in slider.products.all %}
+                                            <div class="single-slide slick-slide" data-sal="slide-up"
+                                                 data-sal-delay="600"
+                                                 data-sal-duration="1500">
+                                                <img src="{{ product.mainimage.url }}">
+                                                <div class="product-price">
+                                                    <span class="text">قیمت</span>
+                                                    <span class="price-amount">{{ product.final_price|digits }}</span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <ul class="shape-group">
+                    <li class="shape-1"><img src="/static/images/others/shape-1.png" alt="Shape"></li>
+                    <li class="shape-2"><img src="/static/images/others/shape-2.png" alt="Shape"></li>
+                </ul>
             </div>
-            <ul class="shape-group">
-                <li class="shape-1"><img src="/static/images/others/shape-1.png" alt="Shape"></li>
-                <li class="shape-2"><img src="/static/images/others/shape-2.png" alt="Shape"></li>
-            </ul>
-        </div>
+        {% endif %}
 
         <!-- Start Categorie Area  -->
         <div class="axil-categorie-area bg-color-white axil-section-gapcommon">
@@ -163,7 +168,7 @@
                                     <div class="axil-product product-style-one">
                                         <div class="thumbnail">
                                             <a href="{% url 'product_detail' item.slug %}"
-                                               style="text-align: center;width: 300px;height: 300px">
+                                               style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
                                                 <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="800"
                                                      loading="lazy" src="{{ item.mainimage.url }}"
                                                      alt="Product Images">
@@ -280,235 +285,60 @@
                     </div>
                     <div
                             class="new-arrivals-product-activation slick-layout-wrapper--30 axil-slick-arrow  arrow-top-slide">
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="500"
-                                             src="/static/images/product/electric/product-05.png" alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">10% تخفیف</div>
+                        {% for item in discount_product %}
+                            <div class="slick-single-layout">
+                                <div class="axil-product product-style-two">
+                                    <div style="max-width: 100%; max-height: 250px; object-fit: contain; display: flex; justify-content: center; align-items: center;"
+                                         class="thumbnail">
+                                        <a style="max-width: 100%; max-height: 250px; object-fit: contain; display: flex; justify-content: center; align-items: center;"
+                                           href="{% url 'product_detail' item.slug %}">
+                                            <img data-sal="zoom-out" data-sal-delay="200" data-sal-duration="500"
+                                                 src="{{ item.mainimage.url }}"
+                                                 alt="Product Images">
+                                        </a>
+                                        {% if item.discount %}
+                                            <div class="label-block label-right">
+                                                <div class="product-badget">{{ item.get_discount_display }} تخفیف
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                        class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
+                                    <div class="product-content">
+                                        <div class="inner">
+                                            <h5 class="title"><a
+                                                    href="{% url 'product_detail' item.slug %}">{{ item.title }}</a>
+                                            </h5>
+                                            <div class="product-price-variant">
+                                                <span class="price old-price">{{ item.price|digits }}</span>
+                                                <span class="price current-price">{{ item.final_price|digits }} تومان</span>
+                                            </div>
+                                            <div class="product-hover-action">
+                                                <ul class="cart-action">
+                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
+                                                                             data-bs-target="#quick-view-modal"><i
+                                                            class="far fa-eye"></i></a></li>
+                                                    <li class="select-option"><a
+                                                            href="{% url 'product_detail' item.slug %}">اطلاعات
+                                                        بیشتر</a>
+                                                    </li>
+                                                    {% if request.user.is_authenticated %}
+                                                        <li class="wishlist"><a onclick="add_to_wish({{ item.id }})"
+                                                                                href="#"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {% else %}
+                                                        <li class="wishlist"><a onclick="add_to_wish({{ item.id }})"
+                                                                                href="{% url 'login' %}"><i
+                                                                class="far fa-heart"></i></a></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <h5 class="title"><a href="single-product.html">دستیار صوتی آمازون</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">250.000</span>
-                                            <span class="price current-price">100.000</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a>
-                                                </li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="500"
-                                             src="/static/images/product/electric/product-06.png" alt="Product Images">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                        class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">گوگل هوم</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">200.000</span>
-                                            <span class="price current-price">100.000</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-hover-action">
-                                        <ul class="cart-action">
-                                            <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                     data-bs-target="#quick-view-modal"><i
-                                                    class="far fa-eye"></i></a>
-                                            </li>
-                                            <li class="select-option"><a href="single-product.html">اطلاعات بیشتر</a>
-                                            </li>
-                                            <li class="wishlist"><a href="wishlist.html"><i
-                                                    class="far fa-heart"></i></a></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="400" data-sal-duration="500"
-                                             src="/static/images/product/electric/product-07.png" alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">15% تخفیف</div>
-                                    </div>
+                            <!-- End .slick-single-layout -->
+                        {% endfor %}
 
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                        class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">کنترلر نتفلیکس</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">500.000</span>
-                                            <span class="price current-price">250.000</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a>
-                                                </li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="500" data-sal-duration="500"
-                                             src="/static/images/product/electric/product-08.png" alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">30% تخفیف</div>
-                                    </div>
-
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                        class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">اکسسوری دیجیتال</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">200.000</span>
-                                            <span class="price current-price">150.000</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a>
-                                                </li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
-                        <div class="slick-single-layout">
-                            <div class="axil-product product-style-two">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-out" data-sal-delay="100" data-sal-duration="500"
-                                             src="/static/images/product/electric/product-04.png" alt="Product Images">
-                                    </a>
-                                    <div class="label-block label-right">
-                                        <div class="product-badget">50% تخفیف</div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <div class="inner">
-                                        <div class="color-variant-wrapper">
-                                            <ul class="color-variant">
-                                                <li class="color-extra-01 active"><span><span
-                                                        class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-02"><span><span class="color"></span></span>
-                                                </li>
-                                                <li class="color-extra-03"><span><span class="color"></span></span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h5 class="title"><a href="single-product.html">کنترلر پلی استیشن 5</a></h5>
-                                        <div class="product-price-variant">
-                                            <span class="price old-price">500.000</span>
-                                            <span class="price current-price">250.000</span>
-                                        </div>
-                                        <div class="product-hover-action">
-                                            <ul class="cart-action">
-                                                <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                         data-bs-target="#quick-view-modal"><i
-                                                        class="far fa-eye"></i></a></li>
-                                                <li class="select-option"><a href="single-product.html">اطلاعات
-                                                    بیشتر</a>
-                                                </li>
-                                                <li class="wishlist"><a href="wishlist.html"><i
-                                                        class="far fa-heart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End .slick-single-layout -->
                     </div>
                 </div>
             </div>
@@ -521,267 +351,105 @@
                 <div class="product-area pb--50">
                     <div class="section-title-wrapper section-title-center">
                         <span class="title-highlighter highlighter-primary"><i class="fas fa-star"></i> پرفروش ها</span>
-                        <h2 class="title">پرفروش های فروشگاه eTrade</h2>
+                        <h2 class="title">پرفروش های فروشگاه {{ settings.name }}</h2>
                     </div>
                     <div class="row row-cols-xl-2 row-cols-1 row--15">
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="100" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-09.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
+                        {% for item in added_to_cart_product %}
+                            <div class="col">
+                                <div class="axil-product-list">
+                                    <div class="thumbnail"
+                                         style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
+                                        <a href="{% url 'product_detail' item.slug %}">
+                                            <img data-sal="zoom-in" data-sal-delay="100" data-sal-duration="1500"
+                                                 src="{{ item.mainimage.url }}"
+                                                 alt="Yantiti Leather Bags"
+                                                 style="max-width: 100%; max-height: 150px; object-fit: contain;">
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="product-rating">
                                         <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
+                                            {% if item.rating_avg == 0 %}
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            {% elif item.rating_avg == 1 %}
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            {% elif item.rating_avg == 2 %}
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            {% elif item.rating_avg == 3 %}
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            {% elif item.rating_avg == 4 %}
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            {% elif item.rating_avg == 5 %}
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            {% endif %}
                                         </span>
-                                        <span class="rating-number"><span>100+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">کنترلر نتفلیکس</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">150.000</span>
-                                        <span class="price old-price">200.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
+                                            <span class="rating-number"><span>{{ item.productcommentmodel_set.count }}</span> نظر
+                                        </div>
+                                        <h6 class="product-title"><a
+                                                href="{% url 'product_detail' item.slug %}">{{ item.title }}</a></h6>
+                                        {% if item.count and item.price %}
+                                            <div class="product-price-variant">
+                                                <span class="price current-price">{{ item.final_price|digits }} تومان</span>
+                                                {% if item.discount %}
+                                                    <span class="price old-price">{{ item.price|digits }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% elif item.count and item.price is None %}
+                                            <div class="product-price-variant">
+                                                <span class="price current-price">رایگان</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="product-price-variant">
+                                                <span class="price current-price">ناموجود</span>
+                                            </div>
+                                        {% endif %}
+                                        <div class="product-cart">
+                                            {% if request.user.is_authenticated %}
+                                                <a onclick="add_to_cart({{ item.id }})"
+                                                   href="#" class="cart-btn"><i
+                                                        class="fal fa-shopping-cart"></i></a>
+                                            {% else %}
+                                                <a onclick="add_to_cart({{ item.id }})"
+                                                   href="{% url 'login' %}" class="cart-btn"><i
+                                                        class="fal fa-shopping-cart"></i></a>
+                                            {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                <a onclick="add_to_wish({{ item.id }})" href="#" class="cart-btn"><i
+                                                        class="fal fa-heart"></i></a>
+                                            {% else %}
+                                                <a onclick="add_to_wish({{ item.id }})" href="{% url 'login' %}"
+                                                   class="cart-btn"><i
+                                                        class="fal fa-heart"></i></a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="200" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-10.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>50+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">دوربین HD</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">150.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="300" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-11.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>120+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">کنترلر بازی</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">250.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="400" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-12.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>30+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">گیره مانیتور </a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">75.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="500" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-13.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>700+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">لپ تاپ لنوو</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">26.000.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="600" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-14.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>300+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">آبمیوه گیر</a>
-                                    </h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">750.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="400" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-15.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>100+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">هدفون بی سیم</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">650.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="axil-product-list">
-                                <div class="thumbnail">
-                                    <a href="single-product.html">
-                                        <img data-sal="zoom-in" data-sal-delay="500" data-sal-duration="1500"
-                                             src="/static/images/product/electric/product-16.png"
-                                             alt="Yantiti Leather Bags">
-                                    </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                        <span class="rating-icon">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fal fa-star"></i>
-                                        </span>
-                                        <span class="rating-number"><span>100+</span> نظر</span>
-                                    </div>
-                                    <h6 class="product-title"><a href="single-product.html">Asus Zenbook لپ تاپ</a></h6>
-                                    <div class="product-price-variant">
-                                        <span class="price current-price">35.000.000</span>
-                                    </div>
-                                    <div class="product-cart">
-                                        <a href="{% url 'basket' %}" class="cart-btn"><i
-                                                class="fal fa-shopping-cart"></i></a>
-                                        <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -840,47 +508,6 @@
             </div>
         </div>
         <!-- End Why Choose Area  -->
-
-
-        <!-- Start Axil Product Poster Area  -->
-        <div class="axil-poster">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 mb--30">
-                        <div class="single-poster">
-                            <a href="shop.html">
-                                <img src="/static/images/product/poster/poster-01.png" alt="eTrade promotion poster">
-                                <div class="poster-content">
-                                    <div class="inner">
-                                        <h3 class="title">صدای قوی, <br> جای کم.</h3>
-                                        <span class="sub-title">اطلاعات بیشتر <i
-                                                class="fal fa-long-arrow-left"></i></span>
-                                    </div>
-                                </div>
-                                <!-- End .poster-content -->
-                            </a>
-                        </div>
-                        <!-- End .single-poster -->
-                    </div>
-                    <div class="col-lg-6 mb--30">
-                        <div class="single-poster">
-                            <a href="shop-sidebar.html">
-                                <img src="/static/images/product/poster/poster-02.png" alt="eTrade promotion poster">
-                                <div class="poster-content content-left">
-                                    <div class="inner">
-                                        <span class="sub-title">50% تخفیف در پاییز</span>
-                                        <h3 class="title">عینک VR <br> دنیای مجازی</h3>
-                                    </div>
-                                </div>
-                                <!-- End .poster-content -->
-                            </a>
-                        </div>
-                        <!-- End .single-poster -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Axil Product Poster Area  -->
 
         <!-- Start Axil Newsletter Area  -->
         <div class="axil-newsletter-area axil-section-gap pt--0">
