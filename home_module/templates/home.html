@@ -27,44 +27,68 @@
                     <div class="col-lg-5 col-sm-6">
                         <div class="main-slider-content">
                             <div class="slider-content-activation-one">
-                                {% for slide in sliders %}
-                                    <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="400"
-                                         data-sal-duration="800" {% if forloop.first %}active{% endif %}>
-                                        <span class="subtitle"><i class="fas fa-fire"></i> محبوب ترین ها</span>
-                                        <h1 class="title">{{ slide.title }}</h1>
-                                        <div class="slide-action">
-                                            <div class="shop-btn">
-                                                <a href="{{ slilde.link }}" class="axil-btn btn-bg-white"><i
-                                                        class="fal fa-shopping-cart"></i>خرید کردن</a>
-                                            </div>
-                                            <div class="item-rating">
-                                                <div class="thumb">
-                                                    <ul>
-                                                        <li><img src="/static/images/others/author1.png" alt="Author">
-                                                        </li>
-                                                        <li><img src="/static/images/others/author2.png" alt="Author">
-                                                        </li>
-                                                        <li><img src="/static/images/others/author3.png" alt="Author">
-                                                        </li>
-                                                        <li><img src="/static/images/others/author4.png" alt="Author">
-                                                        </li>
-                                                    </ul>
+                                {% for slider in sliders %}
+                                    {% for product in slider.products.all %}
+                                        <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="400"
+                                             data-sal-duration="800" {% if forloop.first %}active{% endif %}>
+                                            <span class="subtitle"><i class="fas fa-fire"></i> محبوب ترین ها</span>
+                                            <h1 class="title">{{ product.title }}</h1>
+                                            <div class="slide-action">
+                                                <div class="shop-btn">
+                                                    <a href="{% url 'product_detail' product.slug %}" class="axil-btn btn-bg-white"><i
+                                                            class="fal fa-shopping-cart"></i>خرید کردن</a>
                                                 </div>
-                                                <div class="content">
-                                                <span class="rating-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fal fa-star"></i>
-                                                </span>
-                                                    <span class="review-text">
-                                                    <span>100+</span> نظر
-                                                </span>
+                                                <div class="item-rating">
+                                                    <div class="content">
+                                                        <span class="rating-icon">
+                                                            <div class="star-rating">
+                                                                {% if product.rating_avg == 0 %}
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                {% elif product.rating_avg == 1 %}
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                {% elif product.rating_avg == 2 %}
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                {% elif product.rating_avg == 3 %}
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                {% elif product.rating_avg == 4 %}
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                {% elif product.rating_avg == 5 %}
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                {% endif %}
+                                                            </div>
+                                                        </span>
+                                                        <span class="review-text">
+                                                            <span>{{ product.productcommentmodel_set.count }}</span> نظر
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% endfor %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -72,15 +96,17 @@
                     <div class="col-lg-7 col-sm-6">
                         <div class="main-slider-large-thumb">
                             <div class="slider-thumb-activation-one axil-slick-dots">
-                                {% for slide in sliders %}
-                                    <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
-                                         data-sal-duration="1500">
-                                        <img src="{{ slide.image.url }}">
-                                        <div class="product-price">
-                                            <span class="text">شروع از</span>
-                                            <span class="price-amount">150.000</span>
+                                {% for slider in sliders %}
+                                    {% for product in slider.products.all %}
+                                        <div class="single-slide slick-slide" data-sal="slide-up" data-sal-delay="600"
+                                             data-sal-duration="1500">
+                                            <img src="{{ product.mainimage.url }}">
+                                            <div class="product-price">
+                                                <span class="text">قیمت</span>
+                                                <span class="price-amount">{{ product.price|digits }}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% endfor %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -174,7 +200,8 @@
                                         </div>
                                         <div class="product-content">
                                             <div class="inner">
-                                                <h5 class="title"><a href="{% url 'product_detail' item.slug %}">{{ item.title }}</a>
+                                                <h5 class="title"><a
+                                                        href="{% url 'product_detail' item.slug %}">{{ item.title }}</a>
                                                 </h5>
                                                 {% if item.count and item.price %}
                                                     <div class="product-price-variant">
@@ -223,18 +250,18 @@
                 <div
                         class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
                     {% for comment in comments %}
-                    	<div class="slick-single-layout testimonial-style-one">
-                        <div class="review-speech">
-                            <p>{{ comment.text }}</p>
-                        </div>
-                        <div class="media">
-                            <div class="media-body">
-                                <span class="designation">کاربر</span>
-                                <h6 class="title">{{ comment.user.first_name }} {{ comment.user.last_name }}</h6>
+                        <div class="slick-single-layout testimonial-style-one">
+                            <div class="review-speech">
+                                <p>{{ comment.text }}</p>
                             </div>
+                            <div class="media">
+                                <div class="media-body">
+                                    <span class="designation">کاربر</span>
+                                    <h6 class="title">{{ comment.user.first_name }} {{ comment.user.last_name }}</h6>
+                                </div>
+                            </div>
+                            <!-- End .thumbnail -->
                         </div>
-                        <!-- End .thumbnail -->
-                    </div>
                     {% endfor %}
 
                 </div>

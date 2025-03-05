@@ -25,16 +25,16 @@ class SiteSettingModel(models.Model):
         verbose_name_plural = "تنظیمات"
 
 class SliderModel(models.Model):
-    image = models.ImageField(upload_to="sliders", verbose_name="تصویر")
-    title = models.CharField(max_length=100, verbose_name="عنوان")
-    link = models.URLField(max_length=200, verbose_name="لینک")
-    price = models.CharField(max_length=20, verbose_name="قیمت")
+    products = models.ManyToManyField('product_module.ProductModel', verbose_name="محصولات")
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+
     def __str__(self):
-        return self.title
+        return ', '.join([product.title for product in self.products.all()])
+
     class Meta:
         verbose_name = 'اسلایدر'
         verbose_name_plural = 'اسلایدر ها'
+
 
 class AboutUsModel(models.Model):
     image1 = models.ImageField(upload_to="aboutus", verbose_name="تصویر1")

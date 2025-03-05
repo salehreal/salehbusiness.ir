@@ -31,12 +31,14 @@ class HomeView(View):
             'visited_product': visited_product,
             'comments': comments,
         })
+
     def post(self, request):
         search = request.POST['prod-search']
         products = ProductModel.objects.filter(title__icontains=search)
         return render(request, 'product_list.html', {
             'products': products
         })
+
     # def get(self, request):
     #     return render(request, 'home.html', {
     #
