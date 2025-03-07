@@ -2,8 +2,14 @@ from django.db import models
 from user_module.models import User
 from product_module.models import ProductModel
 
-
 # Create your models here.
+
+from django.db import models
+from django.utils import timezone
+
+from django.db import models
+from django.utils import timezone
+
 
 class CartModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
@@ -11,7 +17,11 @@ class CartModel(models.Model):
     payment_date = models.DateTimeField(null=True, verbose_name='تاریخ پرداخت')
     process = models.BooleanField(default=False, verbose_name='درحال پردازش')
     delivery = models.BooleanField(default=False, verbose_name='تحویل شده')
-    province = models.CharField(max_length=200, null=True, verbose_name='استان')
+
+    def save(self, *args, **kwargs):
+        if self.is_paid and self.payment_date is None:
+            self.payment_date = timezone.now()
+        super(CartModel, self).save(*args, **kwargs)
 
     def sum_basket(self):
         t = 0
@@ -53,10 +63,13 @@ class CartDetailModel(models.Model):
             discount = float(self.product.discount)
         else:
             discount = 0
-        product_price = self.product.price  * (1 - discount) if self.product.price is not None else 0
+        product_price = self.product.price * (1 - discount) if self.product.price is not None else 0
         count = self.count if self.count is not None else 0
         return int(product_price * count)
 
     def __str__(self):
         return f'{self.product.title} - {self.cart.user.username}'
 
+    class Meta:
+        verbose_name = "جزئیات سبد خرید"
+        verbose_name_plural = "جزئیات سبدهای خرید"

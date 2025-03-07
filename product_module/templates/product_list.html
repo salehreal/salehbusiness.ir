@@ -61,31 +61,32 @@
                                             <span class="filter-results">نمایش 1-12 از {{ total_products }} محصول</span>
                                             <select class="single-select" name="sort_by" onchange="this.form.submit()">
                                                 <option value="newest"
-                                                        {% if 'newest' in request.GET.sort_by %}selected{% endif %}>
+                                                        {% if request.GET.sort_by == 'newest' %}selected{% endif %}>
                                                     جدیدترین
                                                 </option>
                                                 <option value="price_desc"
-                                                        {% if 'price_desc' in request.GET.sort_by %}selected{% endif %}>
+                                                        {% if request.GET.sort_by == 'price_desc' %}selected{% endif %}>
                                                     قیمت (زیاد به کم)
                                                 </option>
                                                 <option value="price"
-                                                        {% if 'price' in request.GET.sort_by %}selected{% endif %}>قیمت
-                                                    (کم به زیاد)
+                                                        {% if request.GET.sort_by == 'price' %}selected{% endif %}>
+                                                    قیمت (کم به زیاد)
                                                 </option>
                                                 <option value="visit"
-                                                        {% if 'visit' in request.GET.sort_by %}selected{% endif %}>
+                                                        {% if request.GET.sort_by == 'visit' %}selected{% endif %}>
                                                     پربازدیدترین
                                                 </option>
                                                 <option value="sale"
-                                                        {% if 'sale' in request.GET.sort_by %}selected{% endif %}>پرفروش
-                                                    ترین
+                                                        {% if request.GET.sort_by == 'sale' %}selected{% endif %}>
+                                                    پرفروش ترین
                                                 </option>
                                                 <option value="discount"
-                                                        {% if 'discount' in request.GET.sort_by %}selected{% endif %}>
+                                                        {% if request.GET.sort_by == 'discount' %}selected{% endif %}>
                                                     بیشترین تخفیف
                                                 </option>
                                             </select>
                                         </form>
+
                                         <!-- End Single Select  -->
                                     </div>
                                     <div class="d-lg-none">
@@ -194,7 +195,6 @@
                                 </ul>
                             </nav>
                         </div>
-
                     </div>
                 </div>
             </div>

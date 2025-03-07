@@ -10,6 +10,7 @@ class BlogModel(models.Model):
     text = models.TextField(verbose_name="متن")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, editable=False, verbose_name="کاربر")
     date = models.DateTimeField(null=True, verbose_name="تاریخ")
+    visited = models.IntegerField(default=0, verbose_name="بازدید")
     is_active = models.BooleanField(default=True, verbose_name="منتشر")
     def __str__(self):
         return self.title

@@ -32,8 +32,14 @@ class MainDashboard(View):
         email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
         return email_pattern.match(email) is not None
 
+    def is_valid_persian_name(self, name):
+        persian_name_pattern = re.compile(r'^[\u0600-\u06FF\s]+$')
+        return persian_name_pattern.match(name) is not None
+
     def post(self, request: HttpRequest):
         user = request.user
+        user_carts = CartModel.objects.filter(user_id=user.id, is_paid=True)
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
 
         if 'user-info-form' in request.POST:
             first_name = request.POST['first-name']
@@ -42,14 +48,39 @@ class MainDashboard(View):
             address = request.POST['address']
             phone = request.POST['phone']
             email = request.POST['email']
+
+            if not self.is_valid_persian_name(first_name):
+                messages.error(request, 'نام باید فقط شامل حروف فارسی باشد.')
+                return render(request, 'my-account.html', {
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
+                })
+
+            if not self.is_valid_persian_name(last_name):
+                messages.error(request, 'نام خانوادگی باید فقط شامل حروف فارسی باشد.')
+                return render(request, 'my-account.html', {
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
+                })
+
             if not self.is_valid_phone_number(phone):
+                messages.error(request, 'شماره تلفن معتبر نیست.')
                 return render(request, 'my-account.html', {
-                    'invalid_phone': True
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
                 })
+
             if not self.is_valid_email(email):
+                messages.error(request, 'ایمیل معتبر نیست.')
                 return render(request, 'my-account.html', {
-                    'invalid_email': True
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
                 })
+
             if len(str(email.strip())) > 6 and len(str(phone.strip())) > 10:
                 user.first_name = first_name
                 user.last_name = last_name
@@ -65,6 +96,7 @@ class MainDashboard(View):
                 messages.error(request, 'ایمیل صحیح نیست')
             else:
                 messages.error(request, 'ایمیل و شماره موبایل صحیح نیستند')
+
         elif 'password-change-form' in request.POST:
             old_pass = request.POST['old-password']
             new_pass = request.POST['new-password']
@@ -82,7 +114,6 @@ class MainDashboard(View):
                 messages.error(request, 'رمز عبور فعلی اشتباه است.')
 
         return redirect('main-dash')
-
 
 @login_required
 def detail_cart(request, id):

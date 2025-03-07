@@ -75,18 +75,20 @@
                             <li class="menu-item-has-children">
                                 <a href="#">صفحه ها</a>
                                 <ul class="axil-submenu">
-                                    <li><a href="wishlist.html">علاقه مندی ها</a></li>
-                                    <li><a href="cart.html">سبد خرید</a></li>
-                                    <li><a href="checkout.html">پرداخت</a></li>
-                                    <li><a href="my-account.html">پروفایل</a></li>
-                                    <li><a href="sign-up.html">ثبت نام</a></li>
-                                    <li><a href="sign-in.html">ورود</a></li>
-                                    <li><a href="forgot-password.html">فراموشی رمز عبور</a></li>
-                                    <li><a href="reset-password.html">ریست پسوورد</a></li>
-                                    <li><a href="privacy-policy.html">حریم حصوصی</a></li>
-                                    <li><a href="coming-soon.html">به زودی</a></li>
-                                    <li><a href="404.html">404 خطای</a></li>
-                                    <li><a href="typography.html">تایپوگرافی</a></li>
+                                    <li><a href="{% url 'wish' %}">علاقه مندی ها</a></li>
+                                    <li><a href="{% url 'basket' %}">سبد خرید</a></li>
+                                    {% if request.user.is_authenticated %}
+                                        <li><a href="{% url 'main-dash' %}">پروفایل من</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'login' %}">پروفایل من</a></li>
+                                    {% endif %}
+                                    {% if not request.user.is_authenticated %}
+                                        <li><a href="{% url 'register' %}">ثبت نام</a></li>
+                                        <li><a href="{% url 'login' %}">ورود</a></li>
+                                        <li><a href="{% url 'forget-password' %}">فراموشی رمز عبور</a></li>
+                                    {% endif %}
+                                    <li><a href="{% url 'questions' %}">سوالات متداول</a></li>
+                                    <li><a href="404.html">پشتیبانی</a></li>
                                 </ul>
                             </li>
                             <li><a href="{% url 'about-us' %}">درباه ما</a></li>
@@ -164,7 +166,7 @@
                                         <span class="title">دسترسی سریع</span>
                                         <ul>
                                             <li>
-                                                <a href="my-account.html">پروفایل من</a>
+                                                <a href="{% url 'login' %}">پروفایل من</a>
                                             </li>
                                             <li>
                                                 <a href="#">شرایط مرجوعی</a>
@@ -173,7 +175,7 @@
                                                 <a href="#">پشتیبانی</a>
                                             </li>
                                             <li>
-                                                <a href="#">زبان</a>
+                                                <a href="{% url 'questions' %}">سوالات متداول</a>
                                             </li>
                                         </ul>
                                         <div class="login-btn">
@@ -200,5 +202,5 @@
     <!-- End Mainmenu Area -->
 </header>
 {% block scripts %}
-	<script src="/static/js/vendor/basket.js"></script>
+    <script src="/static/js/vendor/basket.js"></script>
 {% endblock %}

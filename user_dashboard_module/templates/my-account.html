@@ -16,7 +16,7 @@
                     <div class="col-lg-6 col-md-8">
                         <div class="inner">
                             <ul class="axil-breadcrumb">
-                                <li class="axil-breadcrumb-item"><a href="index-2.html">خانه</a></li>
+                                <li class="axil-breadcrumb-item"><a href="{% url 'home' %}">خانه</a></li>
                                 <li class="separator"></li>
                                 <li class="axil-breadcrumb-item active" aria-current="page">پروفایل من</li>
                             </ul>
@@ -42,7 +42,7 @@
                         <div class="media">
                             <div class="media-body">
                                 <h5 class="title mb-0">سلام، {{ user.first_name }} {{ user.last_name }}</h5>
-                                <span class="joining-date">عضو {{ settings.name }} از {{ user.date_joined|j_date }}</span>
+                                <span class="joining-date">عضو {{ settings.name }} از {{ user.date_joined|j_day }} {{ user.date_joined|j_month }} {{ user.date_joined|j_year }}</span>
                             </div>
                         </div>
                     </div>
@@ -100,6 +100,7 @@
                                         <p>از داشبورد حساب خود می توانید سفارشات اخیر خود را مشاهده کنید ، آدرس حمل
                                             و نقل را مدیریت کرده و رمز عبور و جزئیات حساب خود را ویرایش
                                             کنید.</p>
+                                        <p>نام کاربری: {{ user.username }}</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="nav-orders" role="tabpanel">
@@ -137,7 +138,8 @@
                                                     </tbody>
                                                 {% else %}
                                                     <div class="alert alert-danger text-center"
-                                                         style="width: 50%;margin: 70px auto">هنوز هیچ خریدی نداشته اید. <a href="{% url 'product-list' %}">خرید کنید.</a>
+                                                         style="width: 50%;margin: 70px auto">هنوز هیچ خریدی نداشته اید.
+                                                        <a href="{% url 'product-list' %}">خرید کنید.</a>
                                                     </div>
                                                 {% endif %}
                                             </table>

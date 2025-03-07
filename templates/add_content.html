@@ -186,8 +186,6 @@
         </div>
     </div>
 </div>
-<!DOCTYPE html>
-<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <title>جستجو</title>
@@ -198,7 +196,7 @@
             align-items: center;
             justify-content: center;
             width: 50%;
-            height: 200px;
+            height: 185px;
             background-color: #ffffff; /* رنگ پس زمینه سفید */
         }
 
@@ -223,18 +221,6 @@
 
         .input-group input[type="search"] {
             flex-grow: 1;
-        }
-
-        .axil-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        .axil-btn i {
-            margin-right: 5px;
         }
 
         .card-close {
@@ -264,8 +250,7 @@
         </div>
         <!-- نتیجه جستجو -->
         <div class="search-result-header">
-            <h6 class="title">{{ total_products }} محصول</h6>
-            <a href="{% url 'product-list' %}" class="view-all">نمایش همه</a>
+            <a href="{% url 'product-list' %}" class="view-all">نمایش همه محصولات</a>
         </div>
     </div>
 </div>
@@ -377,7 +362,7 @@
             <div class="alert alert-danger text-center" style="width: 70%;margin: 70px auto">سبد خرید خالی است</div>
             <div class="cart-footer">
                 <div class="group-btn">
-                    <a href="{% url 'product-list' %}" class="axil-btn btn-bg-primary">مشاهده محصولات سایت</a>
+                    <a href="{% url 'basket' %}" class="axil-btn btn-bg-primary">نمایش سبد خرید</a>
                 </div>
             </div>
         </div>

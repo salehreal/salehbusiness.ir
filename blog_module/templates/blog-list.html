@@ -35,231 +35,176 @@
         <div class="axil-blog-area axil-section-gap">
             <div class="container">
                 <div class="row row--25">
-                    <div class="col-lg-8 axil-post-wrapper">
-                        {% for blog in blogs %}
-                            <!-- Start Single Blog  -->
-                            <div class="content-blog mt--60">
-                                <div class="inner">
-                                    <div class="thumbnail">
-                                        <a href="blog-details.html">
-                                            <img src="{{ blog.image.url }}" alt="Blog Images">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h4 class="title"><a href="blog-details.html">{{ blog.title }}</a></h4>
-                                        <div class="axil-post-meta">
-                                            <div class="post-author-avatar">
-                                                <img src="/static/images/blog/author-image-1.png" alt="Author Images">
-                                            </div>
-                                            <div class="post-meta-content">
-                                                <h6 class="author-title">
-                                                    <a href="#">{{ blog.user.username }}</a>
-                                                </h6>
-                                                <ul class="post-meta-list">
-                                                    <li>{{ blog.date|j_date }}</li>
-                                                    <li>300 هزار بازدید</li>
-                                                </ul>
-                                            </div>
+                    {% if blogs %}
+                        <div class="col-lg-8 axil-post-wrapper">
+                            {% for blog in blogs %}
+                                <!-- Start Single Blog  -->
+                                <div class="content-blog mt--60">
+                                    <div class="inner">
+                                        <div class="thumbnail">
+                                            <a href="{% url 'blog-detail' blog.id %}">
+                                                <img src="{{ blog.image.url }}" alt="Blog Images">
+                                            </a>
                                         </div>
-                                        <p id="blog-text"
-                                           style="overflow: hidden; max-height: 110px; text-overflow: ellipsis;">{{ blog.text }}</p>
-                                        <div class="read-more-btn">
-                                            <a class="axil-btn btn-bg-primary" href="{% url 'blog-detail' blog.id %}">بیشتر
-                                                بخوانید</a>
+                                        <div class="content">
+                                            <h4 class="title"><a href="{% url 'blog-detail' blog.id %}">{{ blog.title }}</a></h4>
+                                            <div class="axil-post-meta">
+                                                <div class="post-meta-content">
+                                                    <h6 class="author-title">
+                                                        <a href="#">{{ blog.user.first_name }} {{ blog.user.last_name }}</a>
+                                                    </h6>
+                                                    <ul class="post-meta-list">
+                                                        <li>{{ blog.date|j_day }} {{ blog.date|j_month }} {{ blog.date|j_year }}</li>
+                                                        <li>{{ blog.visited|digits }} بازدید</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <p id="blog-text"
+                                               style="overflow: hidden; max-height: 110px; text-overflow: ellipsis;">{{ blog.text }}</p>
+                                            <div class="read-more-btn">
+                                                <a class="axil-btn btn-bg-primary"
+                                                   href="{% url 'blog-detail' blog.id %}">بیشتر
+                                                    بخوانید</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Single Blog  -->
-                        {% endfor %}
-
-                    </div>
+                                <!-- End Single Blog  -->
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert text-center"
+                             style="font-size:50px;align-content:center;height:100px;width: 50%;margin: 70px auto;color: #044a61">
+                            هیچ مقاله ای موجود نیست
+                        </div>
+                    {% endif %}
                     <div class="col-lg-4">
                         <!-- Start Sidebar Area  -->
                         <aside class="axil-sidebar-area">
 
+                            {% if blogs %}
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40">
+                                    <h6 class="widget-title">آخرین پست ها</h6>
+
+                                    {% for blog in recent_blogs %}
+                                        <!-- Start Single Post List  -->
+                                        <div class="content-blog post-list-view mb--20">
+                                            <div class="thumbnail">
+                                                <a href="{% url 'blog-detail' blog.id %}">
+                                                    <img src="{{ blog.image.url }}" alt="Blog Images">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h6 class="title"><a
+                                                        href="{% url 'blog-detail' blog.id %}">{{ blog.title }}
+                                                </a></h6>
+                                                <div class="axil-post-meta">
+                                                    <div class="post-meta-content">
+                                                        <ul class="post-meta-list">
+                                                            <li>{{ blog.date|j_day }} {{ blog.date|j_month }} {{ blog.date|j_year }}</li>
+                                                            <li>{{ blog.visited|digits }} بازدید</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Single Post List  -->
+                                    {% endfor %}
+                                </div>
+                                <!-- End Single Widget  -->
+                            {% endif %}
                             <!-- Start Single Widget  -->
                             <div class="axil-single-widget mt--40">
-                                <h6 class="widget-title">آخرین پست ها</h6>
-
-                                <!-- Start Single Post List  -->
-                                <div class="content-blog post-list-view mb--20">
-                                    <div class="thumbnail">
-                                        <a href="blog-details.html">
-                                            <img src="/static/images/blog/blog-04.png" alt="Blog Images">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با تولید
-                                        </a></h6>
-                                        <div class="axil-post-meta">
-                                            <div class="post-meta-content">
-                                                <ul class="post-meta-list">
-                                                    <li>بهمن 27, 1401</li>
-                                                    <li>300 هزار بازدید</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Post List  -->
-
-                                <!-- Start Single Post List  -->
-                                <div class="content-blog post-list-view mb--20">
-                                    <div class="thumbnail">
-                                        <a href="blog-details.html">
-                                            <img src="/static/images/blog/blog-05.png" alt="Blog Images">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با تولید
-                                        </a></h6>
-                                        <div class="axil-post-meta">
-                                            <div class="post-meta-content">
-                                                <ul class="post-meta-list">
-                                                    <li>اسفند 20, 1401</li>
-                                                    <li>300 هزار بازدید</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Post List  -->
-
-                                <!-- Start Single Post List  -->
-                                <div class="content-blog post-list-view">
-                                    <div class="thumbnail">
-                                        <a href="blog-details.html">
-                                            <img src="/static/images/blog/blog-06.png" alt="Blog Images">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با تولید
-                                        </a></h6>
-                                        <div class="axil-post-meta">
-                                            <div class="post-meta-content">
-                                                <ul class="post-meta-list">
-                                                    <li>آبان 15, 1401</li>
-                                                    <li>300 هزار بازدید</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Post List  -->
-
-                            </div>
-                            <!-- End Single Widget  -->
-                            <!-- Start Single Widget  -->
-                            <div class="axil-single-widget mt--40">
-                                <h6 class="widget-title">محصولات پر بازدید</h6>
+                                <h6 class="widget-title">محصولات پربازدید</h6>
                                 <ul class="product_list_widget recent-viewed-product">
                                     <!-- Start Single product_list  -->
-                                    <li>
-                                        <div class="thumbnail">
-                                            <a href="blog-details.html">
-                                                <img src="/static/images/product/product-12.jpg" alt="Blog Images">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="blog-details.html">تیشرت مردانه</a></h6>
-                                            <div class="product-meta-content">
-                                                <span class="woocommerce-Price-amount amount">
-                                                    <del>30.000</del>
-                                                    20.000
-                                                </span>
+                                    {% for item in visited_products %}
+                                        <li>
+                                            <div class="thumbnail">
+                                                <a href="{% url 'product_detail' item.slug %}">
+                                                    <img src="{{ item.mainimage.url }}" alt="Blog Images">
+                                                </a>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <!-- End Single product_list  -->
-                                    <!-- Start Single product_list  -->
-                                    <li>
-                                        <div class="thumbnail">
-                                            <a href="blog-details.html">
-                                                <img src="/static/images/product/product-10.jpg" alt="Blog Images">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="blog-details.html">کفش نایک</a></h6>
-                                            <div class="product-meta-content">
-                                                <span class="woocommerce-Price-amount amount">
-                                                    <del>200.000</del>
-                                                    150.000
+                                            <div class="content">
+                                                <h6 class="title"><a
+                                                        href="{% url 'product_detail' item.slug %}">{{ item.title }}</a>
+                                                </h6>
+                                                <div class="product-meta-content">
+                                                    {% if item.discount %}
+                                                        <span class="woocommerce-Price-amount amount">
+                                                    <del>{{ item.price|digits }}</del>
+                                                    {{ item.final_price|digits }} تومان
                                                 </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- End Single product_list  -->
-                                    <!-- Start Single product_list  -->
-                                    <li>
-                                        <div class="thumbnail">
-                                            <a href="blog-details.html">
-                                                <img src="/static/images/product/product-11.jpg" alt="Blog Images">
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="blog-details.html">کفش آدیداس</a></h6>
-                                            <div class="product-meta-content">
-                                                <span class="woocommerce-Price-amount amount">
-                                                    <del>300.000</del>
-                                                    200.000
+                                                    {% else %}
+                                                        <span class="woocommerce-Price-amount amount">
+                                                    {{ item.final_price|digits }} تومان
                                                 </span>
+                                                    {% endif %}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    {% endfor %}
                                     <!-- End Single product_list  -->
                                 </ul>
-
                             </div>
                             <!-- End Single Widget  -->
+
+                            {% if discount_products %}
+                                <!-- Start Single Widget  -->
+                                <div class="axil-single-widget mt--40">
+                                    <h6 class="widget-title">محصولات با تخفیف ویژه</h6>
+                                    <ul class="product_list_widget recent-viewed-product">
+                                        <!-- Start Single product_list  -->
+                                        {% for item in discount_products %}
+                                            <li>
+                                                <div class="thumbnail">
+                                                    <a href="{% url 'product_detail' item.slug %}">
+                                                        <img src="{{ item.mainimage.url }}" alt="Blog Images">
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h6 class="title"><a
+                                                            href="{% url 'product_detail' item.slug %}">{{ item.title }}</a>
+                                                    </h6>
+                                                    <div class="product-meta-content">
+                                                        {% if item.discount %}
+                                                            <span class="woocommerce-Price-amount amount">
+                                                    <del>{{ item.price|digits }}</del>
+                                                    {{ item.final_price|digits }} تومان
+                                                </span>
+                                                        {% else %}
+                                                            <span class="woocommerce-Price-amount amount">
+                                                    {{ item.final_price|digits }} تومان
+                                                </span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                        <!-- End Single product_list  -->
+                                    </ul>
+                                </div>
+                                <!-- End Single Widget  -->
+                            {% endif %}
 
                             <!-- Start Single Widget  -->
                             <div class="axil-single-widget mt--40 widget_search">
-                                <h6 class="widget-title">جستوجو</h6>
+                                <h6 class="widget-title">جستجوی محصولات</h6>
                                 <form class="blog-search" action="#">
                                     <button class="search-button"><i class="fal fa-search"></i></button>
-                                    <input type="text" placeholder="جستوجو ...">
+                                    <input type="text" placeholder="جستجو ...">
                                 </form>
                             </div>
                             <!-- End Single Widget  -->
 
                             <!-- Start Single Widget  -->
-                            <div class="axil-single-widget mt--40 widget_archive">
-                                <h6 class="widget-title">آرشیو</h6>
-                                <ul>
-                                    <li><a href="#">تیر 1401</a></li>
-                                    <li><a href="#">مرداد 1401</a></li>
-                                    <li><a href="#">شهریور 1401</a></li>
-                                    <li><a href="#">مهر 1401</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget  -->
-
-                            <!-- Start Single Widget  -->
-                            <div class="axil-single-widget mt--40 widget_archive_dropdown">
-                                <h6 class="widget-title">آرشیو دراپ داون</h6>
-                                <select>
-                                    <option>انتخاب ماه</option>
-                                    <option>مهر 1401 (4)</option>
-                                    <option>آبان 1401 (4)</option>
-                                    <option>آذر 1401 (4)</option>
-                                    <option>دی 1401 (4)</option>
-                                </select>
-                            </div>
-                            <!-- End Single Widget  -->
-
-                            <!-- Start Single Widget  -->
                             <div class="axil-single-widget mt--40 widget_tag_cloud">
-                                <h6 class="widget-title">تگ ها</h6>
+                                <h6 class="widget-title">تگ های محصولات</h6>
                                 <div class="tagcloud">
-                                    <a href="#">طراحی</a>
-                                    <a href="#">HTML</a>
-                                    <a href="#">گرافیک</a>
-                                    <a href="#">توسعه</a>
-                                    <a href="#">UI/UX طراحی</a>
-                                    <a href="#">فروشگاه</a>
-                                    <a href="#">CSS</a>
-                                    <a href="#">جاوا اسکریپت</a>
+                                    {% for tag in tags %}
+                                        <a href="{% url 'tags' tag.url %}">{{ tag.title }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <!-- End Single Widget  -->
@@ -271,12 +216,33 @@
                 <div class="post-pagination">
                     <nav class="navigation pagination" aria-label="Products">
                         <ul class="page-numbers">
-                            <li><span aria-current="page" class="page-numbers current">1</span></li>
-                            <li><a class="page-numbers" href="#">2</a></li>
-                            <li><a class="page-numbers" href="#">3</a></li>
-                            <li><a class="page-numbers" href="#">4</a></li>
-                            <li><a class="page-numbers" href="#">5</a></li>
-                            <li><a class="next page-numbers" href="#"><i class="fal fa-arrow-left"></i></a></li>
+                            {% if page_obj.has_previous %}
+                                <li>
+                                    <a class="page-numbers"
+                                       href="?page={{ page_obj.previous_page_number }}&sort_by={{ request.GET.sort_by|default:'latest' }}"
+                                       aria-label="Previous">
+                                        <i class="fal fa-arrow-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for page in paginator.page_range %}
+                                <li>{% if page_obj.number == page %}
+                                    <span aria-current="page" class="page-numbers current">{{ page }}</span>
+                                {% else %}
+                                    <li><a class="page-numbers"
+                                           href="?page={{ page }}&sort_by={{ request.GET.sort_by|default:'latest' }}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li>
+                                    <a class="page-numbers"
+                                       href="?page={{ page_obj.next_page_number }}&sort_by={{ request.GET.sort_by|default:'latest' }}"
+                                       aria-label="Next">
+                                        <i class="fal fa-arrow-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </nav>
                 </div>

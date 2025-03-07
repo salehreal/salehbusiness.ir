@@ -32,11 +32,11 @@
                                     <div class="post-details__social-share">
                                         <span class="share-on-text">اشتراک در:</span>
                                         <div class="social-share">
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                            <a href="#"><i class="fab fa-discord"></i></a>
+                                            <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="https://www.instagram.com/accounts/login/?hl=en"><i class="fab fa-instagram"></i></a>
+                                            <a href="https://x.com/i/flow/login"><i class="fab fa-twitter"></i></a>
+                                            <a href="https://telegram.org/"><i class="fab fa-telegram"></i></a>
+                                            <a href="https://www.whatsapp.com/"><i class="fab fa-whatsapp"></i></a>
                                         </div>
 
                                     </div>
@@ -47,16 +47,13 @@
                             <div class="post-heading">
                                 <h2 class="title">{{ blog.title }}</h2>
                                 <div class="axil-post-meta">
-                                    <div class="post-author-avatar">
-                                        <img src="/static/images/blog/author-image-1.png" alt="Author Images">
-                                    </div>
                                     <div class="post-meta-content">
                                         <h6 class="author-title">
                                             <a href="#">{{ blog.user.username }}</a>
                                         </h6>
                                         <ul class="post-meta-list">
-                                            <li>{{ blog.date|j_date }}</li>
-                                            <li>300 هزار بازدید</li>
+                                            <li>{{ blog.date|j_day }} {{ blog.date|j_month }} {{ blog.date|j_year }}</li>
+                                            <li>{{ blog.visited|digits }} بازدید</li>
                                         </ul>
                                     </div>
                                 </div>

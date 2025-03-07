@@ -1,14 +1,20 @@
 function change_count(detail_id, state) {
-    let bas = $('#bas')
+    let bas = $('#bas');
     $.get("/cart/change-count/", {
         'detail_id': detail_id,
         'state': state
     }).then(
         res => {
+            if (res.status === 'amount') {
+                alert('تعداد محصول کافی نیست');
+                return false;
+            }
             if (res.status === 'error') {
-                alert('تعداد محصول کافی نیست')
-            } else {
-                bas.html(res)
+                alert('عملیات با خطا مواجه شد');
+                return false;
+            }
+            else {
+                bas.html(res);
             }
         }
     )
@@ -37,7 +43,7 @@ function delete_detail(detail_id) {
     }).then(
         res => {
             if (res.status === 'error') {
-                alert('Error')
+                alert('عملیات با خطا مواجه شد')
             } else {
                 bas.html(res)
             }
@@ -52,7 +58,7 @@ function delete_cart(cart_id) {
     }).then(
         res => {
             if (res.status === 'error') {
-                alert('Error')
+                alert('عملیات با خطا مواجه شد')
             } else {
                 bas.html(res)
             }

@@ -30,12 +30,12 @@
                                     <td class="product-remove"><a class="remove-wishlist"
                                                                   onclick="delete_detail({{ detail.id }})"><i
                                             class="fal fa-times"></i></a></td>
-                                    <td class="product-thumbnail"><a href="single-product.html"><img
+                                    <td class="product-thumbnail"><a href="{% url 'product_detail' detail.product.slug %}"><img
                                             src="{{ detail.product.mainimage.url }}" alt="Digital Product"
                                             style="width: 250px!important;height: 50px!important;"></a>
                                     </td>
                                     <td class="product-title"><a
-                                            href="single-product.html">{{ detail.product.title }}</a></td>
+                                            href="{% url 'product_detail' detail.product.slug %}">{{ detail.product.title }}</a></td>
                                     {% if detail.product.price %}
                                         <td class="product-price"
                                             data-title="قیمت">{{ detail.product.final_price|digits }}<span
@@ -63,7 +63,6 @@
                                     {% endif %}
                                 </tr>
                             {% endfor %}
-
                             </tbody>
                         </table>
                     </div>
