@@ -1,6 +1,6 @@
 from itertools import product
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.template.loader import render_to_string
 
 from sitesetting_module.models import *
@@ -19,8 +19,26 @@ class ProductList(ListView):
     template_name = 'product_list.html'
     model = ProductModel
     context_object_name = 'products'
-    ordering = ['-price']
     paginate_by = 12
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        sort_by = self.request.GET.get('sort_by', '-price')
+        if sort_by == 'price':
+            queryset = queryset.order_by('price')
+        elif sort_by == 'newest':
+            queryset = queryset.order_by('-created_at')
+        elif sort_by == 'sale':
+            queryset = queryset.order_by('-added_to_cart_count')
+        elif sort_by == 'price_desc':
+            queryset = queryset.order_by('-price')
+        elif sort_by == 'visit':
+            queryset = queryset.order_by('-visited')
+        elif sort_by == 'discount':
+            queryset = queryset.order_by('-discount')
+        else:
+            queryset = queryset.order_by('-created_at')
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,6 +49,11 @@ class ProductList(ListView):
         context['total_products'] = total_products
         context['cart'] = cart
         context['settings'] = settings
+
+        # حفظ پارامترهای sort_by در لینک‌های صفحه‌بندی
+        querydict = QueryDict(mutable=True)
+        querydict['sort_by'] = self.request.GET.get('sort_by', '-price')
+        context['query_string'] = querydict.urlencode()
         return context
 
 # class ProductList(View):

@@ -46,7 +46,7 @@ def add_to_cart(request):
         detail.save()
     else:
         if count > product.count:
-            return JsonResponse({'status': "error"})
+            return JsonResponse({'status': "amount"})
         detail = CartDetailModel(cart_id=cart.id, product_id=product_id, count=count)
         detail.save()
 

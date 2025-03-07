@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import send_product_comment, submit_comment_and_rating
+from .views import send_product_comment, submit_comment_and_rating, ProductList
 
 urlpatterns = [
     path('', views.ProductList.as_view(), name='product-list'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('tags/<slug>', views.tags, name='tags'),
     path('submit-comment-and-rating/<slug:slug>/', submit_comment_and_rating, name='submit_comment_and_rating'),
     path('send-comment/<slug:slug>/', send_product_comment, name='send_product_comment'),
+    path('products/', ProductList.as_view(), name='product_list'),
 ]

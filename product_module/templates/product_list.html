@@ -57,13 +57,35 @@
                                 <div class="axil-shop-top mb--40">
                                     <div class="category-select align-items-center justify-content-lg-end justify-content-between">
                                         <!-- Start Single Select  -->
-                                        <span class="filter-results">نمایش 1-12 از {{ total_products }} محصول</span>
-                                        <select class="single-select">
-                                            <option>آخرین</option>
-                                            <option>جدیدترین</option>
-                                            <option>نام</option>
-                                            <option>قیمت</option>
-                                        </select>
+                                        <form method="GET" action="{% url 'product_list' %}">
+                                            <span class="filter-results">نمایش 1-12 از {{ total_products }} محصول</span>
+                                            <select class="single-select" name="sort_by" onchange="this.form.submit()">
+                                                <option value="newest"
+                                                        {% if 'newest' in request.GET.sort_by %}selected{% endif %}>
+                                                    جدیدترین
+                                                </option>
+                                                <option value="price_desc"
+                                                        {% if 'price_desc' in request.GET.sort_by %}selected{% endif %}>
+                                                    قیمت (زیاد به کم)
+                                                </option>
+                                                <option value="price"
+                                                        {% if 'price' in request.GET.sort_by %}selected{% endif %}>قیمت
+                                                    (کم به زیاد)
+                                                </option>
+                                                <option value="visit"
+                                                        {% if 'visit' in request.GET.sort_by %}selected{% endif %}>
+                                                    پربازدیدترین
+                                                </option>
+                                                <option value="sale"
+                                                        {% if 'sale' in request.GET.sort_by %}selected{% endif %}>پرفروش
+                                                    ترین
+                                                </option>
+                                                <option value="discount"
+                                                        {% if 'discount' in request.GET.sort_by %}selected{% endif %}>
+                                                    بیشترین تخفیف
+                                                </option>
+                                            </select>
+                                        </form>
                                         <!-- End Single Select  -->
                                     </div>
                                     <div class="d-lg-none">
@@ -79,8 +101,9 @@
                             {% for product in products %}
                                 <div class="col-xl-3 col-lg-4 col-sm-6">
                                     <div class="axil-product product-style-one has-color-pick mt--40">
-                                        <div class="thumbnail" >
-                                            <a href="{% url 'product_detail' product.slug %}" style="max-width: 100%; max-height: 200px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
+                                        <div class="thumbnail">
+                                            <a href="{% url 'product_detail' product.slug %}"
+                                               style="max-width: 100%; max-height: 200px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
                                                 <img src="{{ product.mainimage.url }}"
                                                      alt="Product Images">
                                             </a>
@@ -132,19 +155,6 @@
                                                         <span class="price current-price">ناموجود</span>
                                                     </div>
                                                 {% endif %}
-                                                <div class="color-variant-wrapper">
-                                                    <ul class="color-variant">
-                                                        <li class="color-extra-01 active"><span><span
-                                                                class="color"></span></span>
-                                                        </li>
-                                                        <li class="color-extra-02"><span><span
-                                                                class="color"></span></span>
-                                                        </li>
-                                                        <li class="color-extra-03"><span><span
-                                                                class="color"></span></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +166,8 @@
                                 <ul class="page-numbers">
                                     {% if page_obj.has_previous %}
                                         <li>
-                                            <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"
+                                            <a class="page-numbers"
+                                               href="?page={{ page_obj.previous_page_number }}&sort_by={{ request.GET.sort_by|default:'latest' }}"
                                                aria-label="Previous">
                                                 <i class="fal fa-arrow-right"></i>
                                             </a>
@@ -166,12 +177,15 @@
                                         <li>{% if page_obj.number == page %}
                                             <span aria-current="page" class="page-numbers current">{{ page }}</span>
                                         {% else %}
-                                            <li><a class="page-numbers" href="?page={{ page }}">{{ page }}</a></li>
+                                            <li><a class="page-numbers"
+                                                   href="?page={{ page }}&sort_by={{ request.GET.sort_by|default:'latest' }}">{{ page }}</a>
+                                            </li>
                                         {% endif %}
                                     {% endfor %}
                                     {% if page_obj.has_next %}
                                         <li>
-                                            <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"
+                                            <a class="page-numbers"
+                                               href="?page={{ page_obj.next_page_number }}&sort_by={{ request.GET.sort_by|default:'latest' }}"
                                                aria-label="Next">
                                                 <i class="fal fa-arrow-left"></i>
                                             </a>
@@ -180,6 +194,7 @@
                                 </ul>
                             </nav>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -303,7 +318,6 @@
                 });
             }
         });
-
     </script>
 {% endblock %}
 
