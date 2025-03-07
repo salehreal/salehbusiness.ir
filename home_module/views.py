@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.defaulttags import comment
 from sitesetting_module.models import *
@@ -6,7 +8,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from sitesetting_module.models import SiteSettingModel
 from product_module.models import *
-from cart_module.models import CartModel
+from cart_module.models import CartModel, CartDetailModel
 
 
 # Create your views here.

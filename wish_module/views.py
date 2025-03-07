@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
+from cart_module.models import CartModel, CartDetailModel
 from product_module.models import ProductModel
 from wish_module.models import WishModel, WishDetailModel
 

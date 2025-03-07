@@ -30,6 +30,7 @@ urlpatterns = [
     path("about-us/", include('aboutus_module.urls')),
     path('user-panel/', include("user_dashboard_module.urls")),
     path("wish-list/", include("wish_module.urls")),
+    path("asked-question/", include("questions_module.urls")),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

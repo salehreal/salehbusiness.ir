@@ -52,3 +52,32 @@ class AboutUsModel(models.Model):
     class Meta:
         verbose_name = 'درباره ما'
         verbose_name_plural = 'درباره ما'
+
+
+class QuestionsModel(models.Model):
+    question1 = models.CharField(max_length=1000, verbose_name='سوال۱')
+    answer1 = models.TextField(verbose_name='پاسخ۱')
+    question2 = models.CharField(max_length=1000, verbose_name='سوال۲ (اختیاری)', null=True, blank=True)
+    answer2 = models.TextField(verbose_name='پاسخ۲ (اختیاری)', null=True, blank=True)
+    question3 = models.CharField(max_length=1000, verbose_name='سوال۳ (اختیاری)', null=True, blank=True)
+    answer3 = models.TextField(verbose_name='پاسخ۳ (اختیاری)', null=True, blank=True)
+    question4 = models.CharField(max_length=1000, verbose_name='سوال۴ (اختیاری)', null=True, blank=True)
+    answer4 = models.TextField(verbose_name='پاسخ۴ (اختیاری)', null=True, blank=True)
+    question5 = models.CharField(max_length=1000, verbose_name='سوال۵ (اختیاری)', null=True, blank=True)
+    answer5 = models.TextField(verbose_name='پاسخ۵ (اختیاری)', null=True, blank=True)
+    question6 = models.CharField(max_length=1000, verbose_name='سوال۶ (اختیاری)', null=True, blank=True)
+    answer6 = models.TextField(verbose_name='پاسخ۶ (اختیاری)', null=True, blank=True)
+    question7 = models.CharField(max_length=1000, verbose_name='سوال۷ (اختیاری)', null=True, blank=True)
+    answer7 = models.TextField(verbose_name='پاسخ۷ (اختیاری)', null=True, blank=True)
+    question8 = models.CharField(max_length=1000, verbose_name='سوال۸ (اختیاری)', null=True, blank=True)
+    answer8 = models.TextField(verbose_name='پاسخ۸ (اختیاری)', null=True, blank=True)
+    question9 = models.CharField(max_length=1000, verbose_name='سوال۹ (اختیاری)', null=True, blank=True)
+    answer9 = models.TextField(verbose_name='پاسخ۹ (اختیاری)', null=True, blank=True)
+    question10 = models.CharField(max_length=1000, verbose_name='سوال۱۰ (اختیاری)', null=True, blank=True)
+    answer10 = models.TextField(verbose_name='پاسخ۱۰ (اختیاری)', null=True, blank=True)
+    is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+    def __str__(self):
+        return self.question1
+    class Meta:
+        verbose_name = 'سوال متداول'
+        verbose_name_plural = 'سوالات متداول'

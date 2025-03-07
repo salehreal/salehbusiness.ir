@@ -54,14 +54,18 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         product = self.object
-        context['tags'] = ProductBrand.objects.filter(productmodel=product)
+        context['tags'] = product.brand.all()
+        related_products = ProductModel.objects.filter(brand__in=product.brand.all()).exclude(id=product.id).distinct()
+        context['related_products'] = related_products
         product.visited += 1
         product.save()
+
         user = self.request.user
         if user.is_authenticated:
             cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
         else:
             cart = None
+
         context['cart'] = cart
         context['comments'] = ProductCommentModel.objects.filter(product=product, is_publish=True)
         return context
@@ -159,6 +163,5 @@ def submit_comment_and_rating(request, slug):
     rate = int(rate)
 
     new_comment = ProductCommentModel.objects.create(user=user, text=text, product_id=product_id, rating=rate)
-
     comments = ProductCommentModel.objects.filter(product_id=product_id, is_publish=True)
     return JsonResponse({"status": "success"})

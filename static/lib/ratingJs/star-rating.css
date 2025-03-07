@@ -9,8 +9,8 @@
 :root {
     --gl-star-color: #fdd835;
     --gl-star-color-inactive: #dcdce6;
-    --gl-star-empty: url('../img/star-empty.svg');
-    --gl-star-full: url('../img/star-full.svg');
+    --gl-star-empty: url('/static/lib/ratingJs/img/star-empty.svg');
+    --gl-star-full: url('/static/lib/ratingJs/img/star-full.svg');
     --gl-star-size: 24px;
     --gl-tooltip-background: rgba(17,17,17, .9);
     --gl-tooltip-border-radius: 4px;

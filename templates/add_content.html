@@ -186,9 +186,72 @@
         </div>
     </div>
 </div>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>جستجو</title>
+    <style>
+        .header-search-modal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            height: 200px;
+            background-color: #ffffff; /* رنگ پس زمینه سفید */
+        }
+
+        .header-search-wrap {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .search-result-header {
+            margin-top: 20px;
+        }
+
+        .input-group {
+            display: flex;
+        }
+
+        .input-group input[type="search"] {
+            flex-grow: 1;
+        }
+
+        .axil-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .axil-btn i {
+            margin-right: 5px;
+        }
+
+        .card-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
 <div class="header-search-modal" id="header-search-modal">
     <button class="card-close sidebar-close"><i class="fas fa-times"></i></button>
     <div class="header-search-wrap">
+        <!-- فرم جستجو -->
         <div class="card-header">
             <form method="post" action="{% url 'home' %}">
                 {% csrf_token %}
@@ -199,72 +262,16 @@
                 </div>
             </form>
         </div>
-        <div class="card-body">
-            <div class="search-result-header">
-                <h6 class="title">24 نتیجه پیدا شد</h6>
-                <a href="{% url 'product-list' %}" class="view-all">نمایش همه</a>
-            </div>
-            <div class="psearch-results">
-                <div class="axil-product-list">
-                    <div class="thumbnail">
-                        <a href="single-product.html">
-                            <img src="/static/images/product/electric/product-09.png" alt="Yantiti Leather Bags">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <div class="product-rating">
-                                <span class="rating-icon">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fal fa-star"></i>
-                                </span>
-                            <span class="rating-number"><span>100+</span> نظر</span>
-                        </div>
-                        <h6 class="product-title"><a href="single-product.html">کنترلر نتفلیکس</a></h6>
-                        <div class="product-price-variant">
-                            <span class="price current-price">150.000</span>
-                            <span class="price old-price">200.000</span>
-                        </div>
-                        <div class="product-cart">
-                            <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                            <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="axil-product-list">
-                    <div class="thumbnail">
-                        <a href="single-product.html">
-                            <img src="/static/images/product/electric/product-09.png" alt="Yantiti Leather Bags">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <div class="product-rating">
-                                <span class="rating-icon">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fal fa-star"></i>
-                                </span>
-                            <span class="rating-number"><span>100+</span> نظر</span>
-                        </div>
-                        <h6 class="product-title"><a href="single-product.html">کنترلر نتفلیکس</a></h6>
-                        <div class="product-price-variant">
-                            <span class="price current-price">150.000</span>
-                            <span class="price old-price">200.000</span>
-                        </div>
-                        <div class="product-cart">
-                            <a href="cart.html" class="cart-btn"><i class="fal fa-shopping-cart"></i></a>
-                            <a href="wishlist.html" class="cart-btn"><i class="fal fa-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- نتیجه جستجو -->
+        <div class="search-result-header">
+            <h6 class="title">{{ total_products }} محصول</h6>
+            <a href="{% url 'product-list' %}" class="view-all">نمایش همه</a>
         </div>
     </div>
 </div>
+</body>
+</html>
+
 {% if cart.cartdetailmodel_set.all %}
     <div class="cart-dropdown" id="cart-dropdown">
         <div class="cart-content-wrap">
@@ -277,22 +284,59 @@
                     {% for detail in cart.cartdetailmodel_set.all %}
                         <li class="cart-item">
                             <div class="item-img">
-                                <a href="single-product.html"><img src="{{ detail.product.mainimage.url }}"
-                                                                   alt="Commodo Blown Lamp"></a>
-                                <button class="close-btn"><i class="fas fa-times"></i></button>
+                                <a href="{% url 'product_detail' detail.product.slug %}"
+                                   style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;"><img
+                                        style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;"
+                                        src="{{ detail.product.mainimage.url }}"
+                                        alt="Commodo Blown Lamp"></a>
+                                <button onclick="delete_detail({{ detail.product.id }})" class="close-btn"><i
+                                        class="fas fa-times"></i></button>
                             </div>
                             <div class="item-content">
                                 <div class="product-rating">
                                 <span class="icon">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    {% if detail.product.rating_avg == 0 %}
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif detail.product.rating_avg == 1 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif detail.product.rating_avg == 2 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif detail.product.rating_avg == 3 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif detail.product.rating_avg == 4 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif detail.product.rating_avg == 5 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    {% endif %}
                                 </span>
-                                    <span class="rating-number">(64)</span>
+                                    <span class="rating-number">{{ detail.product.productcommentmodel_set.count }} نظر</span>
                                 </div>
-                                <h3 class="item-title"><a href="single-product-3.html">{{ detail.product.title }}</a>
+                                <h3 class="item-title"><a
+                                        href="{% url 'product_detail' detail.product.slug %}">{{ detail.product.title }}</a>
                                 </h3>
                                 {% if detail.product.price %}
                                     <div class="item-price">{{ detail.final_price|digits }}<span
@@ -301,9 +345,12 @@
                                     <div class="item-price"><span
                                             class="currency-symbol">رایگان</span></div>
                                 {% endif %}
-                                <div class="pro-qty item-quantity"><span class="dec qtybtn">-</span>
-                                    <input type="number" class="quantity-input" value="{{ detail.count }}">
-                                    <span class="inc qtybtn">+</span></div>
+                                <div class="pro-qty item-quantity"><a
+                                        onclick="change_count2({{ detail.product.id }}, 'neg')"
+                                        class="dec qtybtn">-</a>
+                                    <input type="number" class="quantity-input" value="{{ detail.product.count }}">
+                                    <a onclick="change_count2({{ detail.product.id }}, 'pos')"
+                                       class="inc qtybtn">+</a></div>
                             </div>
                         </li>
                     {% endfor %}
@@ -378,3 +425,6 @@
         </div>
     </div>
 </div>
+{% block scripts %}
+    <script src="/static/js/vendor/basket.js"></script>
+{% endblock %}

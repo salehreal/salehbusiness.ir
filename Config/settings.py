@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "aboutus_module",
     "user_dashboard_module",
     "wish_module",
+    "questions_module",
 ]
 
 MIDDLEWARE = [

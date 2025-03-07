@@ -152,7 +152,7 @@
                                             <a href="#">پشتیبانی</a>
                                         </li>
                                         <li>
-                                            <a href="#">زبان</a>
+                                            <a href="{% url 'questions' %}">سوالات متداول</a>
                                         </li>
                                     </ul>
                                     {% else %}
@@ -195,3 +195,6 @@
     </div>
     <!-- End Mainmenu Area -->
 </header>
+{% block scripts %}
+	<script src="/static/js/vendor/basket.js"></script>
+{% endblock %}

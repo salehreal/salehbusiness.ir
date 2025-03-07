@@ -28,9 +28,13 @@
                                                               class="remove-wishlist"><i
                                         class="fal fa-times"></i></a>
                                 </td>
-                                <td class="product-thumbnail"><a href="single-product.html"><img
+                                <td class="product-thumbnail"><a
+                                        style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;"
+                                        href="{% url 'product_detail' detail.product.slug %}"><img
+                                        style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;"
                                         src="{{ detail.product.mainimage.url }}" alt="Digital Product"></a></td>
-                                <td class="product-title"><a href="single-product.html">{{ detail.product.title }}</a>
+                                <td class="product-title"><a
+                                        href="{% url 'product_detail' detail.product.slug %}">{{ detail.product.title }}</a>
                                 </td>
                                 {% if detail.product.price and detail.product.count %}
                                     <td class="product-price" data-title="Price">{{ detail.product.final_price|digits }}<span
@@ -46,10 +50,20 @@
                                     </td>
                                 {% endif %}
                                 {% if detail.product.count %}
-                                    <td class="product-stock-status" data-title="Status">موجود در انبار</td>
-                                    <td class="product-add-cart"><a href="cart.html" class="axil-btn btn-outline">اضافه
-                                        به
-                                        سبد خرید</a></td>
+                                    {% if request.user.is_authenticated %}
+                                        <td class="product-stock-status" data-title="Status">موجود در انبار</td>
+                                        <td class="product-add-cart"><a onclick="add_to_cart({{ detail.id }})" href="#"
+                                                                        class="axil-btn btn-outline">اضافه
+                                            به
+                                            سبد خرید</a></td>
+                                    {% else %}
+                                        <td class="product-stock-status" data-title="Status">موجود در انبار</td>
+                                        <td class="product-add-cart"><a onclick="add_to_cart({{ detail.id }})"
+                                                                        href="{% url 'login' %}"
+                                                                        class="axil-btn btn-outline">اضافه
+                                            به
+                                            سبد خرید</a></td>
+                                    {% endif %}
                                 {% else %}
                                     <td class="product-stock-status" data-title="Status">عدم موجودی</td>
                                 {% endif %}

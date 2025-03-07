@@ -1,5 +1,5 @@
 function add_to_cart(product_id) {
-    let inp = $("#in-count").val();
+    let inp = $("#in-count").val() || 1;
     $.get("/cart/add-to-cart/", {
         "product_id": product_id,
         "count": inp

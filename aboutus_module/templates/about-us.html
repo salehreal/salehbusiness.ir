@@ -57,47 +57,39 @@
         <!-- Start About Area  -->
         <div class="axil-about-area about-style-2">
             <div class="container">
-                {% if settings.title2 %}
-                    {% if settings.image2 %}
-                        {% if settings.image2 %}
-                            <div class="row align-items-center mb--80 mb_sm--60">
-                                <div class="col-lg-5">
-                                    <div class="about-thumbnail">
-                                        <img src="{{ settings.image2.url }}" alt="about">
-                                    </div>
-                                </div>
-                                <div class="col-lg-7">
-                                    <div class="about-content content-right">
-                                        <h4 class="title">{{ settings.title2 }}</h4>
-                                        <p>{{ settings.text2 }}</p>
-                                        <a href="{% url 'contact-us' %}" class="axil-btn btn-outline">در تماس باشید</a>
-                                    </div>
-                                </div>
+                {% if settings.title2 and settings.image2 and settings.text2 %}
+                    <div class="row align-items-center mb--80 mb_sm--60">
+                        <div class="col-lg-5">
+                            <div class="about-thumbnail">
+                                <img src="{{ settings.image2.url }}" alt="about">
                             </div>
-                        {% endif %}
-                    {% endif %}
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="about-content content-right">
+                                <h4 class="title">{{ settings.title2 }}</h4>
+                                <p>{{ settings.text2 }}</p>
+                                <a href="{% url 'contact-us' %}" class="axil-btn btn-outline">در تماس باشید</a>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
-                {% if settings.title3 %}
-                    {% if settings.image3 %}
-                        {% if settings.image3 %}
-                            <div class="row align-items-center">
-                                <div class="col-lg-5 order-lg-2">
-                                    <div class="about-thumbnail">
-                                        <img src="{{ settings.image3.url }}" alt="about">
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 order-lg-1">
-                                    <div class="about-content content-left">
-                                        <h4 class="title">{{ settings.title3 }}</h4>
-                                        <p>{{ settings.text3 }}</p>
-                                        <a href="{% url 'contact-us' %}" class="axil-btn btn-outline">در تماس باشید</a>
-                                    </div>
-                                </div>
+                {% if settings.title3 and settings.image3 and settings.text3 %}
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 order-lg-2">
+                            <div class="about-thumbnail">
+                                <img src="{{ settings.image3.url }}" alt="about">
                             </div>
+                        </div>
+                        <div class="col-lg-7 order-lg-1">
+                            <div class="about-content content-left">
+                                <h4 class="title">{{ settings.title3 }}</h4>
+                                <p>{{ settings.text3 }}</p>
+                                <a href="{% url 'contact-us' %}" class="axil-btn btn-outline">در تماس باشید</a>
                             </div>
-                            </div>
-                        {% endif %}
-                    {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                    </div>
                 {% endif %}
         <!-- End About Area  -->
 

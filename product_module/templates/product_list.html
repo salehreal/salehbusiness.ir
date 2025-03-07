@@ -79,9 +79,8 @@
                             {% for product in products %}
                                 <div class="col-xl-3 col-lg-4 col-sm-6">
                                     <div class="axil-product product-style-one has-color-pick mt--40">
-                                        <div class="thumbnail">
-                                            <a href="{% url 'product_detail' product.slug %}"
-                                               style="text-align: center;width: 220px;height: 220px">
+                                        <div class="thumbnail" >
+                                            <a href="{% url 'product_detail' product.slug %}" style="max-width: 100%; max-height: 200px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
                                                 <img src="{{ product.mainimage.url }}"
                                                      alt="Product Images">
                                             </a>
@@ -151,7 +150,6 @@
                                     </div>
                                 </div>
                             {% endfor %}
-
                         </div>
                         <div class="post-pagination">
                             <nav class="navigation pagination" aria-label="Products">
@@ -284,23 +282,16 @@
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function (event) {
                     const selectedCategory = event.target.parentElement.innerHTML;
-
-                    // بررسی اینکه آیا دسته‌بندی انتخاب شده در حال حاضر تیک خورده است یا خیر
                     if (event.target.parentElement.classList.contains('current-cat')) {
-                        // اگر تیک خورده است، تیک را بردارید و از LocalStorage حذف کنید
                         event.target.parentElement.classList.remove('current-cat');
                         localStorage.removeItem('selectedCategory');
                     } else {
-                        // اگر تیک نخورده است، تیک بزنید و در LocalStorage ذخیره کنید
                         localStorage.setItem('selectedCategory', selectedCategory);
                         event.target.parentElement.classList.add('current-cat');
                     }
-
-                    // اینجا دیگر از event.preventDefault() استفاده نمی‌کنیم تا لینک بتواند به مقصد خود برود
                 });
             });
 
-            // بازیابی دسته‌بندی انتخاب شده
             const selectedCategory = localStorage.getItem('selectedCategory');
             if (selectedCategory) {
                 categoryLinks.forEach(link => {
