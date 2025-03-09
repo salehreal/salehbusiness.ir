@@ -5,12 +5,11 @@ from django.db import models
 
 class ContactUsModel(models.Model):
     username = models.CharField(max_length=100)
-    email = models.EmailField()
     phone = models.CharField(max_length=100)
     message = models.TextField()
 
     def __str__(self):
-        return self.email
+        return self.phone
 
     class Meta:
         verbose_name = 'پیام'

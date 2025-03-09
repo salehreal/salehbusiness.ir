@@ -21,7 +21,7 @@ class ContactUsForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             'username': forms.TextInput(attrs={'name': "contact-name", 'id': "contact-name"}),
-            'email': forms.EmailInput(attrs={'name': "contact-email", 'id': "contact-email"}),
+            # 'email': forms.EmailInput(attrs={'name': "contact-email", 'id': "contact-email"}),
             'phone': forms.TextInput(attrs={'name': "contact-phone", 'id': "contact-phone"}),
             'message': forms.Textarea(attrs={'name': "contact-message", 'id': "contact-message"}),
         }

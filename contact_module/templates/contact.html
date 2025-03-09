@@ -55,7 +55,6 @@
                                     <div class="alert-warning">لطفا همه موارد را به دقت وارد کنید</div>
                                 {% endif %}
                                 {{ form.username.error }}
-                                {{ form.email.error }}
                                 {{ form.phone.error }}
                                 {{ form.message.error }}
                                 <form id="contact-form" method="post">
@@ -75,16 +74,16 @@
                                                 {{ form.phone }}
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label for="contact-email">ایمیل <span>*</span></label>
+{#                                        <div class="col-lg-4">#}
+{#                                            <div class="form-group">#}
+{#                                                <label for="contact-email">ایمیل (اختیاری)</label>#}
                                                 {#                                            <input type="email" name="contact-email" id="contact-email">#}
-                                                {{ form.email }}
-                                            </div>
-                                        </div>
+{#                                                {{ form.email }}#}
+{#                                            </div>#}
+{#                                        </div>#}
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="contact-message">پیام شما</label>
+                                                <label for="contact-message">پیام شما <span>*</span></label>
                                                 {#                                            <textarea name="contact-message" id="contact-message" cols="1"#}
                                                 {#                                                      rows="2"></textarea>#}
                                                 {{ form.message }}
