@@ -10,10 +10,10 @@
                     <div class="header-top-link">
                         <ul class="quick-link">
                             {% if request.user.is_authenticated %}
-                                <li><a href="#">پشتیبانی</a></li>
+                                <li><a href="{% url 'contact-us' %}">ارتباط با ما</a></li>
                                 <li><a href="{% url 'logout' %}">خروج</a></li>
                             {% else %}
-                                <li><a href="#">پشتیبانی</a></li>
+                                <li><a href="{% url 'contact-us' %}">ارتباط با ما</a></li>
                                 <li><a href="{% url 'register' %}">ثبت نام</a></li>
                                 <li><a href="{% url 'login' %}">ورود</a></li>
                             {% endif %}

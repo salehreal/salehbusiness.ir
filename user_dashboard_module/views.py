@@ -23,11 +23,6 @@ class MainDashboard(View):
             'settings': settings,
         })
 
-    def is_valid_phone_number(self, phone):
-        phone = phone.translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
-        iranian_phone_pattern = re.compile(r"^(?:\+98|0)?9[0-9]{9}$")
-        return iranian_phone_pattern.match(phone) is not None
-
     def is_valid_email(self, email):
         email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
         return email_pattern.match(email) is not None
@@ -46,7 +41,6 @@ class MainDashboard(View):
             last_name = request.POST['last-name']
             province = request.POST['province']
             address = request.POST['address']
-            phone = request.POST['phone']
             email = request.POST['email']
 
             if not self.is_valid_persian_name(first_name):
@@ -65,14 +59,6 @@ class MainDashboard(View):
                     'settings': settings,
                 })
 
-            if not self.is_valid_phone_number(phone):
-                messages.error(request, 'شماره تلفن معتبر نیست.')
-                return render(request, 'my-account.html', {
-                    'user': user,
-                    'carts': user_carts,
-                    'settings': settings,
-                })
-
             if not self.is_valid_email(email):
                 messages.error(request, 'ایمیل معتبر نیست.')
                 return render(request, 'my-account.html', {
@@ -81,12 +67,11 @@ class MainDashboard(View):
                     'settings': settings,
                 })
 
-            if len(str(email.strip())) > 6 and len(str(phone.strip())) > 10:
+            if len(str(email.strip())) > 6:
                 user.first_name = first_name
                 user.last_name = last_name
                 user.province = province
                 user.address = address
-                user.phone = phone
                 user.email = email
                 user.save()
                 messages.success(request, 'اطلاعات کاربر با موفقیت به‌روزرسانی شد.')

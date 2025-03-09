@@ -41,7 +41,8 @@
                     <div class="axil-dashboard-author">
                         <div class="media">
                             <div class="media-body">
-                                <h5 class="title mb-0">سلام، {{ user.first_name }} {{ user.last_name }}</h5>
+                                <h5 class="title mb-0">سلام، {{ user.first_name }} {{ user.last_name }} ( نام کاربری:
+                                    {{ user.username }} )</h5>
                                 <span class="joining-date">عضو {{ settings.name }} از {{ user.date_joined|j_day }} {{ user.date_joined|j_month }} {{ user.date_joined|j_year }}</span>
                             </div>
                         </div>
@@ -222,13 +223,6 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <label>شماره موبایل</label>
-                                                            <input name="phone" type="tel" class="form-control"
-                                                                   value="{{ user.phone }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
                                                             {% if user.email %}
                                                                 <label>ایمیل</label>
                                                                 <input name="email" type="email" class="form-control"
@@ -239,6 +233,11 @@
                                                                        value="">
                                                             {% endif %}
                                                         </div>
+                                                    </div>
+                                                    <div class="col-lg-6"
+                                                         style="text-align: right; justify-content: center; margin: 10px auto">
+                                                        <label>شماره موبایل:</label>
+                                                        <label>{{ user.phone }}</label>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group mb--40">
