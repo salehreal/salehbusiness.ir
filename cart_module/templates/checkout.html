@@ -1,0 +1,63 @@
+{% extends 'layout2.html' %}
+{% load poll_extras %}
+{% block title %}
+    پرداخت نهایی
+{% endblock %}
+
+{% block content %}
+    {% if cart.cartdetailmodel_set.all %}
+        <div id="bas">
+            {% include 'content-checkout.html' %}
+        </div>
+    {% else %}
+        <div class="alert alert-danger text-center" style="width: 50%;margin: 70px auto">سبد خرید خالی است</div>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/vendor/basket.js"></script>
+    <script>
+        function applyCoupon() {
+            const couponInput = document.getElementById("coupon-code").value;
+            const messageElement = document.getElementById("coupon-message");
+            const orderAmountElement = document.getElementById("orderAmount");
+            const finalAmountElement = document.getElementById("finalAmount");
+            const shippingCostElement = document.getElementById("shippingCost");
+
+            fetch(`/cart/checkout/validate-coupon?code=${couponInput}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.valid) {
+                        // نمایش پیام کد تخفیف معتبر
+                        messageElement.textContent = `کد تخفیف معتبر است! ${data.discount} تخفیف اعمال شد.`;
+                        messageElement.style.color = "green";
+
+                        // محاسبه و به‌روزرسانی مبالغ
+                        const orderAmount = parseInt(orderAmountElement.textContent.replace(/\D/g, "")); // حذف تومان
+                        const shippingCost = shippingCostElement.textContent === "رایگان" ? 0 : parseInt(shippingCostElement.textContent.replace(/\D/g, ""));
+                        const discountPercentage = parseFloat(data.discount); // درصد تخفیف
+
+                        const discountedAmount = orderAmount - (orderAmount * discountPercentage);
+                        const finalAmount = discountedAmount + shippingCost;
+
+                        // به‌روزرسانی مقادیر در صفحه
+                        orderAmountElement.textContent = `${discountedAmount.toLocaleString()} تومان`;
+                        finalAmountElement.textContent = `${finalAmount.toLocaleString()} تومان`;
+                    } else {
+                        // نمایش پیام کد تخفیف نامعتبر
+                        messageElement.textContent = data.message;
+                        messageElement.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    console.error('خطا در بررسی کد تخفیف:', error);
+                    messageElement.textContent = "خطایی در سرور رخ داده است.";
+                    messageElement.style.color = "red";
+                });
+        }
+    </script>
+{% endblock %}

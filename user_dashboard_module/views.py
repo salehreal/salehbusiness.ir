@@ -75,8 +75,6 @@ class MainDashboard(View):
                 user.email = email
                 user.save()
                 messages.success(request, 'اطلاعات کاربر با موفقیت به‌روزرسانی شد.')
-            elif len(str(phone.strip())) < 11:
-                messages.error(request, 'شماره موبایل صحیح نیست')
             elif len(str(email.strip())) < 7:
                 messages.error(request, 'ایمیل صحیح نیست')
             else:

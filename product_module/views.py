@@ -1,7 +1,9 @@
 from itertools import product
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import JsonResponse, QueryDict
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 
 from sitesetting_module.models import *
 from django.shortcuts import render, get_object_or_404
@@ -170,6 +172,38 @@ def send_product_comment(request, slug):
         'products': products,
     })
 
+@csrf_exempt
+def filter_products(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        categories = data.get('categories', [])
+        page_number = data.get('page', 1)  # صفحه‌ی موردنظر
+        products = ProductModel.objects.filter(category__slug__in=categories).distinct()
+
+        # صفحه‌بندی
+        paginator = Paginator(products, 12)  # هر صفحه شامل 12 محصول
+        page_obj = paginator.get_page(page_number)
+
+        product_list = [
+            {
+                "id": p.id,
+                "title": p.title,
+                "slug": p.slug,
+                "image": p.mainimage.url if p.mainimage else None,
+                "price": p.price,
+            } for p in page_obj
+        ]
+
+        # بازگرداندن اطلاعات صفحه‌بندی و محصولات
+        return JsonResponse({
+            "products": product_list,
+            "has_next": page_obj.has_next(),
+            "has_previous": page_obj.has_previous(),
+            "total_pages": paginator.num_pages,  # تعداد کل صفحات
+            "current_page": page_obj.number,  # شماره صفحه فعلی
+        })
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
 
 @login_required
 def submit_comment_and_rating(request, slug):

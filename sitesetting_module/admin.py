@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import SiteSettingModel, SliderModel, AboutUsModel, QuestionsModel
+from .models import SiteSettingModel, SliderModel, AboutUsModel, QuestionsModel, DiscountCodeModel
 from product_module.models import ProductModel
 
+@admin.register(DiscountCodeModel)
+class DiscountCodeModelAdmin(admin.ModelAdmin):
+    list_display = ('code', 'discount_amount', 'is_active', 'valid_from', 'valid_until')
+    list_filter = ('is_active', 'valid_from', 'valid_until')
+    search_fields = ('code',)
 
 @admin.register(SliderModel)
 class SliderModelAdmin(admin.ModelAdmin):

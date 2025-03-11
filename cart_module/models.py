@@ -1,7 +1,7 @@
 from django.db import models
 from user_module.models import User
 from product_module.models import ProductModel
-
+from sitesetting_module.models import SiteSettingModel
 # Create your models here.
 
 from django.db import models
@@ -30,14 +30,28 @@ class CartModel(models.Model):
             t += final_price if final_price is not None else 0
         return t
 
-    def tax(self):
+    def total_price(self, discount_code=None):
+        setting = SiteSettingModel.objects.first()
         sum_basket = self.sum_basket()
-        return int(sum_basket * 0.1) if sum_basket is not None else 0
+        send = setting.send_cost if setting and setting.send_cost else 0
 
-    def total_price(self):
-        sum_basket = self.sum_basket()
-        tax = self.tax()
-        return int(sum_basket + tax) if sum_basket is not None and tax is not None else 0
+        # بررسی اعتبار کد تخفیف
+        if discount_code:
+            try:
+                from django.utils.timezone import now
+                from .models import DiscountCodeModel
+
+                discount = DiscountCodeModel.objects.get(
+                    code=discount_code, is_active=True, valid_from__lte=now(), valid_until__gte=now()
+                )
+                discount_amount = float(discount.discount_amount)  # مقدار تخفیف به صورت درصد
+                sum_basket -= sum_basket * discount_amount
+            except DiscountCodeModel.DoesNotExist:
+                # اگر کد تخفیف معتبر نباشد
+                pass
+
+        # قیمت نهایی (سبد خرید + هزینه ارسال)
+        return int(sum_basket + send)
 
     def detail_count(self):
         t = 0

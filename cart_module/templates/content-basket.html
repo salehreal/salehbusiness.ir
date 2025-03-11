@@ -66,17 +66,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="cart-update-btn-area">
-                        <div class="input-group product-cupon">
-                            <input placeholder="کد تخفیف" type="text">
-                            <div class="product-cupon-btn">
-                                <button type="submit" class="axil-btn btn-outline">اعمال</button>
-                            </div>
-                        </div>
-                        <div class="update-btn">
-                            <a href="#" class="axil-btn btn-outline">بروزرسانی</a>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
                             <div class="axil-order-summery mt--80">
@@ -84,22 +73,14 @@
                                 <div class="summery-table-wrap">
                                     <table class="table summery-table mb--30">
                                         <tbody>
-                                        <tr class="order-subtotal">
-                                            <td>مبلغ</td>
-                                            <td>{{ cart.sum_basket|digits }} تومان</td>
-                                        </tr>
-                                        <tr class="order-tax">
-                                            <td>مالیات</td>
-                                            <td>{{ cart.tax|digits }} تومان</td>
-                                        </tr>
                                         <tr class="order-total">
-                                            <td>مبلغ پرداخت</td>
-                                            <td class="order-total-amount">{{ cart.total_price|digits }} تومان</td>
+                                            <td>مبلغ </td>
+                                            <td class="order-total-amount">{{ cart.sum_basket|digits }} تومان</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="checkout.html" class="axil-btn btn-bg-primary checkout-btn">تایید و ادامه</a>
+                                <a href="{% url 'checkout' %}" class="axil-btn btn-bg-primary checkout-btn">تایید و ادامه</a>
                             </div>
                         </div>
                     </div>

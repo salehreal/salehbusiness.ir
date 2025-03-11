@@ -8,33 +8,12 @@
             <ul>
                 {% for brand in brands %}
                     <li class="{% if brand.slug == selected_brand_slug %}current-cat{% endif %}">
-                        <a href="{% url 'product-category' brand.slug %}">{{ brand.title }}</a>
+                        <input type="checkbox" id="brand-{{ brand.slug }}" value="{{ brand.slug }}">
+                        <label for="brand-{{ brand.slug }}">{{ brand.title }}</label>
                     </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-    <div class="toggle-list product-price-range active">
-        <h6 class="title">قیمت</h6>
-        <div class="shop-submenu">
-            <ul>
-                <li><a>محدوده قیمتی را مشخص نمایید</a></li>
-            </ul>
-            <form action="#" class="mt--25">
-                <div id="slider-range"
-                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                    <div class="ui-slider-range ui-corner-all ui-widget-header"
-                         style="left: 0%; width: 60%;"></div>
-                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                          style="left: 0%;"></span><span tabindex="0"
-                                                         class="ui-slider-handle ui-corner-all ui-state-default"
-                                                         style="left: 60%;"></span></div>
-                <div class="flex-center mt--20">
-                    <span class="input-range">قیمت: </span>
-                    <input type="text" id="amount" class="amount-range" readonly="">
-                </div>
-            </form>
-        </div>
-    </div>
-    <button class="axil-btn btn-bg-primary">ریست</button>
+    <button id="apply-filters" class="axil-btn btn-bg-primary">اعمال فیلتر</button>
 </div>

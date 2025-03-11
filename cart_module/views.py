@@ -1,9 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.utils.timezone import now
 from django.views import View
 from product_module.models import ProductModel
+from sitesetting_module.models import SiteSettingModel, DiscountCodeModel, DiscountCodeUsage
+from .forms import DiscountCodeForm
 from .models import CartModel, CartDetailModel
+
 
 # Create your views here.
 
@@ -13,6 +17,18 @@ class Basket(View):
         cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
         return render(request, 'basket.html', {
             'cart': cart,
+        })
+
+
+class Checkout(View):
+    def get(self, request):
+        user = request.user
+        cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
+        return render(request, 'checkout.html', {
+            'cart': cart,
+            'settings': settings,
+            'user': user,
         })
 
 
@@ -112,3 +128,27 @@ def delete_cart(request):
     return render(request, 'content-basket.html', {
         'cart': cart
     })
+
+
+def validate_coupon(request):
+    code = request.GET.get("code")
+    user = request.user
+
+    if not user.is_authenticated:
+        return JsonResponse({"valid": False, "message": "ابتدا وارد حساب کاربری خود شوید."})
+
+    try:
+        discount = DiscountCodeModel.objects.get(
+            code=code, is_active=True, valid_from__lte=now(), valid_until__gte=now()
+        )
+
+        # بررسی استفاده قبلی از کد
+        if DiscountCodeUsage.objects.filter(user=user, discount_code=discount).exists():
+            return JsonResponse({"valid": False, "message": "این کد تخفیف قبلاً استفاده شده است."})
+
+        # ذخیره استفاده از کد تخفیف
+        DiscountCodeUsage.objects.create(user=user, discount_code=discount)
+
+        return JsonResponse({"valid": True, "discount": discount.discount_amount})
+    except DiscountCodeModel.DoesNotExist:
+        return JsonResponse({"valid": False, "message": "کد تخفیف نامعتبر است."})

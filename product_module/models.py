@@ -1,6 +1,8 @@
 from tkinter.constants import CASCADE
 from django.db import models
 import jdatetime
+from django.utils.text import slugify
+
 from user_module.models import User
 from django.db.models import Count
 
@@ -92,9 +94,18 @@ class ProductModel(models.Model):
     slug = models.SlugField(max_length=200, null=True, db_index=True, allow_unicode=True, unique=True,
                             verbose_name='آدرس در مرورگر', blank=True)
 
+    from django.utils.text import slugify
+
     def save(self, *args, **kwargs):
-        self.slug = self.title.replace(' ', '-')
-        return super(ProductModel, self).save(*args, **kwargs)
+        if not self.slug:
+            base_slug = slugify(self.title, allow_unicode=True)
+            counter = 1
+            new_slug = base_slug
+            while ProductModel.objects.filter(slug=new_slug).exists():
+                new_slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = new_slug
+        super(ProductModel, self).save(*args, **kwargs)
 
     def get_datetime_fa(self):
         date_fa = jdatetime.GregorianToJalali(self.created_at.year, self.created_at.month, self.created_at.day)
@@ -118,8 +129,7 @@ class ProductModel(models.Model):
         if self.price and self.discount:
             discount_value = float(self.discount)
             return int(self.price * (1 - discount_value))
-        else:
-            return int(self.price)
+        return int(self.price)
 
     def get_discount_display(self):
         for choice in self.ChoiceDiscount.STATUS_CHOICES:

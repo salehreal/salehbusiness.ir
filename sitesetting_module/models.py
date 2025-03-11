@@ -1,5 +1,8 @@
 from django.db import models
 
+from user_module.models import User
+
+
 # Create your models here.
 
 class SiteSettingModel(models.Model):
@@ -7,6 +10,7 @@ class SiteSettingModel(models.Model):
     logo = models.ImageField(upload_to="logo", verbose_name="لوگو")
     email = models.EmailField(max_length=100, verbose_name="ایمیل")
     phone = models.CharField(max_length=20, verbose_name="تلفن")
+    send_cost = models.IntegerField(null=True, blank=True, verbose_name='هزینه ارسال کالاها')
     fax = models.CharField(max_length=50, null=True, blank=True, verbose_name="فکس (اختیاری)")
     address = models.TextField(null=True, blank=True, verbose_name="آدرس (اختیاری)")
     working_start_day = models.CharField(max_length=50, null=True, blank=True, verbose_name="اولین روز کاری (اختیاری)")
@@ -18,11 +22,14 @@ class SiteSettingModel(models.Model):
     social_telegram = models.CharField(max_length=150, null=True, blank=True, verbose_name="تلگرام (اختیاری)")
     social_youtube = models.CharField(max_length=150, null=True, blank=True, verbose_name="یوتیوب (اختیاری)")
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = "تنظیم"
         verbose_name_plural = "تنظیمات"
+
 
 class SliderModel(models.Model):
     products = models.ManyToManyField('product_module.ProductModel', verbose_name="محصولات")
@@ -47,8 +54,10 @@ class AboutUsModel(models.Model):
     title3 = models.CharField(max_length=100, null=True, blank=True, verbose_name="عنوان3 (اختیاری)")
     text3 = models.TextField(null=True, blank=True, verbose_name="متن3 (اختیاری)")
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+
     def __str__(self):
         return self.title1
+
     class Meta:
         verbose_name = 'درباره ما'
         verbose_name_plural = 'درباره ما'
@@ -76,8 +85,39 @@ class QuestionsModel(models.Model):
     question10 = models.CharField(max_length=1000, verbose_name='سوال۱۰ (اختیاری)', null=True, blank=True)
     answer10 = models.TextField(verbose_name='پاسخ۱۰ (اختیاری)', null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name="فعال/غیرفعال")
+
     def __str__(self):
         return self.question1
+
     class Meta:
         verbose_name = 'سوال متداول'
         verbose_name_plural = 'سوالات متداول'
+
+
+class DiscountCodeModel(models.Model):
+    class ChoiceDiscount:
+        STATUS_CHOICES = (
+            ('0.05', '5%'), ('0.1', '10%'), ('0.15', '15%'), ('0.2', '20%'), ('0.25', '25%'), ('0.3', '30%'),
+            ('0.35', '35%'),
+            ('0.4', '40%'), ('0.45', '45%'), ('0.5', '50%'), ('0.55', '55%'), ('0.6', '60%'), ('0.65', '65%'),
+            ('0.7', '70%'),
+            ('0.75', '75%'), ('0.8', '80%'), ('0.85', '85%'), ('0.9', '90%'), ('0.95', '95%'),)
+
+    code = models.CharField(max_length=50, unique=True)  # کد تخفیف
+    discount_amount = models.CharField(max_length=20, null=True, blank=True, verbose_name='تخفیف',
+                                       choices=ChoiceDiscount.STATUS_CHOICES)
+    is_active = models.BooleanField(default=True)  # وضعیت فعال بودن
+    valid_from = models.DateTimeField()  # شروع اعتبار
+    valid_until = models.DateTimeField()
+
+    def __str__(self):
+        return self.code
+
+
+class DiscountCodeUsage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    discount_code = models.ForeignKey(DiscountCodeModel, on_delete=models.CASCADE)
+    used_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.discount_code.code}"
