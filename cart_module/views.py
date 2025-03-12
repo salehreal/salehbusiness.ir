@@ -1,12 +1,23 @@
+import re
+from datetime import timezone
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse, Http404, HttpResponse, HttpRequest
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.timezone import now
 from django.views import View
 from product_module.models import ProductModel
 from sitesetting_module.models import SiteSettingModel, DiscountCodeModel, DiscountCodeUsage
-from .forms import DiscountCodeForm
-from .models import CartModel, CartDetailModel
+from .models import CartModel, CartDetailModel, BuyerModel
+import logging
+from user_module.models import User
+from django.urls import reverse
+from azbankgateways import (
+    bankfactories,
+    models as bank_models,
+    default_settings as settings,
+)
+from azbankgateways.exceptions import AZBankGatewaysException
 
 
 # Create your views here.
@@ -27,6 +38,75 @@ class Checkout(View):
         settings = SiteSettingModel.objects.filter(is_active=True).first()
         return render(request, 'checkout.html', {
             'cart': cart,
+            'settings': settings,
+            'user': user,
+        })
+
+    def is_valid_persian_name(self, name):
+        persian_name_pattern = re.compile(r'^[\u0600-\u06FF\s]+$')
+        return persian_name_pattern.match(name) is not None
+
+    def post(self, request: HttpRequest):
+        user = request.user
+        user_carts = CartModel.objects.filter(user_id=user.id, is_paid=True)
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
+
+        if 'user-cart-info-form' in request.POST:
+            first_name = request.POST['first-name']
+            last_name = request.POST['last-name']
+            province = request.POST['province']
+            address = request.POST['address']
+            phone = request.POST['phone']
+            describe = request.POST['describe']
+
+            if len(address) < 10:
+                messages.error(request, 'آدرس حداقل باید شامل ۱۰ کاراکتر باشد.')
+                return render(request, 'content-checkout.html', {
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
+                })
+
+            if not self.is_valid_persian_name(first_name):
+                messages.error(request, 'نام باید فقط شامل حروف فارسی باشد.')
+                return render(request, 'content-checkout.html', {
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
+                })
+
+            if not self.is_valid_persian_name(last_name):
+                messages.error(request, 'نام خانوادگی باید فقط شامل حروف فارسی باشد.')
+                return render(request, 'content-checkout.html', {
+                    'user': user,
+                    'carts': user_carts,
+                    'settings': settings,
+                })
+
+            # ادامه عملیات ذخیره اطلاعات
+            cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
+            if cart:
+                BuyerModel.objects.create(
+                    user=user,
+                    cart=cart,
+                    payment_date=timezone.now(),
+                    first_name=first_name,
+                    last_name=last_name,
+                    province=province,
+                    address=address,
+                    phone=phone,
+                    describe=describe
+                )
+                cart.is_paid = True
+                cart.payment_date = timezone.now()
+                cart.save()
+
+            messages.success(request, 'پرداخت با موفقیت ثبت شد.')
+            return redirect('gateway')
+
+        # مسیر پیش‌فرض برای بازگشت پاسخ
+        return render(request, 'checkout.html', {
+            'cart': None,
             'settings': settings,
             'user': user,
         })
@@ -152,3 +232,58 @@ def validate_coupon(request):
         return JsonResponse({"valid": True, "discount": discount.discount_amount})
     except DiscountCodeModel.DoesNotExist:
         return JsonResponse({"valid": False, "message": "کد تخفیف نامعتبر است."})
+
+
+def go_to_gateway_view(request):
+    user = request.user
+    user_cart = CartModel.objects.filter(user=user, is_paid=False).first()
+    # خواندن مبلغ از هر جایی که مد نظر است
+    amount = (user_cart.total_price()) * 10
+    # تنظیم شماره موبایلa کاربر از هر جایی که مد نظر است
+    # user_mobile_number = user.phone  # اختیاری
+
+    factory = bankfactories.BankFactory()
+    try:
+        bank = (
+            factory.auto_create()
+        )  # or factory.create(bank_models.BankType.BMI) or set identifier
+        bank.set_request(request)
+        bank.set_amount(amount)
+        # یو آر ال بازگشت به نرم افزار برای ادامه فرآیند
+        bank.set_client_callback_url(reverse("callback-gateway"))
+        # bank.set_mobile_number(user_mobile_number)  # اختیاری
+
+        # در صورت تمایل اتصال این رکورد به رکورد فاکتور یا هر چیزی که بعدا بتوانید ارتباط بین محصول یا خدمات را با این
+        # پرداخت برقرار کنید.
+        bank_record = bank.ready()
+
+        # هدایت کاربر به درگاه بانک
+        context = bank.get_gateway()
+        return render(request, "redirect_to_bank.html", context=context)
+    except AZBankGatewaysException as e:
+        logging.critical(e)
+        return render(request, "redirect_to_bank.html")
+
+
+def callback_gateway_view(request):
+    tracking_code = request.GET.get(settings.TRACKING_CODE_QUERY_PARAM, None)
+    if not tracking_code:
+        logging.debug("این لینک معتبر نیست.")
+        raise Http404
+
+    try:
+        bank_record = bank_models.Bank.objects.get(tracking_code=tracking_code)
+    except bank_models.Bank.DoesNotExist:
+        logging.debug("این لینک معتبر نیست.")
+        raise Http404
+
+    # در این قسمت باید از طریق داده هایی که در بانک رکورد وجود دارد، رکورد متناظر یا هر اقدام مقتضی دیگر را انجام دهیم
+    if bank_record.is_success:
+        # پرداخت با موفقیت انجام پذیرفته است و بانک تایید کرده است.
+        # می توانید کاربر را به صفحه نتیجه هدایت کنید یا نتیجه را نمایش دهید.
+        return HttpResponse("پرداخت با موفقیت انجام شد.")
+
+    # پرداخت موفق نبوده است. اگر پول کم شده است ظرف مدت ۴۸ ساعت پول به حساب شما بازخواهد گشت.
+    return HttpResponse(
+        "پرداخت با شکست مواجه شده است. اگر پول کم شده است ظرف مدت ۴۸ ساعت پول به حساب شما بازخواهد گشت."
+    )

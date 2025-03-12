@@ -94,7 +94,7 @@
                                                      alt="thumb image">
                                             </div>
                                         {% endif %}
-                                        {% if product.image2 %}
+                                        {% if product.image3 %}
                                             <div class="small-thumb-img">
                                                 <img src="{{ product.image3.url }}"
                                                      alt="thumb image">
@@ -218,9 +218,7 @@
                                 <li><i class="fal fa-check"></i>ارسال رایگان</li>
                                 <li><i class="fal fa-check"></i>30% تخفیف با کد:: MOTIVE30</li>
                             </ul>
-                            <p class="description">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                                با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                سطرآنچنان که </p>
+                            <p class="description">{{ product.short_descript }}</p>
 
                             {#                            <div class="product-variations-wrapper">#}
                             {##}

@@ -33,7 +33,7 @@
                 .then(data => {
                     if (data.valid) {
                         // نمایش پیام کد تخفیف معتبر
-                        messageElement.textContent = `کد تخفیف معتبر است! ${data.discount} تخفیف اعمال شد.`;
+                        messageElement.textContent = `کد تخفیف معتبر است! ${data.discount * 100} درصد تخفیف اعمال شد.`;
                         messageElement.style.color = "green";
 
                         // محاسبه و به‌روزرسانی مبالغ

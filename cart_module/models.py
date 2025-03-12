@@ -2,6 +2,8 @@ from django.db import models
 from user_module.models import User
 from product_module.models import ProductModel
 from sitesetting_module.models import SiteSettingModel
+from django.utils.timezone import now
+from sitesetting_module.models import DiscountCodeModel
 # Create your models here.
 
 from django.db import models
@@ -38,9 +40,6 @@ class CartModel(models.Model):
         # بررسی اعتبار کد تخفیف
         if discount_code:
             try:
-                from django.utils.timezone import now
-                from .models import DiscountCodeModel
-
                 discount = DiscountCodeModel.objects.get(
                     code=discount_code, is_active=True, valid_from__lte=now(), valid_until__gte=now()
                 )
@@ -87,3 +86,30 @@ class CartDetailModel(models.Model):
     class Meta:
         verbose_name = "جزئیات سبد خرید"
         verbose_name_plural = "جزئیات سبدهای خرید"
+
+class BuyerModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
+    cart = models.ForeignKey(CartModel, verbose_name='سبد خرید', null=True, blank=True, on_delete=models.SET_NULL)
+    first_name = models.CharField(max_length=100, verbose_name='نام', blank=True, null=True)
+    last_name = models.CharField(max_length=100, verbose_name='نام خانوادگی', blank=True, null=True)
+    province = models.CharField(max_length=100, verbose_name="استان", blank=True, null=True)
+    address = models.TextField(verbose_name='آدرس', blank=True, null=True)
+    phone = models.CharField(max_length=20, verbose_name='شماره تلفن', blank=True, null=True)
+    describe = models.TextField(verbose_name='توضیحات', blank=True, null=True)
+    payment_date = models.DateTimeField(verbose_name='تاریخ پرداخت', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.cart and self.payment_date is None:
+            self.payment_date = timezone.now()
+            self.cart.payment_date = self.payment_date
+            self.cart.is_paid = True
+            self.cart.save()
+        super(BuyerModel, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.payment_date
+
+    class Meta:
+        verbose_name = "پردختی"
+        verbose_name_plural = "پرداختی ها"
+

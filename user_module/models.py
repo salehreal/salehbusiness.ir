@@ -3,10 +3,10 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    phone = models.CharField(max_length=20)
-    active_code = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20, verbose_name='شماره تلفن')
+    active_code = models.CharField(max_length=10, verbose_name='کد فعال سازی')
     token = models.CharField(max_length=100)
-    province = models.CharField(max_length=100, verbose_name="کشور", null=True, blank=True)
+    province = models.CharField(max_length=100, verbose_name="استان", null=True, blank=True)
     address = models.CharField(max_length=500, verbose_name="آدرس", null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     def __str__(self):

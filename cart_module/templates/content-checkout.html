@@ -6,157 +6,170 @@
         <!-- Start Checkout Area  -->
         <div class="axil-checkout-area axil-section-gap">
             <div class="container">
-                <form action="#">
+                <form name="user-cart-info-form" class="account-details-form" method="post">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="axil-checkout-notice">
-                                <div class="axil-toggle-box">
-                                    <div class="toggle-bar"><i class="fas fa-pencil"></i> کد تخفیف دارید؟ <a
-                                            href="javascript:void(0)" class="toggle-btn">برای وارد کردن کد خود اینجا را
-                                        کلیک کنید <i class="fas fa-angle-down"></i></a>
-                                    </div>
+                            {% if messages %}
+                                <ul class="messages" style="width: 50%;margin: 70px auto">
+                                    {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                            {{ message }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                </div>
+                            {% endif %}
+                        <div class="axil-checkout-notice">
+                            <div class="axil-toggle-box">
+                                <div class="toggle-bar"><i class="fas fa-pencil"></i> کد تخفیف دارید؟ <a
+                                        href="javascript:void(0)" class="toggle-btn">برای وارد کردن کد خود اینجا را
+                                    کلیک کنید <i class="fas fa-angle-down"></i></a>
+                                </div>
 
-                                    <div class="axil-checkout-coupon toggle-open">
-                                        <p>اگر کد تخفیف دارید، لطفاً آن را در زیر اعمال کنید.</p>
-                                        <div class="input-group">
-                                            <input id="coupon-code" placeholder="کد تخفیف" type="text">
-                                            <div class="apply-btn">
-                                                <button type="button" class="axil-btn btn-bg-primary"
-                                                        onclick="applyCoupon()">اعمال
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <p id="coupon-message" style="margin-top: 10px; color: green;"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="axil-checkout-billing">
-                                <h4 class="title mb--40">جزئیات صورتحساب</h4>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>نام <span>*</span></label>
-                                            <input type="text" id="first-name" value="{{ user.first_name }}">
+                                <div class="axil-checkout-coupon toggle-open">
+                                    <p>اگر کد تخفیف دارید، لطفاً آن را در زیر اعمال کنید.</p>
+                                    <div class="input-group">
+                                        <input id="coupon-code" placeholder="کد تخفیف" type="text">
+                                        <div class="apply-btn">
+                                            <button type="button" class="axil-btn btn-bg-primary"
+                                                    onclick="applyCoupon()">اعمال
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>نام خانوادگی <span>*</span></label>
-                                            <input type="text" id="last-name" value="{{ user.last_name }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>استان <span>*</span></label>
-                                    <select class="select2" name="province" id="provinceSelect">
-                                        {% if user.province %}
-                                            <option value="{{ user.province }}">{{ user.province }}</option>
-                                        {% else %}
-                                            <option value="انتخاب کنید">انتخاب کنید</option>
-                                        {% endif %}
-                                        <option value="آذربایجان شرقی">آذربایجان شرقی</option>
-                                        <option value="آذربایجان غربی">آذربایجان غربی</option>
-                                        <option value="اردبیل">اردبیل</option>
-                                        <option value="اصفهان">اصفهان</option>
-                                        <option value="البرز">البرز</option>
-                                        <option value="ایلام">ایلام</option>
-                                        <option value="بوشهر">بوشهر</option>
-                                        <option value="تهران">تهران</option>
-                                        <option value="چهارمحال و بختیاری">چهارمحال و بختیاری
-                                        </option>
-                                        <option value="خراسان جنوبی">خراسان جنوبی</option>
-                                        <option value="خراسان رضوی">خراسان رضوی</option>
-                                        <option value="خراسان شمالی">خراسان شمالی</option>
-                                        <option value="خوزستان">خوزستان</option>
-                                        <option value="زنجان">زنجان</option>
-                                        <option value="سمنان">سمنان</option>
-                                        <option value="سیستان و بلوچستان">سیستان و بلوچستان
-                                        </option>
-                                        <option value="فارس">فارس</option>
-                                        <option value="قزوین">قزوین</option>
-                                        <option value="قم">قم</option>
-                                        <option value="کردستان">کردستان</option>
-                                        <option value="کرمان">کرمان</option>
-                                        <option value="کرمانشاه">کرمانشاه</option>
-                                        <option value="کهگیلویه و بویراحمد">کهگیلویه و
-                                            بویراحمد
-                                        </option>
-                                        <option value="گلستان">گلستان</option>
-                                        <option value="گیلان">گیلان</option>
-                                        <option value="لرستان">لرستان</option>
-                                        <option value="مازندران">مازندران</option>
-                                        <option value="مرکزی">مرکزی</option>
-                                        <option value="هرمزگان">هرمزگان</option>
-                                        <option value="همدان">همدان</option>
-                                        <option value="یزد">یزد</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>آدرس <span>*</span></label>
-                                    <input type="text" id="address1" class="mb--15" value="{{ user.address }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>شماره تماس گیرنده <span>*</span></label>
-                                    <input type="tel" id="phone" value="{{ user.phone }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>توضیحات (اختیاری)</label>
-                                    <textarea id="notes" rows="2"
-                                              placeholder="یادداشت هایی در مورد سفارش شما ..."></textarea>
+                                    <p id="coupon-message" style="margin-top: 10px; color: green;"></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="axil-order-summery order-checkout-summery">
-                                <h5 class="title mb--20">سفارش شما</h5>
-                                <div class="summery-table-wrap">
-                                    <table class="table summery-table">
-                                        <thead>
-                                        <tr>
-                                            <th>محصول</th>
-                                            <th>قیمت</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for detail in cart.cartdetailmodel_set.all %}
-                                            <tr class="order-product">
-                                                <td>{{ detail.product.title }} <span
-                                                        class="quantity">x{{ detail.count }}</span></td>
-                                                <td>{{ detail.final_price|digits }} تومان</td>
-                                            </tr>
-                                        {% endfor %}
-                                        <tr class="order-subtotal">
-                                            <td>مبلغ سفارش</td>
-                                            <td id="orderAmount">{{ cart.sum_basket|digits }} تومان</td>
-                                        </tr>
-                                        <tr class="order-shipping">
-                                            <td colspan="2">
-                                                <div class="shipping-amount">
-                                                    <span class="title">هزینه ارسال</span>
-                                                    {% if settings.send_cost %}
-                                                        <span class="amount"
-                                                              id="shippingCost">{{ settings.send_cost|digits }} تومان</span>
-                                                    {% else %}
-                                                        <span class="amount" id="shippingCost">رایگان</span>
-                                                    {% endif %}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <td>مبلغ نهایی</td>
-                                            <td class="order-total-amount"
-                                                id="finalAmount">{{ cart.total_price|digits }} تومان
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="axil-checkout-billing">
+                            <h4 class="title mb--40">جزئیات صورتحساب</h4>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>نام <span>*</span></label>
+                                        <input name="first-name" type="text" id="first-name"
+                                               value="{{ user.first_name }}">
+                                    </div>
                                 </div>
-                                <button type="submit" class="axil-btn btn-bg-primary checkout-btn">پرداخت</button>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>نام خانوادگی <span>*</span></label>
+                                        <input name="last-name" type="text" id="last-name" value="{{ user.last_name }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>استان <span>*</span></label>
+                                <select class="select2" name="province" id="provinceSelect">
+                                    {% if user.province %}
+                                        <option value="{{ user.province }}">{{ user.province }}</option>
+                                    {% else %}
+                                        <option value="انتخاب کنید">انتخاب کنید</option>
+                                    {% endif %}
+                                    <option value="آذربایجان شرقی">آذربایجان شرقی</option>
+                                    <option value="آذربایجان غربی">آذربایجان غربی</option>
+                                    <option value="اردبیل">اردبیل</option>
+                                    <option value="اصفهان">اصفهان</option>
+                                    <option value="البرز">البرز</option>
+                                    <option value="ایلام">ایلام</option>
+                                    <option value="بوشهر">بوشهر</option>
+                                    <option value="تهران">تهران</option>
+                                    <option value="چهارمحال و بختیاری">چهارمحال و بختیاری
+                                    </option>
+                                    <option value="خراسان جنوبی">خراسان جنوبی</option>
+                                    <option value="خراسان رضوی">خراسان رضوی</option>
+                                    <option value="خراسان شمالی">خراسان شمالی</option>
+                                    <option value="خوزستان">خوزستان</option>
+                                    <option value="زنجان">زنجان</option>
+                                    <option value="سمنان">سمنان</option>
+                                    <option value="سیستان و بلوچستان">سیستان و بلوچستان
+                                    </option>
+                                    <option value="فارس">فارس</option>
+                                    <option value="قزوین">قزوین</option>
+                                    <option value="قم">قم</option>
+                                    <option value="کردستان">کردستان</option>
+                                    <option value="کرمان">کرمان</option>
+                                    <option value="کرمانشاه">کرمانشاه</option>
+                                    <option value="کهگیلویه و بویراحمد">کهگیلویه و
+                                        بویراحمد
+                                    </option>
+                                    <option value="گلستان">گلستان</option>
+                                    <option value="گیلان">گیلان</option>
+                                    <option value="لرستان">لرستان</option>
+                                    <option value="مازندران">مازندران</option>
+                                    <option value="مرکزی">مرکزی</option>
+                                    <option value="هرمزگان">هرمزگان</option>
+                                    <option value="همدان">همدان</option>
+                                    <option value="یزد">یزد</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>آدرس <span>*</span></label>
+                                <input name="address" type="text" id="address1" class="mb--15"
+                                       value="{{ user.address }}">
+                            </div>
+                            <div class="form-group">
+                                <label>شماره تماس گیرنده <span>*</span></label>
+                                <input name="phone" type="tel" id="phone" value="{{ user.phone }}">
+                            </div>
+                            <div class="form-group">
+                                <label>توضیحات (اختیاری)</label>
+                                <textarea name="describe" id="notes" rows="2"
+                                          placeholder="یادداشت هایی در مورد سفارش شما ..."></textarea>
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="col-lg-6">
+                        <div class="axil-order-summery order-checkout-summery">
+                            <h5 class="title mb--20">سفارش شما</h5>
+                            <div class="summery-table-wrap">
+                                <table class="table summery-table">
+                                    <thead>
+                                    <tr>
+                                        <th>محصول</th>
+                                        <th>قیمت</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for detail in cart.cartdetailmodel_set.all %}
+                                        <tr class="order-product">
+                                            <td>{{ detail.product.title }} <span
+                                                    class="quantity">x{{ detail.count }}</span></td>
+                                            <td>{{ detail.final_price|digits }} تومان</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr class="order-subtotal">
+                                        <td>مبلغ سفارش</td>
+                                        <td id="orderAmount">{{ cart.sum_basket|digits }} تومان</td>
+                                    </tr>
+                                    <tr class="order-shipping">
+                                        <td colspan="2">
+                                            <div class="shipping-amount">
+                                                <span class="title">هزینه ارسال</span>
+                                                {% if settings.send_cost %}
+                                                    <span class="amount"
+                                                          id="shippingCost">{{ settings.send_cost|digits }} تومان</span>
+                                                {% else %}
+                                                    <span class="amount" id="shippingCost">رایگان</span>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <td>مبلغ نهایی</td>
+                                        <td class="order-total-amount"
+                                            id="finalAmount">{{ cart.total_price|digits }} تومان
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button type="submit" class="axil-btn btn-bg-primary checkout-btn">پرداخت</button>
+                        </div>
+                    </div>
             </div>
+            </form>
+        </div>
         </div>
         <!-- End Checkout Area  -->
 

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django_render_partial",
     "jalali_date",
     "polls",
+    "azbankgateways",
     "home_module",
     "product_module",
     "contact_module",
@@ -50,6 +51,57 @@ INSTALLED_APPS = [
     "wish_module",
     "questions_module",
 ]
+
+AZ_IRANIAN_BANK_GATEWAYS = {
+    "GATEWAYS": {
+        "BMI": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
+            "SECRET_KEY": "<YOUR SECRET CODE>",
+        },
+        "SEP": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
+        },
+        "ZARINPAL": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+            "SANDBOX": 0,  # 0 disable, 1 active
+        },
+        "IDPAY": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+            "METHOD": "POST",  # GET or POST
+            "X_SANDBOX": 0,  # 0 disable, 1 active
+        },
+        "ZIBAL": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+        },
+        "BAHAMTA": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+        },
+        "MELLAT": {
+            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
+            "USERNAME": "<YOUR USERNAME>",
+            "PASSWORD": "<YOUR PASSWORD>",
+        },
+        "PAYV1": {
+            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+            "X_SANDBOX": 0,  # 0 disable, 1 active
+        },
+    },
+    "IS_SAMPLE_FORM_ENABLE": True,  # اختیاری و پیش فرض غیر فعال است
+    "DEFAULT": "BMI",
+    "CURRENCY": "IRR",  # اختیاری
+    "TRACKING_CODE_QUERY_PARAM": "tc",  # اختیاری
+    "TRACKING_CODE_LENGTH": 16,  # اختیاری
+    "SETTING_VALUE_READER_CLASS": "azbankgateways.readers.DefaultReader",  # اختیاری
+    "BANK_PRIORITIES": [
+        "BMI",
+        "SEP",
+        # and so on ...
+    ],  # اختیاری
+    "IS_SAFE_GET_GATEWAY_PAYMENT": True,  # اختیاری، بهتر است True بزارید.
+    "CUSTOM_APP": None,  # اختیاری
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -113,11 +165,10 @@ AUTH_PASSWORD_VALIDATORS = [
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/medias/'
 
-
 JALALI_DATE_DEFAULTS = {
-   # if change it to true then all dates of the list_display will convert to the Jalali.
-   'LIST_DISPLAY_AUTO_CONVERT': False,
-   'Strftime': {
+    # if change it to true then all dates of the list_display will convert to the Jalali.
+    'LIST_DISPLAY_AUTO_CONVERT': False,
+    'Strftime': {
         'date': '%y/%m/%d',
         'datetime': '%H:%M:%S _ %y/%m/%d',
     },
