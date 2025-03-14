@@ -37,11 +37,19 @@
                         <h5 class="widget-title">پروفایل</h5>
                         <div class="inner">
                             <ul>
-                                <li><a href="my-account.html">پروفایل من</a></li>
-                                <li><a href="sign-up.html">ورود / ثبت نام</a></li>
-                                <li><a href="cart.html">سبد خرید</a></li>
-                                <li><a href="wishlist.html">علاقه مندی ها</a></li>
-                                <li><a href="shop.html">فروشگاه</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'main-dash' %}">پروفایل من</a></li>
+                                    <li><a href="{% url 'main-dash' %}">ورود / ثبت نام</a></li>
+                                    <li><a href="{% url 'basket' %}">سبد خرید</a></li>
+                                    <li><a href="{% url 'wish' %}">علاقه مندی ها</a></li>
+                                    <li><a href="{% url 'product-list' %}">فروشگاه</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'login' %}">پروفایل من</a></li>
+                                    <li><a href="{% url 'login' %}">ورود / ثبت نام</a></li>
+                                    <li><a href="{% url 'basket' %}">سبد خرید</a></li>
+                                    <li><a href="{% url 'wish' %}">علاقه مندی ها</a></li>
+                                    <li><a href="{% url 'product-list' %}">فروشگاه</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -53,11 +61,10 @@
                         <h5 class="widget-title">لینک های مفید</h5>
                         <div class="inner">
                             <ul>
-                                <li><a href="privacy-policy.html">حریم خصوصی</a></li>
-                                <li><a href="terms-of-service.html">شرایط</a></li>
-                                <li><a href="#">سوالات متداول</a></li>
-                                <li><a href="contact.html">ارتباط با پشتیبانی</a></li>
-                                <li><a href="contact.html">ارتباط با ما</a></li>
+                                <li><a href="{% url 'home' %}">خانه</a></li>
+                                <li><a href="{% url 'questions' %}">سوالات متداول</a></li>
+                                <li><a href="{% url 'product_list' %}?sort_by=visit">پربازدید ترین محصولات</a></li>
+                                <li><a href="{% url 'contact-us' %}">ارتباط با ما</a></li>
                             </ul>
                         </div>
                     </div>
@@ -120,16 +127,16 @@
                         </ul>
                     </div>
                 </div>
-{#                <div class="col-xl-4 col-lg-12">#}
-{#                    <div class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">#}
-{#                        <span class="card-text">پرداخت با</span>#}
-{#                        <ul class="payment-icons-bottom quick-link">#}
-{#                            <li><img src="/static/images/icons/cart/cart-1.png" alt="paypal cart"></li>#}
-{#                            <li><img src="/static/images/icons/cart/cart-2.png" alt="paypal cart"></li>#}
-{#                            <li><img src="/static/images/icons/cart/cart-5.png" alt="paypal cart"></li>#}
-{#                        </ul>#}
-{#                    </div>#}
-{#                </div>#}
+                {#                <div class="col-xl-4 col-lg-12">#}
+                {#                    <div class="copyright-right d-flex flex-wrap justify-content-xl-end justify-content-center align-items-center">#}
+                {#                        <span class="card-text">پرداخت با</span>#}
+                {#                        <ul class="payment-icons-bottom quick-link">#}
+                {#                            <li><img src="/static/images/icons/cart/cart-1.png" alt="paypal cart"></li>#}
+                {#                            <li><img src="/static/images/icons/cart/cart-2.png" alt="paypal cart"></li>#}
+                {#                            <li><img src="/static/images/icons/cart/cart-5.png" alt="paypal cart"></li>#}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                </div>#}
             </div>
         </div>
     </div>

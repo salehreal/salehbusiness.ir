@@ -33,7 +33,7 @@
                        style="text-align: center;width: 80px;height: 80px">
                         <img src="{{ settings.logo.url }}" alt="Site Logo">
                     </a>
-                    <a href="" class="logo logo-light">
+                    <a href="{% url 'home' %}" class="logo logo-light">
                         <img src="/static/images/logo/logo-light.png" alt="Site Logo">
                     </a>
                 </div>
@@ -42,35 +42,16 @@
                     <nav class="mainmenu-nav">
                         <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                         <div class="mobile-nav-brand">
-                            <a href="index-2.html" class="logo">
+                            <a href="{% url 'home' %}" class="logo">
                                 <img src="/static/images/logo/logo.png" alt="Site Logo">
                             </a>
                         </div>
                         <ul class="mainmenu">
                             <li>
                                 <a href="{% url 'home' %}">خانه</a>
-                                <!--                                <ul class="axil-submenu">-->
-                                <!--                                    <li><a href="index-1.html">خانه - الکترونیک</a></li>-->
-                                <!--                                    <li><a href="index-3.html" class="active">خانه - NFT</a></li>-->
-                                <!--                                    <li><a href="index-4.html">خانه - مد و فشن</a></li>-->
-                                <!--                                    <li><a href="index-5.html">خانه - جواهرات</a></li>-->
-                                <!--                                    <li><a href="index-6.html">خانه - مبلمان</a></li>-->
-                                <!--                                    <li><a href="index-7.html">خانه - چند منظوره</a></li>-->
-                                <!--                                </ul>-->
                             </li>
                             <li>
                                 <a href="{% url 'product-list' %}">فروشگاه</a>
-                                {#                                <ul class="axil-submenu">#}
-                                {#                                    <li><a href="shop-sidebar.html">فروشگاه با سایدبار</a></li>#}
-                                {#                                    <li><a href="shop.html">فروشگاه بدون سایدبار</a></li>#}
-                                {#                                    <li><a href="single-product.html">نمایش محصول 1</a></li>#}
-                                {#                                    <li><a href="single-product-2.html">نمایش محصول 2</a></li>#}
-                                {#                                    <li><a href="single-product-3.html">نمایش محصول 3</a></li>#}
-                                {#                                    <li><a href="single-product-4.html">نمایش محصول 4</a></li>#}
-                                {#                                    <li><a href="single-product-5.html">نمایش محصول 5</a></li>#}
-                                {#                                    <li><a href="single-product-6.html">نمایش محصول 6</a></li>#}
-                                {#                                    <li><a href="single-product-7.html">نمایش محصول 7</a></li>#}
-                                {#                                </ul>#}
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">صفحه ها</a>
@@ -88,21 +69,11 @@
                                         <li><a href="{% url 'forget-password' %}">فراموشی رمز عبور</a></li>
                                     {% endif %}
                                     <li><a href="{% url 'questions' %}">سوالات متداول</a></li>
-                                    <li><a href="404.html">پشتیبانی</a></li>
                                 </ul>
                             </li>
                             <li><a href="{% url 'about-us' %}">درباه ما</a></li>
                             <li>
                                 <a href="{% url 'blog-list' %}">وبلاگ</a>
-                                {#                                <ul class="axil-submenu">#}
-                                {#                                    <li><a href="blog.html">وبلاگ - لیست</a></li>#}
-                                {#                                    <li><a href="blog-grid.html">وبلاگ - شبکه ای</a></li>#}
-                                {#                                    <li><a href="blog-details.html">جزئیات وبلاگ - استاندارد</a></li>#}
-                                {#                                    <li><a href="blog-gallery.html">جزئیات وبلاگ - گالری</a></li>#}
-                                {#                                    <li><a href="blog-video.html">جزئیات وبلاگ - ویدیو</a></li>#}
-                                {#                                    <li><a href="blog-audio.html">جزئیات وبلاگ - صدا</a></li>#}
-                                {#                                    <li><a href="blog-quote.html">جزئیات وبلاگ - نقل قول</a></li>#}
-                                {#                                </ul>#}
                             </li>
                             <li><a href="{% url 'contact-us' %}">ارتباط با ما</a></li>
                         </ul>
@@ -152,13 +123,16 @@
                                             <a href="{% url 'main-dash' %}">پروفایل من</a>
                                         </li>
                                         <li>
-                                            <a href="#">شرایط مرجوعی</a>
+                                            <a href="{% url 'basket' %}">سبد خرید</a>
                                         </li>
                                         <li>
-                                            <a href="#">پشتیبانی</a>
+                                            <a href="{% url 'wish' %}">علاقه مندی ها</a>
                                         </li>
                                         <li>
                                             <a href="{% url 'questions' %}">سوالات متداول</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'contact-us' %}">ارتباط با ما</a>
                                         </li>
                                     </ul>
                                     {% else %}
@@ -169,13 +143,10 @@
                                                 <a href="{% url 'login' %}">پروفایل من</a>
                                             </li>
                                             <li>
-                                                <a href="#">شرایط مرجوعی</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">پشتیبانی</a>
-                                            </li>
-                                            <li>
                                                 <a href="{% url 'questions' %}">سوالات متداول</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'contact-us' %}">ارتباط با ما</a>
                                             </li>
                                         </ul>
                                         <div class="login-btn">

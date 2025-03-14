@@ -236,7 +236,8 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center mt--20 mt_sm--0">
-                        <a href="{% url 'product_list' %}?sort_by=visit" class="axil-btn btn-bg-lighter btn-load-more">نمایش تمام محصولات</a>
+                        <a href="{% url 'product_list' %}?sort_by=visit" class="axil-btn btn-bg-lighter btn-load-more">نمایش
+                            تمام محصولات</a>
                     </div>
                 </div>
 
@@ -244,35 +245,38 @@
         </div>
         <!-- End Expolre Product Area  -->
 
-        <!-- Start Testimonila Area  -->
-        <div class="axil-testimoial-area axil-section-gap bg-vista-white">
-            <div class="container">
-                <div class="section-title-wrapper">
-                    <span class="title-highlighter highlighter-secondary"> <i class="fal fa-quote-left"></i>نظرات</span>
-                    <h2 class="title">نظرات کاربران</h2>
-                </div>
-                <!-- End .section-title -->
-                <div
-                        class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
-                    {% for comment in comments %}
-                        <div class="slick-single-layout testimonial-style-one">
-                            <div class="review-speech">
-                                <p>{{ comment.text }}</p>
-                            </div>
-                            <div class="media">
-                                <div class="media-body">
-                                    <span class="designation">کاربر</span>
-                                    <h6 class="title">{{ comment.user.first_name }} {{ comment.user.last_name }}</h6>
+        {% if comments %}
+            <!-- Start Testimonila Area  -->
+            <div class="axil-testimoial-area axil-section-gap bg-vista-white">
+                <div class="container">
+                    <div class="section-title-wrapper">
+                        <span class="title-highlighter highlighter-secondary"> <i
+                                class="fal fa-quote-left"></i>نظرات</span>
+                        <h2 class="title">نظرات کاربران</h2>
+                    </div>
+                    <!-- End .section-title -->
+                    <div
+                            class="testimonial-slick-activation testimonial-style-one-wrapper slick-layout-wrapper--20 axil-slick-arrow arrow-top-slide">
+                        {% for comment in comments %}
+                            <div class="slick-single-layout testimonial-style-one">
+                                <div class="review-speech">
+                                    <p>{{ comment.text }}</p>
                                 </div>
+                                <div class="media">
+                                    <div class="media-body">
+                                        <span class="designation">کاربر</span>
+                                        <h6 class="title">{{ comment.user.first_name }} {{ comment.user.last_name }}</h6>
+                                    </div>
+                                </div>
+                                <!-- End .thumbnail -->
                             </div>
-                            <!-- End .thumbnail -->
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- End Testimonila Area  -->
+            <!-- End Testimonila Area  -->
+        {% endif %}
 
         <!-- Start New Arrivals Product Area  -->
         <div class="axil-new-arrivals-product-area bg-color-white axil-section-gap pb--0">
@@ -508,28 +512,6 @@
             </div>
         </div>
         <!-- End Why Choose Area  -->
-
-        <!-- Start Axil Newsletter Area  -->
-        <div class="axil-newsletter-area axil-section-gap pt--0">
-            <div class="container">
-                <div class="etrade-newsletter-wrapper bg_image bg_image--5">
-                    <div class="newsletter-content">
-                        <span class="title-highlighter highlighter-primary2"><i
-                                class="fas fa-envelope-open"></i>خبرنامه</span>
-                        <h2 class="title mb--40 mb_sm--30">دریافت هفتگی تخفیف ها</h2>
-                        <div class="input-group newsletter-form">
-                            <div class="position-relative newsletter-inner mb--15">
-                                <input placeholder="example@gmail.com" type="text">
-                            </div>
-                            <button type="submit" class="axil-btn mb--15">اشتراک</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End .container -->
-        </div>
-        <!-- End Axil Newsletter Area  -->
-
     </main>
     <div class="service-area">
         <div class="container">
