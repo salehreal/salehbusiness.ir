@@ -4,6 +4,8 @@ from django.http import HttpRequest, Http404
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from django.views import View
+
+from sitesetting_module.models import SiteSettingModel
 from .models import User
 from utils.utils import create_random_code
 from .forms import ActiveForm
@@ -14,7 +16,10 @@ import re
 
 class Register(View):
     def get(self, request):
-        return render(request, 'register-page.html')
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
+        return render(request, 'register-page.html', {
+            'settings': settings
+        })
 
     def generate_unique_username(self):
         while True:
@@ -85,7 +90,10 @@ class Register(View):
 
 class Login(View):
     def get(self, request):
-        return render(request, 'login-page.html')
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
+        return render(request, 'login-page.html', {
+            'settings': settings,
+        })
 
     def post(self, request: HttpRequest):
         phone = request.POST.get('phone', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
@@ -94,8 +102,12 @@ class Login(View):
         user = User.objects.filter(phone=phone).first()
         if user is not None:
             if user.check_password(password):
-                login(request, user)
-                return redirect('home')
+                if user.is_active:
+                    login(request, user)
+                    return redirect('home')
+                else:
+                    # send_sms(new_user.phone, new_user.active_code)
+                    return render(request, 'active_user.html')
             else:
                 return render(request, 'login-page.html', {
                     'error': True
