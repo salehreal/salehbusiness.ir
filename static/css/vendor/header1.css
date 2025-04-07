@@ -148,3 +148,9 @@ a.axil-btn.btn-bg-primary:before, button.axil-btn.btn-bg-primary:before {
     color: #610404 !important;
 }
 
+.axil-mobile-toggle .menu-btn:hover:after {
+    background-color: #610404 !important;
+    box-shadow: none !important;
+    color: #610404
+}
+

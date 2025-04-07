@@ -106,8 +106,12 @@ class Login(View):
                     login(request, user)
                     return redirect('home')
                 else:
+                    new_user = User.objects.filter(phone=user.phone).first()
+                    new_user.save()
+                    request.session['user_token'] = new_user.token
+                    request.session.set_expiry(190)
+                    return redirect('active-user')
                     # send_sms(new_user.phone, new_user.active_code)
-                    return render(request, 'active_user.html')
             else:
                 return render(request, 'login-page.html', {
                     'error': True
@@ -153,6 +157,7 @@ class ActiveUserView(View):
                     user.token = get_random_string(100)
                     user.active_code = create_random_code(6)
                     user.save()
+                    login(request, user)
                     return redirect('home')
                 else:
                     return render(request, 'active_user.html', {
@@ -177,7 +182,7 @@ class ForgetPassword(View):
         })
 
     def post(self, request: HttpRequest):
-        phone = request.POST['phone']
+        phone = request.POST.get('phone', '').translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹', '0123456789'))
         user = User.objects.filter(phone=phone).first()
         if user is not None:
             user.active_code = create_random_code(6)

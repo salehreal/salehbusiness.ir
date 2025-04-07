@@ -30,7 +30,7 @@
             <div class="header-navbar">
                 <div class="header-brand">
                     <a href="{% url 'home' %}" class="logo logo-dark"
-                       style="text-align: center;width: 80px;height: 80px">
+                       style="text-align: center;width: 80px;height: max-content">
                         <img src="{{ settings.logo.url }}" alt="Site Logo">
                     </a>
                     <a href="{% url 'home' %}" class="logo logo-light">
@@ -160,7 +160,7 @@
                                 </div>
                             {% endif %}
                         </li>
-                        <li class="axil-mobile-toggle">
+                        <li class="axil-mobile-toggle" style="list-style: none;">
                             <button class="menu-btn mobile-nav-toggler">
                                 <i class="flaticon-menu-2"></i>
                             </button>
