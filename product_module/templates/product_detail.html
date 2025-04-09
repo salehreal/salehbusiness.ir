@@ -213,11 +213,16 @@
                                 <a href="{% url 'tags' tag.url %}"> {{ tag.title }} </a>
                             {% endfor %}
                             </h6>
-                            <ul class="product-meta">
-                                <li><i class="fal fa-check"></i>موجود در انبار</li>
-                                <li><i class="fal fa-check"></i>ارسال رایگان</li>
-                                <li><i class="fal fa-check"></i>30% تخفیف با کد:: MOTIVE30</li>
-                            </ul>
+                            {% if product.count or product.price or product.discount %}
+                                <ul class="product-meta">
+                                    {% if product.count and product.price %}
+                                        <li><i class="fal fa-check"></i>موجود در انبار</li>
+                                    {% endif %}
+                                    {% if product.discount %}
+                                        <li><i class="fal fa-check"></i>{{ product.get_discount_display }} تخفیف</li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
                             <p class="description">{{ product.short_descript }}</p>
 
                             {#                            <div class="product-variations-wrapper">#}

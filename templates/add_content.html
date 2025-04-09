@@ -327,10 +327,10 @@
                                             class="currency-symbol">رایگان</span></div>
                                 {% endif %}
                                 <div class="pro-qty item-quantity"><a
-                                        onclick="change_count2({{ detail.product.id }}, 'neg')"
+                                        onclick="change_count2({{ detail.id }}, 'neg')"
                                         class="dec qtybtn">-</a>
-                                    <input type="number" class="quantity-input" value="{{ detail.product.count }}">
-                                    <a onclick="change_count2({{ detail.product.id }}, 'pos')"
+                                    <input type="number" class="quantity-input" value="{{ detail.count }}">
+                                    <a onclick="change_count2({{ detail.id }}, 'pos')"
                                        class="inc qtybtn">+</a></div>
                             </div>
                         </li>

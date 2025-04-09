@@ -54,38 +54,9 @@ INSTALLED_APPS = [
 
 AZ_IRANIAN_BANK_GATEWAYS = {
     "GATEWAYS": {
-        "BMI": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
-            "SECRET_KEY": "<YOUR SECRET CODE>",
-        },
-        "SEP": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
-        },
         "ZARINPAL": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
+            "MERCHANT_CODE": "5a9e3835-4db7-4f4d-bb3d-833f5b99bed2",
             "SANDBOX": 0,  # 0 disable, 1 active
-        },
-        "IDPAY": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "METHOD": "POST",  # GET or POST
-            "X_SANDBOX": 0,  # 0 disable, 1 active
-        },
-        "ZIBAL": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-        },
-        "BAHAMTA": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-        },
-        "MELLAT": {
-            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
-            "USERNAME": "<YOUR USERNAME>",
-            "PASSWORD": "<YOUR PASSWORD>",
-        },
-        "PAYV1": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "X_SANDBOX": 0,  # 0 disable, 1 active
         },
     },
     "IS_SAMPLE_FORM_ENABLE": True,  # اختیاری و پیش فرض غیر فعال است
@@ -95,9 +66,7 @@ AZ_IRANIAN_BANK_GATEWAYS = {
     "TRACKING_CODE_LENGTH": 16,  # اختیاری
     "SETTING_VALUE_READER_CLASS": "azbankgateways.readers.DefaultReader",  # اختیاری
     "BANK_PRIORITIES": [
-        "BMI",
-        "SEP",
-        # and so on ...
+        "ZARINPAL",
     ],  # اختیاری
     "IS_SAFE_GET_GATEWAY_PAYMENT": True,  # اختیاری، بهتر است True بزارید.
     "CUSTOM_APP": None,  # اختیاری
@@ -207,6 +176,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "static_cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

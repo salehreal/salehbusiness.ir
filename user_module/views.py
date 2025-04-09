@@ -7,7 +7,7 @@ from django.views import View
 
 from sitesetting_module.models import SiteSettingModel
 from .models import User
-from utils.utils import create_random_code
+from utils.utils import create_random_code, send_sms
 from .forms import ActiveForm
 import re
 
@@ -79,6 +79,7 @@ class Register(View):
                 new_user.save()
                 request.session['user_token'] = new_user.token
                 request.session.set_expiry(190)
+                send_sms(new_user.phone, new_user.active_code)
                 return redirect('active-user')
             else:
                 error = True
@@ -110,8 +111,8 @@ class Login(View):
                     new_user.save()
                     request.session['user_token'] = new_user.token
                     request.session.set_expiry(190)
+                    send_sms(new_user.phone, new_user.active_code)
                     return redirect('active-user')
-                    # send_sms(new_user.phone, new_user.active_code)
             else:
                 return render(request, 'login-page.html', {
                     'error': True
@@ -188,7 +189,7 @@ class ForgetPassword(View):
             user.active_code = create_random_code(6)
             user.token = get_random_string(100)
             user.save()
-            # send_sms(new_user.phone, new_user.active_code)
+            send_sms(user.phone, user.active_code)
             request.session['forget-confirm'] = user.token
             return redirect('confirm-password')
         else:
