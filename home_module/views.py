@@ -47,18 +47,6 @@ class HomeView(View):
             'products': products
         })
 
-    # def get(self, request):
-    #     return render(request, 'home.html', {
-    #
-    #     })
-# def home(request):
-#     return render(request, 'home.html', {
-#
-#     })
-
-
-
-
 
 def header_component(request):
     settings = SiteSettingModel.objects.filter(is_active=True).first()

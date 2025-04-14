@@ -83,7 +83,6 @@ class Checkout(View):
                     'settings': settings,
                 })
 
-            # ادامه عملیات ذخیره اطلاعات
             cart = CartModel.objects.filter(user_id=user.id, is_paid=False).first()
             if cart:
                 BuyerModel.objects.create(
@@ -104,7 +103,6 @@ class Checkout(View):
             messages.success(request, 'پرداخت با موفقیت ثبت شد.')
             return redirect('gateway')
 
-        # مسیر پیش‌فرض برای بازگشت پاسخ
         return render(request, 'checkout.html', {
             'cart': None,
             'settings': settings,
@@ -222,11 +220,9 @@ def validate_coupon(request):
             code=code, is_active=True, valid_from__lte=now(), valid_until__gte=now()
         )
 
-        # بررسی استفاده قبلی از کد
         if DiscountCodeUsage.objects.filter(user=user, discount_code=discount).exists():
             return JsonResponse({"valid": False, "message": "این کد تخفیف قبلاً استفاده شده است."})
 
-        # ذخیره استفاده از کد تخفیف
         DiscountCodeUsage.objects.create(user=user, discount_code=discount)
 
         return JsonResponse({"valid": True, "discount": discount.discount_amount})
@@ -237,27 +233,18 @@ def validate_coupon(request):
 def go_to_gateway_view(request):
     user = request.user
     user_cart = CartModel.objects.filter(user=user, is_paid=False).first()
-    # خواندن مبلغ از هر جایی که مد نظر است
     amount = (user_cart.total_price()) * 10
-    # تنظیم شماره موبایلa کاربر از هر جایی که مد نظر است
-    # user_mobile_number = user.phone  # اختیاری
 
     factory = bankfactories.BankFactory()
     try:
         bank = (
             factory.auto_create()
-        )  # or factory.create(bank_models.BankType.BMI) or set identifier
+        )
         bank.set_request(request)
         bank.set_amount(amount)
-        # یو آر ال بازگشت به نرم افزار برای ادامه فرآیند
         bank.set_client_callback_url(reverse("callback-gateway"))
-        # bank.set_mobile_number(user_mobile_number)  # اختیاری
-
-        # در صورت تمایل اتصال این رکورد به رکورد فاکتور یا هر چیزی که بعدا بتوانید ارتباط بین محصول یا خدمات را با این
-        # پرداخت برقرار کنید.
         bank_record = bank.ready()
 
-        # هدایت کاربر به درگاه بانک
         context = bank.get_gateway()
         return render(request, "redirect_to_bank.html", context=context)
     except AZBankGatewaysException as e:
@@ -277,13 +264,10 @@ def callback_gateway_view(request):
         logging.debug("این لینک معتبر نیست.")
         raise Http404
 
-    # در این قسمت باید از طریق داده هایی که در بانک رکورد وجود دارد، رکورد متناظر یا هر اقدام مقتضی دیگر را انجام دهیم
     if bank_record.is_success:
-        # پرداخت با موفقیت انجام پذیرفته است و بانک تایید کرده است.
-        # می توانید کاربر را به صفحه نتیجه هدایت کنید یا نتیجه را نمایش دهید.
+
         return HttpResponse("پرداخت با موفقیت انجام شد.")
 
-    # پرداخت موفق نبوده است. اگر پول کم شده است ظرف مدت ۴۸ ساعت پول به حساب شما بازخواهد گشت.
     return HttpResponse(
         "پرداخت با شکست مواجه شده است. اگر پول کم شده است ظرف مدت ۴۸ ساعت پول به حساب شما بازخواهد گشت."
     )

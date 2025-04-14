@@ -54,13 +54,6 @@ class Inform(models.Model):
 
 
 class ProductModel(models.Model):
-    class ChoiceCylinder:
-        STATUS_CHOICES = (
-            ('0', '0 Cylinder'), ('3', '3 Cylinders'), ('4', '4 Cylinders'), ('6', '6 Cylinders'), ('8', '8 Cylinders'),
-            ('10', '10 Cylinders'), ('12', '12 Cylinders'), ('16', '16 Cylinders'))
-
-    class ChoiceSeat:
-        STATUS_CHOICES = (('4', '4 Seats'), ('5', '5 Seats'), ('7', '7 Seats'))
 
     class ChoiceDiscount:
         STATUS_CHOICES = (
@@ -78,6 +71,7 @@ class ProductModel(models.Model):
     price = models.IntegerField(verbose_name='قیمت', null=True, blank=True)
     short_descript = models.TextField(verbose_name='توضیحات مختصر')
     descript = models.TextField(verbose_name='توضیحات مفصل')
+    Additional_descript = models.TextField(verbose_name='توضیحات تکمیلی (اختیاری)', null=True, blank=True)
     created_at = models.DateTimeField(verbose_name='تاریخ ایجاد', auto_now_add=True)
     count = models.IntegerField(null=True, verbose_name='تعداد', blank=True)
     category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE, verbose_name='دسته بندی', null=True)
@@ -86,16 +80,10 @@ class ProductModel(models.Model):
     visited = models.IntegerField(default=0, verbose_name='بازدید')
     added_to_cart_count = models.IntegerField(default=0, verbose_name='تعداد افزودن به سبد خرید')
     is_active = models.BooleanField(default=True, verbose_name='فعال/غیرفعال')
-    cylinder_count = models.CharField(max_length=20, null=True, verbose_name='تعداد سیلندر',
-                                      choices=ChoiceCylinder.STATUS_CHOICES)
-    seat_count = models.CharField(max_length=20, null=True, verbose_name='تعداد صندلی',
-                                  choices=ChoiceSeat.STATUS_CHOICES)
     discount = models.CharField(max_length=20, null=True, blank=True, verbose_name='تخفیف',
                                 choices=ChoiceDiscount.STATUS_CHOICES)
     slug = models.SlugField(max_length=200, null=True, db_index=True, allow_unicode=True, unique=True,
                             verbose_name='آدرس در مرورگر', blank=True)
-
-    from django.utils.text import slugify
 
     def save(self, *args, **kwargs):
         if not self.slug:

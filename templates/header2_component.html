@@ -43,7 +43,7 @@
                         <button class="mobile-close-btn mobile-nav-toggler"><i class="fas fa-times"></i></button>
                         <div class="mobile-nav-brand">
                             <a href="{% url 'home' %}" class="logo">
-                                <img src="/static/images/logo/logo.png" alt="Site Logo">
+                                <img src="{{ settings.logo.url }}" alt="Site Logo">
                             </a>
                         </div>
                         <ul class="mainmenu">
@@ -71,7 +71,7 @@
                                     <li><a href="{% url 'questions' %}">سوالات متداول</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{% url 'about-us' %}">درباه ما</a></li>
+                            <li><a href="{% url 'about-us' %}">درباره ما</a></li>
                             <li>
                                 <a href="{% url 'blog-list' %}">وبلاگ</a>
                             </li>

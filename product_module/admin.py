@@ -7,7 +7,7 @@ from .models import ProductModel, ProductCategory, Inform, ProductBrand, Product
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['title', 'price', 'is_active', 'get_datetime_fa']
     list_editable = ['price', 'is_active']
-    list_filter = ['price', 'created_at', 'cylinder_count', 'seat_count']
+    list_filter = ['price', 'created_at']
     ordering = ['price']
     prepopulated_fields = {
         'slug': ('title',),

@@ -224,39 +224,6 @@
                                 </ul>
                             {% endif %}
                             <p class="description">{{ product.short_descript }}</p>
-
-                            {#                            <div class="product-variations-wrapper">#}
-                            {##}
-                            {#                                <!-- Start Product Variation  -->#}
-                            {#                                <div class="product-variation">#}
-                            {#                                    <h6 class="title">رنگ:</h6>#}
-                            {#                                    <div class="color-variant-wrapper">#}
-                            {#                                        <ul class="color-variant">#}
-                            {#                                            <li class="color-extra-01 active"><span><span class="color"></span></span>#}
-                            {#                                            </li>#}
-                            {#                                            <li class="color-extra-02"><span><span class="color"></span></span>#}
-                            {#                                            </li>#}
-                            {#                                            <li class="color-extra-03"><span><span class="color"></span></span>#}
-                            {#                                            </li>#}
-                            {#                                        </ul>#}
-                            {#                                    </div>#}
-                            {#                                </div>#}
-                            {#                                <!-- End Product Variation  -->#}
-                            {##}
-                            {#                                <!-- Start Product Variation  -->#}
-                            {#                                <div class="product-variation product-size-variation">#}
-                            {#                                    <h6 class="title">سایز:</h6>#}
-                            {#                                    <ul class="range-variant">#}
-                            {#                                        <li>xs</li>#}
-                            {#                                        <li>s</li>#}
-                            {#                                        <li>m</li>#}
-                            {#                                        <li>l</li>#}
-                            {#                                        <li>xl</li>#}
-                            {#                                    </ul>#}
-                            {#                                </div>#}
-                            {#                                <!-- End Product Variation  -->#}
-                            {##}
-                            {#                            </div>#}
                             <!-- Start Product Action Wrapper  -->
                             <div class="product-action-wrapper d-flex-center">
                                 <!-- Start Quentity Action  -->
@@ -343,13 +310,14 @@
                                     </div>
                                 </div>
                                 <!-- End .col-lg-6 -->
-                                <div class="col-lg-6 mb--30">
-                                    <div class="single-desc">
-                                        <h5 class="title">مراقبت و نگهداری:</h5>
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                                            از طراحان گرافیک است، چاپگرها و </p>
+                                {% if product.Additional_descript %}
+                                    <div class="col-lg-6 mb--30">
+                                        <div class="single-desc">
+                                            <h5 class="title">توضیحات تکمیلی:</h5>
+                                            <p>{{ product.Additional_descript }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 <!-- End .col-lg-6 -->
                             </div>
                             <!-- End .row -->

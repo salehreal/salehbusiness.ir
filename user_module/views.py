@@ -36,10 +36,6 @@ class Register(View):
         iranian_phone_pattern = re.compile(r"^(?:\+98|0)?9[0-9]{9}$")
         return iranian_phone_pattern.match(phone) is not None
 
-    # def is_valid_email(self, email):
-    #     email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-    #     return email_pattern.match(email) is not None
-
     def post(self, request: HttpRequest):
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
@@ -58,11 +54,6 @@ class Register(View):
             return render(request, 'register-page.html', {
                 'invalid_phone': True
             })
-
-        # if not self.is_valid_email(email):
-        #     return render(request, 'register-page.html', {
-        #         'invalid_email': True
-        #     })
 
         user = User.objects.filter(phone=phone).first()
         if user is not None:

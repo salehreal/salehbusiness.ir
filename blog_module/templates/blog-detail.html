@@ -50,7 +50,7 @@
                                 <div class="axil-post-meta">
                                     <div class="post-meta-content">
                                         <h6 class="author-title">
-                                            <a href="#">{{ blog.user.username }}</a>
+                                            <a href="#">{{ blog.user.first_name }} {{ blog.user.last_name }}</a>
                                         </h6>
                                         <ul class="post-meta-list">
                                             <li>{{ blog.date|j_day }} {{ blog.date|j_month }} {{ blog.date|j_year }}</li>
@@ -69,8 +69,6 @@
                                 <!-- Start Comment Respond  -->
                                 <div class="comment-respond" id="scroll-target">
                                     <h4 class="title">لطفا در این قسمت نظر خود را به اشتراک بگذارید</h4>
-                                    {#                                    <form method="post">#}
-                                    {#                                    {% csrf_token %}#}
                                     <div class="row" style="display: flex;justify-content: center">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -88,13 +86,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {#                                    </form>#}
                                 </div>
                                 <!-- End Comment Respond  -->
                             {% else %}
                                 <p>
-
-
                                 </p>
                                 <div class="col-12 alert alert-danger text-center fs-2">
                                     برای ثبت نظر ابتدا بایستی وارد <a href="{% url 'login' %}">حساب کاربری</a> خود شوید
@@ -113,12 +108,12 @@
                                     <!-- Start Single Post List  -->
                                     <div class="content-blog post-list-view mb--20">
                                         <div class="thumbnail">
-                                            <a href="blog-details.html">
+                                            <a href="{% url 'blog-detail' blog.id %}">
                                                 <img src="/static/images/blog/blog-04.png" alt="Blog Images">
                                             </a>
                                         </div>
                                         <div class="content">
-                                            <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با
+                                            <h6 class="title"><a href="{% url 'blog-detail' blog.id %}">لورم ایپسوم متن ساختگی با
                                                 تولید </a></h6>
                                             <div class="axil-post-meta">
                                                 <div class="post-meta-content">
@@ -135,12 +130,12 @@
                                     <!-- Start Single Post List  -->
                                     <div class="content-blog post-list-view mb--20">
                                         <div class="thumbnail">
-                                            <a href="blog-details.html">
+                                            <a href="{% url 'blog-detail' blog.id %}">
                                                 <img src="/static/images/blog/blog-05.png" alt="Blog Images">
                                             </a>
                                         </div>
                                         <div class="content">
-                                            <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با
+                                            <h6 class="title"><a href="{% url 'blog-detail' blog.id %}">لورم ایپسوم متن ساختگی با
                                                 تولید </a></h6>
                                             <div class="axil-post-meta">
                                                 <div class="post-meta-content">
@@ -157,12 +152,12 @@
                                     <!-- Start Single Post List  -->
                                     <div class="content-blog post-list-view">
                                         <div class="thumbnail">
-                                            <a href="blog-details.html">
+                                            <a href="{% url 'blog-detail' blog.id %}">
                                                 <img src="/static/images/blog/blog-06.png" alt="Blog Images">
                                             </a>
                                         </div>
                                         <div class="content">
-                                            <h6 class="title"><a href="blog-details.html">لورم ایپسوم متن ساختگی با
+                                            <h6 class="title"><a href="{% url 'blog-detail' blog.id %}">لورم ایپسوم متن ساختگی با
                                                 تولید </a></h6>
                                             <div class="axil-post-meta">
                                                 <div class="post-meta-content">
@@ -185,12 +180,12 @@
                                         <!-- Start Single product_list  -->
                                         <li>
                                             <div class="thumbnail">
-                                                <a href="blog-details.html">
+                                                <a href="{% url 'blog-detail' blog.id %}">
                                                     <img src="/static/images/product/product-12.jpg" alt="Blog Images">
                                                 </a>
                                             </div>
                                             <div class="content">
-                                                <h6 class="title"><a href="blog-details.html">تیشرت مردانه</a></h6>
+                                                <h6 class="title"><a href="{% url 'blog-detail' blog.id %}">تیشرت مردانه</a></h6>
                                                 <div class="product-meta-content">
                                                     <span class="woocommerce-Price-amount amount">
                                                         <del>30.000</del>
@@ -203,12 +198,12 @@
                                         <!-- Start Single product_list  -->
                                         <li>
                                             <div class="thumbnail">
-                                                <a href="blog-details.html">
+                                                <a href="{% url 'blog-detail' blog.id %}">
                                                     <img src="/static/images/product/product-10.jpg" alt="Blog Images">
                                                 </a>
                                             </div>
                                             <div class="content">
-                                                <h6 class="title"><a href="blog-details.html">کفش نایک</a></h6>
+                                                <h6 class="title"><a href="{% url 'blog-detail' blog.id %}">کفش نایک</a></h6>
                                                 <div class="product-meta-content">
                                                     <span class="woocommerce-Price-amount amount">
                                                         <del>200.000</del>
@@ -221,12 +216,12 @@
                                         <!-- Start Single product_list  -->
                                         <li>
                                             <div class="thumbnail">
-                                                <a href="blog-details.html">
+                                                <a href="{% url 'blog-detail' blog.id %}">
                                                     <img src="/static/images/product/product-11.jpg" alt="Blog Images">
                                                 </a>
                                             </div>
                                             <div class="content">
-                                                <h6 class="title"><a href="blog-details.html">کفش آدیداس</a></h6>
+                                                <h6 class="title"><a href="{% url 'blog-detail' blog.id %}">کفش آدیداس</a></h6>
                                                 <div class="product-meta-content">
                                                     <span class="woocommerce-Price-amount amount">
                                                         <del>300.000</del>

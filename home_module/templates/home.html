@@ -105,7 +105,7 @@
                                                  data-sal-delay="600"
                                                  data-sal-duration="1500">
                                                 <img src="{{ product.mainimage.url }}">
-                                                <div class="product-price">
+                                                <div class="product-price" style="left: 10%">
                                                     <span class="text">قیمت</span>
                                                     <span class="price-amount">{{ product.final_price|digits }}</span>
                                                 </div>
@@ -137,9 +137,9 @@
                         <div class="slick-single-layout">
                             <div class="categrie-product" data-sal="zoom-out" data-sal-delay="200"
                                  data-sal-duration="500">
-                                <a href="#">
-                                    <img class="img-fluid" src="{{ item.image.url }}"
-                                         alt="product categorie">
+                                <a href="{% url 'product_list' %}?category_slug={{ item.slug }}"> <img
+                                        class="img-fluid" src="{{ item.image.url }}"
+                                        alt="product categorie">
                                     <h6 class="cat-title">{{ item.title }}</h6>
                                 </a>
                             </div>
@@ -168,7 +168,7 @@
                                     <div class="axil-product product-style-one">
                                         <div class="thumbnail">
                                             <a href="{% url 'product_detail' item.slug %}"
-                                               style="max-width: 100%; max-height: 150px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
+                                               style="max-width: 100%; max-height: 200px; object-fit: contain; display: flex; justify-content: center; align-items: center;">
                                                 <img data-sal="zoom-out" data-sal-delay="300" data-sal-duration="800"
                                                      loading="lazy" src="{{ item.mainimage.url }}"
                                                      alt="Product Images">
@@ -178,7 +178,7 @@
                                             </a>
                                             {% if item.discount %}
                                                 <div class="label-block label-right">
-                                                    <div class="product-badget">{{ product.get_discount_display }}
+                                                    <div class="product-badget">{{ item.get_discount_display }}
                                                         تخفیف
                                                     </div>
                                                 </div>

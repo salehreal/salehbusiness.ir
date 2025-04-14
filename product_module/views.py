@@ -4,7 +4,6 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse, QueryDict
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
-
 from sitesetting_module.models import *
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -25,6 +24,13 @@ class ProductList(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+
+        # دریافت پارامتر دسته‌بندی از URL
+        category_slug = self.request.GET.get('category_slug')
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)  # فیلتر بر اساس دسته‌بندی
+
+        # تنظیم مرتب‌سازی بر اساس sort_by
         sort_by = self.request.GET.get('sort_by', '-price')
         if sort_by == 'price':
             queryset = queryset.order_by('price')
@@ -58,18 +64,6 @@ class ProductList(ListView):
         context['query_string'] = querydict.urlencode()
         return context
 
-# class ProductList(View):
-#     def get(self, request):
-#         products = ProductModel.objects.all()
-#         return render(request, 'product_list.html', {
-#             'products': products
-#         })
-
-# def product_list(request):
-#     products = ProductModel.objects.all()
-#     return render(request, 'product_list.html', {
-#         'products': products
-#     })
 
 class ProductDetailView(DetailView):
     template_name = 'product_detail.html'
@@ -94,25 +88,6 @@ class ProductDetailView(DetailView):
         context['cart'] = cart
         context['comments'] = ProductCommentModel.objects.filter(product=product, is_publish=True)
         return context
-
-
-
-# class ProductDetailView(View):
-#     def get(self, request, slug):
-#         product = ProductModel.objects.filter(slug=slug).first()
-#         tags = ProductBrand.objects.filter(productmodel=product)
-#         return render(request, 'product_detail.html', {
-#             'product': product,
-#             'tags': tags
-#         })
-
-# def product_detail(request, slug):
-#     product = ProductModel.objects.filter(slug=slug).first()
-#     tags = ProductBrand.objects.filter(productmodel=product)
-#     return render(request, 'product_detail.html', {
-#         'product': product,
-#         'tags': tags
-#     })
 
 
 def category(request, slug):
@@ -172,6 +147,7 @@ def send_product_comment(request, slug):
         'products': products,
     })
 
+
 @csrf_exempt
 def filter_products(request):
     if request.method == "POST":
@@ -204,6 +180,7 @@ def filter_products(request):
         })
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
+
 
 @login_required
 def submit_comment_and_rating(request, slug):

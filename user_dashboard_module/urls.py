@@ -4,5 +4,4 @@ from .views import *
 
 urlpatterns = [
     path("", MainDashboard.as_view(), name="main-dash"),
-    # path('detail/<id>/', )
 ]

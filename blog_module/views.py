@@ -57,17 +57,6 @@ class BlogDetailView(View):
             logger.debug(f'this error is : {err}')
             return render(request, '404.html')
 
-    # def post(self, request: HttpRequest, id):
-    #     blog = BlogModel.objects.filter(id=id).first()
-    #     message = request.POST['message']
-    #     user = request.user
-    #     parent_ = request.POST['hidden-input']
-    #     if parent_:
-    #         new_comment = CommentModel.objects.create(user=user, text=message, blog=blog, parent_id=int(str(parent_)))
-    #     else:
-    #         new_comment = CommentModel.objects.create(user=user, text=message, blog=blog, parent=None)
-    #     return redirect(reverse('blog-detail', args=[blog.id]))
-
 
 def send_comment(request):
     text = request.GET.get("text")
