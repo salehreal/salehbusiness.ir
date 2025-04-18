@@ -169,8 +169,9 @@ class ActiveUserView(View):
 
 class ForgetPassword(View):
     def get(self, request):
+        settings = SiteSettingModel.objects.filter(is_active=True).first()
         return render(request, 'forget-password.html', {
-
+            'settings': settings,
         })
 
     def post(self, request: HttpRequest):
