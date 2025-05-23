@@ -185,8 +185,7 @@
                                             {% endif %}
                                             <div class="product-hover-action">
                                                 <ul class="cart-action">
-                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                             data-bs-target="#quick-view-modal"><i
+                                                    <li class="quickview"><a href="{% url 'product_detail' item.slug %}"><i
                                                             class="far fa-eye"></i></a></li>
                                                     <li class="select-option"><a
                                                             href="{% url 'product_detail' item.slug %}">اطلاعات
@@ -318,8 +317,7 @@
                                             </div>
                                             <div class="product-hover-action">
                                                 <ul class="cart-action">
-                                                    <li class="quickview"><a href="#" data-bs-toggle="modal"
-                                                                             data-bs-target="#quick-view-modal"><i
+                                                    <li class="quickview"><a href="{% url 'product_detail' item.slug %}"><i
                                                             class="far fa-eye"></i></a></li>
                                                     <li class="select-option"><a
                                                             href="{% url 'product_detail' item.slug %}">اطلاعات
