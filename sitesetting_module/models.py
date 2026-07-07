@@ -1,9 +1,5 @@
 from django.db import models
-
 from user_module.models import User
-
-
-# Create your models here.
 
 class SiteSettingModel(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام فروشگاه")
