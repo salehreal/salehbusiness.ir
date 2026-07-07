@@ -6,3 +6,8 @@
   },
   "disks": []
 }
+{
+  "django": {
+  "mirror": false
+}
+}
