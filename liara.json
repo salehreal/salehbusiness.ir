@@ -7,7 +7,7 @@
   "disks": [],
   "django": {
     "mirror": true,
-    "pythonVersion": "3.12",
+    "pythonVersion": "3.11",
     "modifySettings": false
   }
 }
