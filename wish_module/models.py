@@ -2,9 +2,6 @@ from django.db import models
 from product_module.models import ProductModel
 from user_module.models import User
 
-
-# Create your models here.
-
 class WishModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
     def __str__(self):
