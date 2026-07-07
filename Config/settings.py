@@ -106,10 +106,13 @@ AUTH_USER_MODEL = "user_module.User"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+from pathlib import Path
+import os
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": "/data/db.sqlite3",
     }
 }
 
