@@ -2,11 +2,8 @@ from tkinter.constants import CASCADE
 from django.db import models
 import jdatetime
 from django.utils.text import slugify
-
 from user_module.models import User
 from django.db.models import Count
-
-# Create your models here.
 
 
 class ProductCategory(models.Model):
