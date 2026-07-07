@@ -4,15 +4,10 @@
   "build": {
     "location": "iran"
   },
-  "disks": []
-}
-{
+  "disks": [],
   "django": {
-  "mirror": false
-}
-}
-{
-"django": {
-  "pythonVersion": "3.12"
-}
+    "mirror": true,
+    "pythonVersion": "3.12",
+    "modifySettings": false
+  }
 }
