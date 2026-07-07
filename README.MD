@@ -7,3 +7,4 @@ This project can manage products and categories and their prices and details in 
 Users can register in the registration section. Enter in the login section. During registration, a code is generated that is displayed in the database in the user information section.
 
 Video : https://youtu.be/EIoCRT7xvi4
+
