@@ -4,14 +4,10 @@ from product_module.models import ProductModel
 from sitesetting_module.models import SiteSettingModel
 from django.utils.timezone import now
 from sitesetting_module.models import DiscountCodeModel
-# Create your models here.
-
 from django.db import models
 from django.utils import timezone
-
 from django.db import models
 from django.utils import timezone
-
 
 class CartModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
@@ -37,19 +33,16 @@ class CartModel(models.Model):
         sum_basket = self.sum_basket()
         send = setting.send_cost if setting and setting.send_cost else 0
 
-        # بررسی اعتبار کد تخفیف
         if discount_code:
             try:
                 discount = DiscountCodeModel.objects.get(
                     code=discount_code, is_active=True, valid_from__lte=now(), valid_until__gte=now()
                 )
-                discount_amount = float(discount.discount_amount)  # مقدار تخفیف به صورت درصد
+                discount_amount = float(discount.discount_amount)
                 sum_basket -= sum_basket * discount_amount
             except DiscountCodeModel.DoesNotExist:
-                # اگر کد تخفیف معتبر نباشد
                 pass
 
-        # قیمت نهایی (سبد خرید + هزینه ارسال)
         return int(sum_basket + send)
 
     def detail_count(self):
