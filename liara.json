@@ -8,6 +8,6 @@
   "django": {
     "mirror": true,
     "pythonVersion": "3.11",
-    "modifySettings": false
+    "modifySettings": true
   }
 }
