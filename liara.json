@@ -11,3 +11,8 @@
   "mirror": false
 }
 }
+{
+"django": {
+  "pythonVersion": "3.12"
+}
+}
