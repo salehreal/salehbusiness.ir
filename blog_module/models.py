@@ -1,9 +1,6 @@
 from django.db import models
 from user_module.models import User
 
-
-# Create your models here.
-
 class BlogModel(models.Model):
     image = models.ImageField(upload_to='blog', verbose_name="تصویر")
     title = models.CharField(max_length=300, verbose_name="عنوان")
