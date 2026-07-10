@@ -8,6 +8,10 @@
     {
       "name": "sqlite-data",
       "mountTo": "/data"
+    },
+    {
+      "name": "uploads-data",
+      "mountTo": "/usr/src/app/uploads"
     }
   ],
   "django": {
@@ -16,4 +20,3 @@
     "modifySettings": true
   }
 }
-
