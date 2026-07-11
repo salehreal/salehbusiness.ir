@@ -11,7 +11,7 @@
     },
     {
       "name": "uploads-data",
-      "mountTo": "/usr/src/app/uploads"
+      "mountTo": "/usr/src/app/media"
     }
   ],
   "django": {
