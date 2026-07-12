@@ -135,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "uploads"
 
 JALALI_DATE_DEFAULTS = {
     # if change it to true then all dates of the list_display will convert to the Jalali.
